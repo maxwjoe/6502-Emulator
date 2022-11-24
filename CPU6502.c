@@ -34,6 +34,47 @@ CPU CPUNew()
     return C;
 }
 
+int CPUReset(CPU C, Memory m)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    // Reset Pointers
+    C->PC = 0xFFFC;
+    C->SP = 0x01;
+
+    // Clear Registers
+    C->A = 0;
+    C->X = 0;
+    C->Y = 0;
+
+    // Clear all Flags for now
+    for (int i = 0; i < 8; i++)
+    {
+        CPUSetStatusFlag(C, i, 0);
+    }
+
+    // Clear the memory
+    MemoryReset(m);
+
+    return 1;
+}
+
+BYTE CPUFetch(CPU C, Memory m)
+{
+    if (C == NULL || m == NULL)
+    {
+        return 0;
+    }
+
+    BYTE data = MemoryRead(m, C->PC);
+    C->PC++;
+
+    return data;
+}
+
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue)
 {
     if (C == NULL || flagId < 0 || flagId > 7)

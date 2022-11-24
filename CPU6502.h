@@ -1,8 +1,8 @@
 #ifndef CPU6502_H
 #define CPU6502_H
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
+#include "common.h"
+#include "Memory.h"
 
 // cpu6502 : Struct to represent 6502 CPU
 typedef struct cpu6502 *CPU;
@@ -23,6 +23,12 @@ enum PS_FLAGS
 
 // CPUNew : Creates a new CPU6502 Object
 CPU CPUNew();
+
+// CPUReset : Resets the CPU
+int CPUReset(CPU C, Memory m);
+
+// CPUFetch : Fetches data pointed to by program counter from memory, increments PC
+BYTE CPUFetch(CPU C, Memory m);
 
 // CPUSetStatusFlag : Sets a CPU Status Flag (Returns 0 on fail)
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue);
