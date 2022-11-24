@@ -12,10 +12,10 @@ Memory MemoryNew(int capacity);
 int MemoryReset(Memory m);
 
 // MemoryRead : Reads memory at a given index
-BYTE MemoryRead(Memory m, BYTE Addr);
+BYTE MemoryRead(Memory m, WORD Addr);
 
 // MemoryWrite : Writes to memory at a given address
-int MemoryWrite(Memory m, BYTE Addr, BYTE Data);
+int MemoryWrite(Memory m, WORD Addr, BYTE Data);
 
 // MemoryFree : Frees all memory associated with RAM Object
 int MemoryFree(Memory m);

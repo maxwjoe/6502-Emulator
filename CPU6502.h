@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "Memory.h"
+#include "Opcodes.h"
 
 // cpu6502 : Struct to represent 6502 CPU
 typedef struct cpu6502 *CPU;

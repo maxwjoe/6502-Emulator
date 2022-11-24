@@ -2,26 +2,25 @@
 #include "Memory.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "Opcodes.h"
 
 int main()
 {
-    Memory RAM = MemoryNew(1024);
+    Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
+    CPUReset(cpu6502, ROM);
 
-    BYTE addr = 0x01;
-    BYTE data = 0x11;
-    int cycles = 5;
-    for (int i = 0; i < cycles; i++)
-    {
-        MemoryWrite(RAM, addr, data);
-        addr++;
-        data += 5;
-    }
+    // Program the memory
+    MemoryWrite(ROM, 0xFFFC, LDA_IM);
+    MemoryWrite(ROM, 0xFFFD, 0x42);
 
-    CPUExecute(cpu6502, RAM, cycles + 5);
+    // Run the program
+    CPUExecute(cpu6502, ROM, 2);
+
+    CPUDump(cpu6502);
 
     CPUFree(cpu6502);
-    MemoryFree(RAM);
+    MemoryFree(ROM);
 
     return 0;
 }

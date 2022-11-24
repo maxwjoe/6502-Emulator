@@ -1,5 +1,6 @@
 #include "Memory.h"
 #include "stdlib.h"
+#include "stdio.h"
 #include "string.h"
 
 typedef struct memory
@@ -35,7 +36,7 @@ Memory MemoryNew(int capacity)
     return m;
 }
 
-BYTE MemoryRead(Memory m, BYTE Addr)
+BYTE MemoryRead(Memory m, WORD Addr)
 {
     if (m == NULL)
     {
@@ -50,7 +51,7 @@ BYTE MemoryRead(Memory m, BYTE Addr)
     return m->Data[Addr];
 }
 
-int MemoryWrite(Memory m, BYTE Addr, BYTE Data)
+int MemoryWrite(Memory m, WORD Addr, BYTE Data)
 {
     if (m == NULL)
     {
@@ -59,6 +60,7 @@ int MemoryWrite(Memory m, BYTE Addr, BYTE Data)
 
     if ((int)Addr < 0 || (int)Addr > m->capacity)
     {
+        printf("\nInvalid Memory Write Operation\n");
         return 0;
     }
 

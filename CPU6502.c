@@ -85,9 +85,27 @@ int CPUExecute(CPU C, Memory m, int cycles)
 
     while (cycles > 0)
     {
-        BYTE data = CPUFetch(C, m);
-        printf("CPU Fetched : %X\n", data);
+        BYTE instruction = CPUFetch(C, m);
         cycles--;
+
+        switch (instruction)
+        {
+        case LDA_IM:
+
+            BYTE value = CPUFetch(C, m);
+            cycles--;
+
+            C->A = value;
+
+            CPUSetStatusFlag(C, PS_Z, (C->A == 0));
+            CPUSetStatusFlag(C, PS_N, (C->A & 0b1000000) > 0);
+
+            break;
+
+        default:
+            printf("\nInstruction not implemented\n");
+            break;
+        }
     }
 
     return 1;
@@ -131,13 +149,13 @@ void CPUDump(CPU C)
     printf("\n --- START CPU DUMP --- \n");
 
     printf("\nPointers :\n");
-    printf("\tPC : %hu\n", C->PC);
-    printf("\tSP : %hhu\n", C->SP);
+    printf("\tPC : 0x%X\n", C->PC);
+    printf("\tSP : 0x%X\n", C->SP);
 
     printf("\nRegisters :\n");
-    printf("\tA : %hhu\n", C->A);
-    printf("\tX : %hhu\n", C->X);
-    printf("\tY : %hhu\n", C->Y);
+    printf("\tA : 0x%X\n", C->A);
+    printf("\tX : 0x%X\n", C->X);
+    printf("\tY : 0x%X\n", C->Y);
 
     printf("\nProcessor Status Flags :\n");
     printf("\tC : %d\n", CPUGetStatusFlag(C, PS_C));
