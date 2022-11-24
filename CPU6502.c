@@ -103,7 +103,8 @@ int CPUExecute(CPU C, Memory m, int cycles)
             break;
 
         default:
-            printf("\nInstruction not implemented\n");
+            printf("\nInstruction ( 0x%X ) not implemented\n", instruction);
+            exit(EXIT_FAILURE);
             break;
         }
     }

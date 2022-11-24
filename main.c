@@ -15,7 +15,7 @@ int main()
     MemoryWrite(ROM, 0xFFFD, 0x42);
 
     // Run the program
-    CPUExecute(cpu6502, ROM, 3);
+    CPUExecute(cpu6502, ROM, 2);
 
     CPUDump(cpu6502);
 

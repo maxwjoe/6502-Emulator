@@ -43,8 +43,9 @@ BYTE MemoryRead(Memory m, WORD Addr)
         return 0;
     }
 
-    if ((int)Addr < 0 || (int)Addr > m->capacity)
+    if (Addr < 0 || Addr >= (WORD)m->capacity)
     {
+        printf("Memory Read Error : Address out of bounds\n");
         return 0;
     }
 
