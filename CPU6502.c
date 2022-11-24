@@ -75,6 +75,24 @@ BYTE CPUFetch(CPU C, Memory m)
     return data;
 }
 
+int CPUExecute(CPU C, Memory m, int cycles)
+{
+
+    if (C == NULL || m == NULL || cycles <= 0)
+    {
+        return 0;
+    }
+
+    while (cycles > 0)
+    {
+        BYTE data = CPUFetch(C, m);
+        printf("CPU Fetched : %X\n", data);
+        cycles--;
+    }
+
+    return 1;
+}
+
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue)
 {
     if (C == NULL || flagId < 0 || flagId > 7)

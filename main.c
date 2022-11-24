@@ -8,14 +8,17 @@ int main()
     Memory RAM = MemoryNew(1024);
     CPU cpu6502 = CPUNew();
 
-    CPUDump(cpu6502);
+    BYTE addr = 0x01;
+    BYTE data = 0x11;
+    int cycles = 5;
+    for (int i = 0; i < cycles; i++)
+    {
+        MemoryWrite(RAM, addr, data);
+        addr++;
+        data += 5;
+    }
 
-    MemoryWrite(RAM, 0x01, 0xFF);
-
-    printf("%hhu\n", CPUFetch(cpu6502, RAM));
-    printf("%hhu\n", CPUFetch(cpu6502, RAM));
-
-    CPUDump(cpu6502);
+    CPUExecute(cpu6502, RAM, cycles + 5);
 
     CPUFree(cpu6502);
     MemoryFree(RAM);

@@ -30,6 +30,9 @@ int CPUReset(CPU C, Memory m);
 // CPUFetch : Fetches data pointed to by program counter from memory, increments PC
 BYTE CPUFetch(CPU C, Memory m);
 
+// CPUExecute : Executes N clock cycles starting from Program Counter in memory
+int CPUExecute(CPU C, Memory m, int cycles);
+
 // CPUSetStatusFlag : Sets a CPU Status Flag (Returns 0 on fail)
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue);
 
