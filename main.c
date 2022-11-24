@@ -6,6 +6,7 @@
 
 int main()
 {
+    // Instantiate Hardware
     Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
     CPUReset(cpu6502, ROM);
@@ -17,8 +18,10 @@ int main()
     // Run the program
     CPUExecute(cpu6502, ROM, 2);
 
+    // Dump CPU to Console
     CPUDump(cpu6502);
 
+    // Free Memory
     CPUFree(cpu6502);
     MemoryFree(ROM);
 

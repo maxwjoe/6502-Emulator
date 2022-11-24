@@ -5,7 +5,7 @@
 
 typedef struct memory *Memory;
 
-// RAMNew : Creates a new Memory Object (Capacity in Bytes)
+// MemoryNew : Creates a new Memory Object (Capacity in Bytes)
 Memory MemoryNew(int capacity);
 
 // MemoryReset : Resets memory
