@@ -1,0 +1,23 @@
+
+ === CPU DUMP === 
+
+
+TIMESTAMP : Fri Nov 25 12:52:15 2022
+
+
+ --- CPU INTERNALS ---
+
+Program Counter (PC) : 0xFFFD
+Stack Pointer (SP) : 0x1
+Accumulator (A) : 0x0
+X Register (X) : 0x0
+Y Register (Y) : 0x0
+
+ --- MEMORY --- 
+
+Memory to left of PC : 0x0
+Memory at PC : 0x42
+Memory to right of PC : 0x0
+
+ === END CPU DUMP === 
+

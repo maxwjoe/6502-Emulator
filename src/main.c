@@ -12,7 +12,7 @@ int main()
     CPUReset(cpu6502, ROM);
 
     // Program the memory
-    MemoryWrite(ROM, 0xFFFC, LDA_IM);
+    MemoryWrite(ROM, 0xFFFC, 0x00);
     MemoryWrite(ROM, 0xFFFD, 0x42);
 
     // Run the program

@@ -43,6 +43,21 @@ int CPUGetStatusFlag(CPU C, int flagId);
 // CPUDump : Dumps CPU Struct to Console
 void CPUDump(CPU C);
 
+// CPUGetPC : Returns the value of the program counter
+WORD CPUGetPC(CPU C);
+
+// CPUGetSP : Returns the value of the stack pointer
+BYTE CPUGetSP(CPU C);
+
+// CPUGetA : Returns the value of the accumulator
+BYTE CPUGetA(CPU C);
+
+// CPUGetX : Returns the value in the X Register
+BYTE CPUGetX(CPU C);
+
+// CPUGetY : Returns the value in the Y Register
+BYTE CPUGetY(CPU C);
+
 // CPUFree : Frees all memory associated with 6502
 int CPUFree(CPU C);
 

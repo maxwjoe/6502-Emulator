@@ -1,6 +1,7 @@
 #include "CPU6502.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "fileIO.h"
 
 typedef struct cpu6502
 {
@@ -103,7 +104,7 @@ int CPUExecute(CPU C, Memory m, int cycles)
             break;
 
         default:
-            printf("\nInstruction ( 0x%X ) not implemented\n", instruction);
+            FIODumpCPU(C, m);
             exit(EXIT_FAILURE);
             break;
         }
@@ -168,6 +169,56 @@ void CPUDump(CPU C)
     printf("\tN : %d\n", CPUGetStatusFlag(C, PS_N));
 
     printf("\n --- END CPU DUMP --- \n");
+}
+
+WORD CPUGetPC(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->PC;
+}
+
+BYTE CPUGetSP(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->SP;
+}
+
+BYTE CPUGetA(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->A;
+}
+
+BYTE CPUGetX(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->X;
+}
+
+BYTE CPUGetY(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->Y;
 }
 
 int CPUFree(CPU C)
