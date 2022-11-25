@@ -28,10 +28,10 @@ CPU CPUNew();
 // CPUReset : Resets the CPU
 int CPUReset(CPU C, Memory m);
 
-// CPUFetchByte : Fetches byte of data pointed to by program counter from memory, increments PC
+// CPUFetchByte : Fetches byte of data pointed to by program counter from memory, increments PC (1 Cpu Cycle)
 BYTE CPUFetchByte(CPU C, Memory m, int *cycles);
 
-// CPUFetchWord : Fetches word of data pointed to by pc from memory, increments pc
+// CPUFetchWord : Fetches word of data pointed to by pc from memory, increments pc (2 Cpu Cycles)
 WORD CPUFetchWord(CPU C, Memory m, int *cycles);
 
 // CPUExecute : Executes N clock cycles starting from Program Counter in memory
@@ -45,6 +45,12 @@ int CPUGetStatusFlag(CPU C, int flagId);
 
 // CPUDump : Dumps CPU Struct to Console
 void CPUDump(CPU C);
+
+// CPUIncrementPC : Increments the program counter by a given value (Can be negative)
+void CPUIncrementPC(CPU C, BYTE val);
+
+// CPUIncrementSP : Increments the stack pointer by a given value (Can be negative)
+void CPUIncrementSP(CPU C, BYTE val);
 
 // CPUSetPC : Sets a value for the program counter
 void CPUSetPC(CPU C, WORD val);

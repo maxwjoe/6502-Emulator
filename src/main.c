@@ -32,7 +32,7 @@ int main()
 
     MemoryWrite(ROM, 0xEEEE, LDA_ZPX);
     MemoryWrite(ROM, 0xEEEF, 0x12);
-    MemoryWrite(ROM, 0x12 + CPUGetX(cpu6502), 0x56);
+    MemoryWrite(ROM, 0x0014, 0x56);
 
     // Run the program
     CPUExecute(cpu6502, ROM, 19);
