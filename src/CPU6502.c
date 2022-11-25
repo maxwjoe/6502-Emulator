@@ -306,6 +306,14 @@ int CPUExecute(CPU C, Memory m, int cycles)
             INS_LDA_ZPX(C, m, &cycles);
             break;
 
+        case LDA_AB:
+            INS_LDA_AB(C, m, &cycles);
+            break;
+
+        case LDX_IM:
+            INS_LDX_IM(C, m, &cycles);
+            break;
+
         case JSR_AB:
             INS_JSR_AB(C, m, &cycles);
             break;

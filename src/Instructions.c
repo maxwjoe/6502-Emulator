@@ -13,6 +13,13 @@ void LDA_SET_STATUS(CPU C)
     CPUSetStatusFlag(C, PS_N, (A & 0b1000000) > 0);
 }
 
+void LDX_SET_STATUS(CPU C)
+{
+    BYTE X = CPUGetX(C);
+    CPUSetStatusFlag(C, PS_Z, (X == 0));
+    CPUSetStatusFlag(C, PS_N, (X & 0b1000000) > 0);
+}
+
 void INS_LDA_IM(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
@@ -44,6 +51,23 @@ void INS_LDA_ZPX(CPU C, Memory m, int *cyclesPtr)
     incrementCycles(cyclesPtr, -1);
 
     LDA_SET_STATUS(C);
+}
+
+void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    BYTE A = MemoryReadByte(m, address, cyclesPtr);
+    CPUSetA(C, A);
+
+    LDA_SET_STATUS(C);
+}
+
+void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+    CPUSetX(C, value);
+
+    LDX_SET_STATUS(C);
 }
 
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
