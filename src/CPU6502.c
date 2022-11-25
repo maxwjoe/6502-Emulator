@@ -1,4 +1,4 @@
-#include "CPU6502.h"
+#include "../include/CPU6502.h"
 #include "stdlib.h"
 #include "stdio.h"
 

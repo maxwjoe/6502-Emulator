@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "memory.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "cpu6502.h": "c"
     }
 }

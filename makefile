@@ -1,17 +1,24 @@
 CC = gcc
 CFLAGS = -Wall -Werror -g -fsanitize=address,leak,undefined
 
-cpu : main.o CPU6502.o Memory.o
-	$(CC) $(CFLAGS) -o cpu main.o CPU6502.o Memory.o
+SRC=src
+OBJ=obj
+INCLUDE=include
+BINDIR=bin
 
-main.o : main.c CPU6502.h Memory.h
-	$(CC) $(CFLAGS) -c main.c CPU6502.h
+SRCS = $(wildcard $(SRC)/*.c)
+OBJS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
-CPU6502.o : CPU6502.c CPU6502.h Memory.h
-	$(CC) $(CFLAGS) -c CPU6502.c CPU6502.h Memory.h
+BIN=bin/main
+SUBMITNAME=project5.zip
 
-Memory.o : Memory.c Memory.h
-	$(CC) $(CFLAGS) -c Memory.c Memory.h
+all:$(BIN)
+
+$(BIN): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
+
+$(OBJ)/%.o : $(SRC)/%.c
+	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 clean:
-	rm -f *.o
+	rm -r $(BINDIR)/* $(OBJ)/*
