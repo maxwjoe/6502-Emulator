@@ -2,6 +2,12 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "fileIO.h"
+#include "Opcodes.h"
+
+// --- Static Definitions ---
+
+// s_LDA_SET_STATUS : Sets CPU status based on values in registers on LDA
+static void s_LDA_SET_STATUS(CPU C);
 
 typedef struct cpu6502
 {
@@ -63,54 +69,29 @@ int CPUReset(CPU C, Memory m)
     return 1;
 }
 
-BYTE CPUFetch(CPU C, Memory m)
+BYTE CPUFetchByte(CPU C, Memory m, int *cycles)
 {
     if (C == NULL || m == NULL)
     {
         return 0;
     }
 
-    BYTE data = MemoryRead(m, C->PC);
+    BYTE data = MemoryReadByte(m, C->PC, cycles);
     C->PC++;
 
     return data;
 }
 
-int CPUExecute(CPU C, Memory m, int cycles)
+WORD CPUFetchWord(CPU C, Memory m, int *cycles)
 {
-
-    if (C == NULL || m == NULL || cycles <= 0)
+    if (C == NULL || m == NULL)
     {
         return 0;
     }
 
-    while (cycles > 0)
-    {
-        BYTE instruction = CPUFetch(C, m);
-        cycles--;
-
-        switch (instruction)
-        {
-        case LDA_IM:
-
-            BYTE value = CPUFetch(C, m);
-            cycles--;
-
-            C->A = value;
-
-            CPUSetStatusFlag(C, PS_Z, (C->A == 0));
-            CPUSetStatusFlag(C, PS_N, (C->A & 0b1000000) > 0);
-
-            break;
-
-        default:
-            FIODumpCPU(C, m);
-            exit(EXIT_FAILURE);
-            break;
-        }
-    }
-
-    return 1;
+    WORD data = MemoryReadWord(m, C->PC, cycles);
+    C->PC += 2;
+    return data;
 }
 
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue)
@@ -221,6 +202,56 @@ BYTE CPUGetY(CPU C)
     return C->Y;
 }
 
+void CPUSetPC(CPU C, WORD val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->PC = val;
+}
+
+void CPUSetSP(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->SP = val;
+}
+
+void CPUSetA(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->A = val;
+}
+
+void CPUSetX(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->X = val;
+}
+
+void CPUSetY(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->Y = val;
+}
+
 int CPUFree(CPU C)
 {
     if (C == NULL)
@@ -231,4 +262,87 @@ int CPUFree(CPU C)
     free(C);
 
     return 1;
+}
+
+int CPUExecute(CPU C, Memory m, int cycles)
+{
+
+    if (C == NULL || m == NULL || cycles <= 0)
+    {
+        return 0;
+    }
+
+    while (cycles > 0)
+    {
+        BYTE instruction = CPUFetchByte(C, m, &cycles);
+
+        switch (instruction)
+        {
+        case LDA_IM:
+
+            BYTE value = CPUFetchByte(C, m, &cycles);
+
+            CPUSetA(C, value);
+
+            s_LDA_SET_STATUS(C);
+            break;
+
+        case LDA_ZP:
+
+            BYTE ZPAddress = CPUFetchByte(C, m, &cycles);
+
+            C->A = MemoryReadByte(m, ZPAddress, &cycles);
+            cycles--;
+
+            s_LDA_SET_STATUS(C);
+            break;
+
+        case LDA_ZPX:
+
+            BYTE ZPAddressPx = CPUFetchByte(C, m, &cycles);
+
+            ZPAddressPx = ZPAddressPx + C->X;
+            cycles--;
+
+            C->A = MemoryReadByte(m, ZPAddressPx, &cycles);
+            cycles--;
+
+            s_LDA_SET_STATUS(C);
+            break;
+
+        case JSR_AB:
+
+            WORD SRAddress = CPUFetchWord(C, m, &cycles);
+            C->PC--;
+
+            MemoryWrite(m, C->SP, (C->PC >> 8) & 0x00FF);
+            cycles--;
+
+            C->SP--;
+            MemoryWrite(m, C->SP, C->PC & 0x00FF);
+            cycles--;
+
+            C->PC = SRAddress;
+            printf("%X\n", C->PC);
+            cycles--;
+
+            break;
+
+        default:
+            printf("ERROR : Unknown Instruction ( %X )\nDumping CPU to file...\n", instruction);
+            FIODumpCPU(C, m);
+            exit(EXIT_FAILURE);
+            break;
+        }
+    }
+
+    return 1;
+}
+
+// --- Static Helper Function Definitions ---
+
+static void s_LDA_SET_STATUS(CPU C)
+{
+    CPUSetStatusFlag(C, PS_Z, (C->A == 0));
+    CPUSetStatusFlag(C, PS_N, (C->A & 0b1000000) > 0);
 }

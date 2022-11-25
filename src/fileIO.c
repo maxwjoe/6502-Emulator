@@ -33,9 +33,9 @@ void FIODumpCPU(CPU C, Memory m)
     fprintf(fp, "\n --- MEMORY --- \n\n");
     WORD pc = CPUGetPC(C);
 
-    fprintf(fp, "Memory to left of PC : 0x%X\n", MemoryRead(m, pc - 1));
-    fprintf(fp, "Memory at PC : 0x%X\n", MemoryRead(m, pc));
-    fprintf(fp, "Memory to right of PC : 0x%X\n", MemoryRead(m, pc + 1));
+    fprintf(fp, "Memory to left of PC : 0x%X\n", MemoryReadByte(m, pc - 1, NULL));
+    fprintf(fp, "Memory at PC : 0x%X\n", MemoryReadByte(m, pc, NULL));
+    fprintf(fp, "Memory to right of PC : 0x%X\n", MemoryReadByte(m, pc + 1, NULL));
 
     fprintf(fp, "\n === END CPU DUMP === \n\n");
 

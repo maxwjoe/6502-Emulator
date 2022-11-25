@@ -3,6 +3,11 @@
 #include "stdio.h"
 #include "string.h"
 
+// --- Static Helpers ---
+
+// s_MemoryBounds : Returns true if address within memory bounds
+static int s_MemoryBounds(Memory m, WORD Addr);
+
 typedef struct memory
 {
     int capacity;
@@ -36,32 +41,45 @@ Memory MemoryNew(int capacity)
     return m;
 }
 
-BYTE MemoryRead(Memory m, WORD Addr)
+BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles)
 {
-    if (m == NULL)
+    if (m == NULL || !s_MemoryBounds(m, Addr))
     {
         return 0;
     }
 
-    if (Addr < 0 || Addr >= (WORD)m->capacity)
+    if (cycles != NULL)
     {
-        printf("Memory Read Error : Address out of bounds\n");
-        return 0;
+        *cycles -= 1;
     }
 
     return m->Data[Addr];
 }
 
-int MemoryWrite(Memory m, WORD Addr, BYTE Data)
+WORD MemoryReadWord(Memory m, WORD Addr, int *cycles)
 {
-    if (m == NULL)
+    if (m == NULL || !s_MemoryBounds(m, Addr))
     {
         return 0;
     }
 
-    if ((int)Addr < 0 || (int)Addr > m->capacity)
+    // Note : 6502 is Little Endian
+    WORD data = m->Data[Addr];
+    Addr++;
+    data |= (m->Data[Addr] << 8);
+
+    if (cycles != NULL)
     {
-        printf("\nInvalid Memory Write Operation\n");
+        *cycles -= 2;
+    }
+
+    return data;
+}
+
+int MemoryWrite(Memory m, WORD Addr, BYTE Data)
+{
+    if (m == NULL || !s_MemoryBounds(m, Addr))
+    {
         return 0;
     }
 
@@ -89,6 +107,19 @@ int MemoryFree(Memory m)
 
     free(m->Data);
     free(m);
+
+    return 1;
+}
+
+// --- Static Helper Definitions ---
+
+static int s_MemoryBounds(Memory m, WORD Addr)
+{
+    if ((int)Addr < 0 || (int)Addr > m->capacity)
+    {
+        printf("\nInvalid Memory Write Operation\n");
+        return 0;
+    }
 
     return 1;
 }

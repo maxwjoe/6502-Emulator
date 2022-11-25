@@ -28,8 +28,11 @@ CPU CPUNew();
 // CPUReset : Resets the CPU
 int CPUReset(CPU C, Memory m);
 
-// CPUFetch : Fetches data pointed to by program counter from memory, increments PC
-BYTE CPUFetch(CPU C, Memory m);
+// CPUFetchByte : Fetches byte of data pointed to by program counter from memory, increments PC
+BYTE CPUFetchByte(CPU C, Memory m, int *cycles);
+
+// CPUFetchWord : Fetches word of data pointed to by pc from memory, increments pc
+WORD CPUFetchWord(CPU C, Memory m, int *cycles);
 
 // CPUExecute : Executes N clock cycles starting from Program Counter in memory
 int CPUExecute(CPU C, Memory m, int cycles);
@@ -42,6 +45,21 @@ int CPUGetStatusFlag(CPU C, int flagId);
 
 // CPUDump : Dumps CPU Struct to Console
 void CPUDump(CPU C);
+
+// CPUSetPC : Sets a value for the program counter
+void CPUSetPC(CPU C, WORD val);
+
+// CPUSetSP : Sets a value for the stack pointer
+void CPUSetSP(CPU C, BYTE val);
+
+// CPSettA : Sets a value for the accumulator
+void CPUSetA(CPU C, BYTE val);
+
+// CPUSetX : Sets a value in the X Register
+void CPUSetX(CPU C, BYTE val);
+
+// CPUSetY : Sets a value in the Y Register
+void CPUSetY(CPU C, BYTE val);
 
 // CPUGetPC : Returns the value of the program counter
 WORD CPUGetPC(CPU C);

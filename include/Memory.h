@@ -11,8 +11,11 @@ Memory MemoryNew(int capacity);
 // MemoryReset : Resets memory
 int MemoryReset(Memory m);
 
-// MemoryRead : Reads memory at a given index
-BYTE MemoryRead(Memory m, WORD Addr);
+// MemoryReadByte : Reads memory at a given index (Byte)
+BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles);
+
+// MemoryReadWord : Reads a word from memory at a given address (Note this costs 2 cycles)
+WORD MemoryReadWord(Memory m, WORD Addr, int *cycles);
 
 // MemoryWrite : Writes to memory at a given address
 int MemoryWrite(Memory m, WORD Addr, BYTE Data);
