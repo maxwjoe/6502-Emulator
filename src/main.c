@@ -1,9 +1,8 @@
-#include "../include/CPU6502.h"
-
-#include "../include/Memory.h"
+#include "CPU6502.h"
+#include "Memory.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "../include/Opcodes.h"
+#include "Opcodes.h"
 
 int main()
 {
