@@ -10,7 +10,6 @@ SRCS = $(wildcard $(SRC)/*.c)
 OBJS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
 BIN=bin/main
-SUBMITNAME=project5.zip
 
 all:$(BIN)
 
