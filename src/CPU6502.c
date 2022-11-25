@@ -3,11 +3,7 @@
 #include "stdio.h"
 #include "fileIO.h"
 #include "Opcodes.h"
-
-// --- Static Definitions ---
-
-// s_LDA_SET_STATUS : Sets CPU status based on values in registers on LDA
-static void s_LDA_SET_STATUS(CPU C);
+#include "Instructions.h"
 
 typedef struct cpu6502
 {
@@ -252,6 +248,26 @@ void CPUSetY(CPU C, BYTE val)
     C->Y = val;
 }
 
+void CPUIncrementSP(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->SP += val;
+}
+
+void CPUIncrementPC(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return;
+    }
+
+    C->PC += val;
+}
+
 int CPUFree(CPU C)
 {
     if (C == NULL)
@@ -279,53 +295,19 @@ int CPUExecute(CPU C, Memory m, int cycles)
         switch (instruction)
         {
         case LDA_IM:
-
-            BYTE value = CPUFetchByte(C, m, &cycles);
-
-            CPUSetA(C, value);
-
-            s_LDA_SET_STATUS(C);
+            INS_LDA_IM(C, m, &cycles);
             break;
 
         case LDA_ZP:
-
-            BYTE ZPAddress = CPUFetchByte(C, m, &cycles);
-
-            C->A = MemoryReadByte(m, ZPAddress, &cycles);
-            cycles--;
-
-            s_LDA_SET_STATUS(C);
+            INS_LDA_ZP(C, m, &cycles);
             break;
 
         case LDA_ZPX:
-
-            BYTE ZPAddressPx = CPUFetchByte(C, m, &cycles);
-
-            ZPAddressPx = ZPAddressPx + C->X;
-            cycles--;
-
-            C->A = MemoryReadByte(m, ZPAddressPx, &cycles);
-            cycles--;
-
-            s_LDA_SET_STATUS(C);
+            INS_LDA_ZPX(C, m, &cycles);
             break;
 
         case JSR_AB:
-
-            WORD SRAddress = CPUFetchWord(C, m, &cycles);
-            C->PC--;
-
-            MemoryWrite(m, C->SP, (C->PC >> 8) & 0x00FF);
-            cycles--;
-
-            C->SP--;
-            MemoryWrite(m, C->SP, C->PC & 0x00FF);
-            cycles--;
-
-            C->PC = SRAddress;
-            printf("%X\n", C->PC);
-            cycles--;
-
+            INS_JSR_AB(C, m, &cycles);
             break;
 
         default:
@@ -337,12 +319,4 @@ int CPUExecute(CPU C, Memory m, int cycles)
     }
 
     return 1;
-}
-
-// --- Static Helper Function Definitions ---
-
-static void s_LDA_SET_STATUS(CPU C)
-{
-    CPUSetStatusFlag(C, PS_Z, (C->A == 0));
-    CPUSetStatusFlag(C, PS_N, (C->A & 0b1000000) > 0);
 }
