@@ -314,6 +314,10 @@ int CPUExecute(CPU C, Memory m, int cycles)
             INS_LDX_IM(C, m, &cycles);
             break;
 
+        case LDY_IM:
+            INS_LDY_IM(C, m, &cycles);
+            break;
+
         case JSR_AB:
             INS_JSR_AB(C, m, &cycles);
             break;

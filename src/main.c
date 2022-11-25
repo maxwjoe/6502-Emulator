@@ -21,8 +21,19 @@ int main()
     MemoryWrite(ROM, 0xAAAA, LDX_IM);
     MemoryWrite(ROM, 0xAAAB, 0x39);
 
+    MemoryWrite(ROM, 0xAAAC, LDY_IM);
+    MemoryWrite(ROM, 0xAAAD, 0x87);
+
+    MemoryWrite(ROM, 0xAAAE, JSR_AB);
+    MemoryWrite(ROM, 0xAAAF, 0x55);
+    MemoryWrite(ROM, 0xAAB0, 0x55);
+
+    MemoryWrite(ROM, 0x5555, LDA_ZPX);
+    MemoryWrite(ROM, 0x5556, 0x33);
+    MemoryWrite(ROM, 0x0033 + 0x39, 0x09);
+
     // Run the program
-    CPUExecute(cpu6502, ROM, 8);
+    CPUExecute(cpu6502, ROM, 20);
 
     // Dump CPU to Console
     CPUDump(cpu6502);

@@ -12,6 +12,9 @@ void LDA_SET_STATUS(CPU C);
 // LDX_SET_STATUS : Set CPU Status Registers based on X Register from LDX Instruction
 void LDX_SET_STATUS(CPU C);
 
+// LDY_SET_STATUS : Set CPU Status Registers based on Y Register from LDX Instruction
+void LDY_SET_STATUS(CPU C);
+
 // === Instruction Functions ===
 
 // --- LDA ---
@@ -32,6 +35,11 @@ void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr);
 
 // INS_LDX_IM : Executes LDX_IM
 void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr);
+
+// --- LDY ---
+
+// INS_LDY_IM : Executes LDY_IM
+void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr);
 
 // --- JSR ---
 

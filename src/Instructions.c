@@ -20,6 +20,13 @@ void LDX_SET_STATUS(CPU C)
     CPUSetStatusFlag(C, PS_N, (X & 0b1000000) > 0);
 }
 
+void LDY_SET_STATUS(CPU C)
+{
+    BYTE Y = CPUGetY(C);
+    CPUSetStatusFlag(C, PS_Z, (Y == 0));
+    CPUSetStatusFlag(C, PS_N, (Y & 0b1000000) > 0);
+}
+
 void INS_LDA_IM(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
@@ -68,6 +75,14 @@ void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
     CPUSetX(C, value);
 
     LDX_SET_STATUS(C);
+}
+
+void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+    CPUSetY(C, value);
+
+    LDY_SET_STATUS(C);
 }
 
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
