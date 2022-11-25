@@ -24,7 +24,7 @@
 
 // LDY : Load Y Register
 
-#define LDY_IM 0xA0  // Load Y Register (Immediate Mode)
+#define LDY_IM 0xA0  // Load Y Register (Immediate Mode) : C
 #define LDY_ZP 0xA4  // Load Y Register (Zero Page Mode)
 #define LDY_ZPX 0xB4 // Load Y Register (Zero Page X Mode)
 #define LDY_AB 0xAC  // Load Y Register (Absolute Mode)

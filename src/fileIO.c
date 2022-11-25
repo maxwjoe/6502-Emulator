@@ -41,3 +41,31 @@ void FIODumpCPU(CPU C, Memory m)
 
     fclose(fp);
 }
+
+int FIOReadBinary(const char *filePath, Memory m)
+{
+    if (filePath == NULL || m == NULL)
+    {
+        printf("Invalid binary file or memory parameters\n");
+        return 0;
+    }
+
+    printf("Opening %s...\n", filePath);
+
+    FILE *fp = fopen(filePath, "rb");
+
+    if (fp == NULL)
+    {
+        printf("Failed to open binary file\n");
+        return 0;
+    }
+
+    char c[10];
+    while (fscanf(fp, "%s", c) == 1)
+    {
+        printf("%s ", c);
+    }
+
+    fclose(fp);
+    return 1;
+}

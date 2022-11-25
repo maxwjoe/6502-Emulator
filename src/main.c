@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "Opcodes.h"
+#include "fileIO.h"
 
 int main()
 {
@@ -10,6 +11,8 @@ int main()
     Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
 
+    int res = FIOReadBinary("a.bin", ROM);
+    printf("RES = %d\n", res);
     // Setup CPU
     CPUReset(cpu6502, ROM);
 
@@ -36,7 +39,7 @@ int main()
     CPUExecute(cpu6502, ROM, 20);
 
     // Dump CPU to Console
-    CPUDump(cpu6502);
+    // CPUDump(cpu6502);
 
     // Free Memory
     CPUFree(cpu6502);
