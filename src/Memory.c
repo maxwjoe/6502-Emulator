@@ -11,6 +11,7 @@ static int s_MemoryBounds(Memory m, WORD Addr);
 typedef struct memory
 {
     int capacity;
+    int numBytes;
     BYTE *Data;
 
 } * Memory;
@@ -38,9 +39,43 @@ Memory MemoryNew(int capacity)
         return NULL;
     }
 
+    m->numBytes = m->capacity * sizeof(BYTE);
+
     return m;
 }
 
+int MemoryLoadBinary(Memory m, const char *filePath)
+{
+    if (m == NULL || filePath == NULL)
+    {
+        return 0;
+    }
+
+    FILE *fp = fopen(filePath, "rb");
+
+    if (fp == NULL)
+    {
+        return 0;
+    }
+
+    fread(m->Data, m->numBytes, 1, fp);
+
+    fclose(fp);
+    return 1;
+}
+
+void MemoryHexDump(Memory m, WORD start, WORD end)
+{
+    if (m == NULL || !s_MemoryBounds(m, start) || !s_MemoryBounds(m, end))
+    {
+        return;
+    }
+
+    for (WORD i = start; i < end; i++)
+    {
+        printf("0x%04X : 0x%02X\n", i, m->Data[i]);
+    }
+}
 BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles)
 {
     if (m == NULL || !s_MemoryBounds(m, Addr))

@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "time.h"
+#include "string.h"
 
 void FIODumpCPU(CPU C, Memory m)
 {
@@ -24,18 +25,18 @@ void FIODumpCPU(CPU C, Memory m)
 
     fprintf(fp, "\n --- CPU INTERNALS ---\n\n");
 
-    fprintf(fp, "Program Counter (PC) : 0x%X\n", CPUGetPC(C));
-    fprintf(fp, "Stack Pointer (SP) : 0x%X\n", CPUGetSP(C));
-    fprintf(fp, "Accumulator (A) : 0x%X\n", CPUGetA(C));
-    fprintf(fp, "X Register (X) : 0x%X\n", CPUGetX(C));
-    fprintf(fp, "Y Register (Y) : 0x%X\n", CPUGetY(C));
+    fprintf(fp, "Program Counter (PC) : 0x%04X\n", CPUGetPC(C));
+    fprintf(fp, "Stack Pointer (SP) : 0x%02X\n", CPUGetSP(C));
+    fprintf(fp, "Accumulator (A) : 0x%02X\n", CPUGetA(C));
+    fprintf(fp, "X Register (X) : 0x%02X\n", CPUGetX(C));
+    fprintf(fp, "Y Register (Y) : 0x%02X\n", CPUGetY(C));
 
     fprintf(fp, "\n --- MEMORY --- \n\n");
     WORD pc = CPUGetPC(C);
 
-    fprintf(fp, "Memory to left of PC : 0x%X\n", MemoryReadByte(m, pc - 1, NULL));
-    fprintf(fp, "Memory at PC : 0x%X\n", MemoryReadByte(m, pc, NULL));
-    fprintf(fp, "Memory to right of PC : 0x%X\n", MemoryReadByte(m, pc + 1, NULL));
+    fprintf(fp, "Memory to left of PC : 0x%02X\n", MemoryReadByte(m, pc - 1, NULL));
+    fprintf(fp, "Memory at PC : 0x%02X\n", MemoryReadByte(m, pc, NULL));
+    fprintf(fp, "Memory to right of PC : 0x%02X\n", MemoryReadByte(m, pc + 1, NULL));
 
     fprintf(fp, "\n === END CPU DUMP === \n\n");
 
@@ -50,8 +51,6 @@ int FIOReadBinary(const char *filePath, Memory m)
         return 0;
     }
 
-    printf("Opening %s...\n", filePath);
-
     FILE *fp = fopen(filePath, "rb");
 
     if (fp == NULL)
@@ -60,11 +59,9 @@ int FIOReadBinary(const char *filePath, Memory m)
         return 0;
     }
 
-    char c[10];
-    while (fscanf(fp, "%s", c) == 1)
-    {
-        printf("%s ", c);
-    }
+    BYTE data[0xFFFF] = {0};
+
+    fread(data, sizeof(data), 1, fp);
 
     fclose(fp);
     return 1;

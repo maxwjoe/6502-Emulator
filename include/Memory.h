@@ -11,6 +11,12 @@ Memory MemoryNew(int capacity);
 // MemoryReset : Resets memory
 int MemoryReset(Memory m);
 
+// MemoryLoadBinary : Loads ROM into memory
+int MemoryLoadBinary(Memory m, const char *filePath);
+
+// MemoryHexDump : Dumps memory range to console (Hex)
+void MemoryHexDump(Memory m, WORD start, WORD end);
+
 // MemoryReadByte : Reads memory at a given index (Byte)
 BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles);
 

@@ -1,0 +1,4 @@
+1. Write fileName.s file in ./assembly
+2. Assemble with the following command
+    ./vasm6502_oldstyle -Fbin -dotdir -o ./binaries/fileName.bin ./assembly/fileName.s
+3. Binary file is now in the ./binaries folder
