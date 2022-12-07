@@ -21,7 +21,7 @@ typedef struct cpu6502
 
     BYTE PS; // Processor Status Flags
 
-    cpuOperation *ops;
+    cpuOperation *ops; // Array of function pointers for CPU operations
 
 } * CPU;
 
