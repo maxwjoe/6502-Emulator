@@ -6,6 +6,7 @@
 #include "fileIO.h"
 
 #define ROM_FILE "./programs/binaries/testLoad.bin"
+// #define ROM_FILE "./bin/main"
 
 int main()
 {
@@ -15,15 +16,16 @@ int main()
     CPUReset(cpu6502, ROM);
 
     // Load Binary File into Virtual ROM
-    MemoryLoadBinary(ROM, ROM_FILE);
+    int loadStatus = MemoryLoadBinary(ROM, ROM_FILE);
 
-    // View the memory (Debugging)
-    MemoryHexDump(ROM, 0xFFFC, 0xFFFF);
+    if (!loadStatus)
+    {
+        printf("ERROR : Failed to load binary into virtual ROM\n");
+        exit(EXIT_FAILURE);
+    }
 
-    // Run the program (2 CPU Cycles)
-    CPUExecute(cpu6502, ROM, 2);
-
-    // Dump CPU to Console (Debugging)
+    // Run CPU
+    CPUExecute(cpu6502, ROM, 8);
     CPUDump(cpu6502);
 
     // Free Memory

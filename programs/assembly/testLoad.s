@@ -1,6 +1,9 @@
+         lda   #$15
 
-         lda   #$15
+         .org  $AAAA
+         LDA   #$78
+
          .org  $fffc
-         lda   #$15
+         JSR   $AAAA
 
 

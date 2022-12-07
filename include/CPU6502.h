@@ -8,6 +8,9 @@
 // cpu6502 : Struct to represent 6502 CPU
 typedef struct cpu6502 *CPU;
 
+// cpuOperation : Type definition of opcode function pointer
+typedef void (*cpuOperation)(CPU, Memory, int *);
+
 // PS_FLAGS : Enumeration for processor status flags
 enum PS_FLAGS
 {

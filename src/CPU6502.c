@@ -5,6 +5,11 @@
 #include "Opcodes.h"
 #include "Instructions.h"
 
+// --- Static Helper Functions ---
+
+// setupFunctionPointers : Instantiates function pointer array for opcodes
+static void setupFunctionPointers(CPU c);
+
 typedef struct cpu6502
 {
     WORD PC; // Program Counter
@@ -15,6 +20,8 @@ typedef struct cpu6502
     BYTE Y; // Y Register
 
     BYTE PS; // Processor Status Flags
+
+    cpuOperation *ops;
 
 } * CPU;
 
@@ -33,6 +40,9 @@ CPU CPUNew()
     C->X = 0;
     C->Y = 0;
     C->PS = 0;
+
+    C->ops = calloc(0xFF, sizeof(cpuOperation));
+    setupFunctionPointers(C);
 
     return C;
 }
@@ -275,6 +285,7 @@ int CPUFree(CPU C)
         return 0;
     }
 
+    free(C->ops);
     free(C);
 
     return 1;
@@ -292,43 +303,39 @@ int CPUExecute(CPU C, Memory m, int cycles)
     {
         BYTE instruction = CPUFetchByte(C, m, &cycles);
 
-        switch (instruction)
+        cpuOperation func = C->ops[instruction];
+
+        if (!func)
         {
-        case LDA_IM:
-            INS_LDA_IM(C, m, &cycles);
-            break;
-
-        case LDA_ZP:
-            INS_LDA_ZP(C, m, &cycles);
-            break;
-
-        case LDA_ZPX:
-            INS_LDA_ZPX(C, m, &cycles);
-            break;
-
-        case LDA_AB:
-            INS_LDA_AB(C, m, &cycles);
-            break;
-
-        case LDX_IM:
-            INS_LDX_IM(C, m, &cycles);
-            break;
-
-        case LDY_IM:
-            INS_LDY_IM(C, m, &cycles);
-            break;
-
-        case JSR_AB:
-            INS_JSR_AB(C, m, &cycles);
-            break;
-
-        default:
-            printf("ERROR : Unknown Instruction ( %X )\nDumping CPU to file...\n", instruction);
-            FIODumpCPU(C, m);
+            printf("ERROR : Unknown CPU Instruction\n");
             exit(EXIT_FAILURE);
-            break;
         }
+
+        func(C, m, &cycles);
     }
 
     return 1;
+}
+
+static void setupFunctionPointers(CPU c)
+{
+    if (c == NULL)
+    {
+        return;
+    }
+
+    // LDA
+    c->ops[LDA_IM] = &INS_LDA_IM;
+    c->ops[LDA_ZP] = &INS_LDA_ZP;
+    c->ops[LDA_ZPX] = &INS_LDA_ZPX;
+    c->ops[LDA_AB] = &INS_LDA_AB;
+
+    // LDX
+    c->ops[LDX_IM] = &INS_LDX_IM;
+
+    // LDY
+    c->ops[LDY_IM] = &INS_LDY_IM;
+
+    // JSR
+    c->ops[JSR_AB] = &INS_JSR_AB;
 }
