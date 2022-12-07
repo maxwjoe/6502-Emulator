@@ -32,6 +32,6 @@
 
 // JSR : Jump to Subroutine
 
-#define JSR_AB 0x20 // Jump to subroutine (Absolute Mode) : C
+#define JSR_AB 0x20 // Jump to subroutine (Absolute Mode, 6) : C
 
 #endif
