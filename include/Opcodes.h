@@ -24,11 +24,11 @@
 
 // LDY : Load Y Register
 
-#define LDY_IM 0xA0  // Load Y Register (Immediate Mode) : C
-#define LDY_ZP 0xA4  // Load Y Register (Zero Page Mode)
-#define LDY_ZPX 0xB4 // Load Y Register (Zero Page X Mode)
-#define LDY_AB 0xAC  // Load Y Register (Absolute Mode)
-#define LDY_ABX 0xBC // Load Y Register (Absolute X Mode)
+#define LDY_IM 0xA0  // Load Y Register (Immediate Mode, 2) : C
+#define LDY_ZP 0xA4  // Load Y Register (Zero Page Mode, 3) : C
+#define LDY_ZPX 0xB4 // Load Y Register (Zero Page X Mode, 4) : C
+#define LDY_AB 0xAC  // Load Y Register (Absolute Mode, 4) : C
+#define LDY_ABX 0xBC // Load Y Register (Absolute X Mode, 4 + 1 if page cross) : C*
 
 // JSR : Jump to Subroutine
 

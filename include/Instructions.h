@@ -53,6 +53,18 @@ void INS_LDX_ABY(CPU C, Memory m, int *cyclesPtr);
 // INS_LDY_IM : Executes LDY_IM
 void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr);
 
+// INS_LDY_ZP : Executes LDY_ZP
+void INS_LDY_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDY_ZPX : Executes LDY_ZPX
+void INS_LDY_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDY_AB : Executes LDY_AB
+void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDY_ABX : Executes LDY_ABX (TODO: Handle page crossing)
+void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

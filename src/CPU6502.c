@@ -339,6 +339,10 @@ static void setupFunctionPointers(CPU c)
 
     // LDY
     c->ops[LDY_IM] = &INS_LDY_IM;
+    c->ops[LDY_ZP] = &INS_LDY_ZP;
+    c->ops[LDY_ZPX] = &INS_LDY_ZPX;
+    c->ops[LDY_AB] = &INS_LDY_AB;
+    c->ops[LDY_ABX] = &INS_LDY_ABX;
 
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
