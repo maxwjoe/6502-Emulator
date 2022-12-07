@@ -16,11 +16,11 @@
 
 // LDX : Load X Register
 
-#define LDX_IM 0xA2  // Load X Register (Immediate Mode) : C
-#define LDX_ZP 0xA6  // Load X Register (Zero Page Mode)
-#define LDX_ZPY 0xB6 // Load X Register (Zero Page Y Mode)
-#define LDX_AB 0xAE  // Load X Register (Absolute Mode)
-#define LDX_ABY 0xBE // Load X Register (Absolute Y Mode)
+#define LDX_IM 0xA2  // Load X Register (Immediate Mode, 2) : C
+#define LDX_ZP 0xA6  // Load X Register (Zero Page Mode, 3) : C
+#define LDX_ZPY 0xB6 // Load X Register (Zero Page Y Mode, 4) : C
+#define LDX_AB 0xAE  // Load X Register (Absolute Mode, 4) : C
+#define LDX_ABY 0xBE // Load X Register (Absolute Y Mode, 4 + 1 if page cross) : C*
 
 // LDY : Load Y Register
 

@@ -17,7 +17,7 @@ int MemoryLoadBinary(Memory m, const char *filePath);
 // MemoryHexDump : Dumps memory range to console (Hex)
 void MemoryHexDump(Memory m, WORD start, WORD end);
 
-// MemoryReadByte : Reads memory at a given index (Byte)
+// MemoryReadByte : Reads memory at a given index (Byte) (Cost 1 CPU Cycle)
 BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles);
 
 // MemoryReadWord : Reads a word from memory at a given address (Note this costs 2 cycles)
