@@ -3,6 +3,7 @@
 
 #include "Memory.h"
 #include "CPU6502.h"
+#include "stdio.h"
 
 // === Status Functions ===
 
@@ -30,6 +31,18 @@ void INS_LDA_ZPX(CPU C, Memory m, int *cyclesPtr);
 
 // INS_LDA_AB : Executes LDA_AB
 void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDA_ABX : Executes LDA_ABX (TODO: Handle page cross)
+void INS_LDA_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDA_ABY : Executes LDA_ABY (TODO: Handle page cross)
+void INS_LDA_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDA_INX : Executes LDA_INX (TODO: Check CPU Cycles)
+void INS_LDA_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_LDA_INY : Executes LDA_INY (TODO: Handle Page Cross)
+void INS_LDA_INY(CPU C, Memory m, int *cyclesPtr);
 
 // --- LDX ---
 

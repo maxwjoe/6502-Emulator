@@ -9,10 +9,10 @@
 #define LDA_ZP 0xA5  // Load Accumulator (Zero Page Mode, 3) : C
 #define LDA_ZPX 0xB5 // Load Accumulator (Zero Page X Mode, 4) : C
 #define LDA_AB 0xAD  // Load Accumulator (Absolute Mode, 4) : C
-#define LDA_ABX 0xBD // Load Accumulator (Absolute X Mode, 4 + 1 if page cross)
-#define LDA_ABY 0xB9 // Load Accumulator (Absolute Y Mode, 4 + 1 if page cross)
-#define LDA_INX 0xA1 // Load Accumulator (Indirect X, 6)
-#define LDA_INY 0xB1 // Load Accumulator (Indirect Y, 5 + 1 if page cross)
+#define LDA_ABX 0xBD // Load Accumulator (Absolute X Mode, 4 + 1 if page cross) : C*
+#define LDA_ABY 0xB9 // Load Accumulator (Absolute Y Mode, 4 + 1 if page cross) : C*
+#define LDA_INX 0xA1 // Load Accumulator (Indirect X, 6) : C
+#define LDA_INY 0xB1 // Load Accumulator (Indirect Y, 5 + 1 if page cross) : C
 
 // LDX : Load X Register
 

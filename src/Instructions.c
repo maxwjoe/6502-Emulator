@@ -69,6 +69,60 @@ void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr)
     LDA_SET_STATUS(C);
 }
 
+void INS_LDA_ABX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    address += CPUGetX(C);
+
+    BYTE Avalue = MemoryReadByte(m, address, cyclesPtr);
+    CPUSetA(C, Avalue);
+
+    LDA_SET_STATUS(C);
+}
+
+void INS_LDA_ABY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    address += CPUGetY(C);
+
+    BYTE Avalue = MemoryReadByte(m, address, cyclesPtr);
+    CPUSetA(C, Avalue);
+
+    LDA_SET_STATUS(C);
+}
+
+void INS_LDA_INX(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = CPUFetchByte(C, m, cyclesPtr);
+    address += CPUGetX(C);
+
+    printf("Address to go to = %02X\n", address);
+
+    WORD loadAddress = MemoryReadWord(m, address, cyclesPtr);
+
+    printf("Address to load from = %04X\n", loadAddress);
+
+    BYTE Avalue = MemoryReadByte(m, loadAddress, cyclesPtr);
+
+    printf("Value at address = %02X\n", Avalue);
+
+    CPUSetA(C, Avalue);
+    LDA_SET_STATUS(C);
+}
+
+void INS_LDA_INY(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = CPUFetchByte(C, m, cyclesPtr);
+    address += CPUGetY(C);
+
+    WORD loadAddress = MemoryReadWord(m, address, cyclesPtr);
+    BYTE Avalue = MemoryReadByte(m, loadAddress, cyclesPtr);
+
+    CPUSetA(C, Avalue);
+
+    LDA_SET_STATUS(C);
+}
+
 void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
@@ -81,7 +135,7 @@ void INS_LDX_ZP(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
 
-    BYTE Xvalue = MemoryReadByte(C, m, cyclesPtr);
+    BYTE Xvalue = MemoryReadByte(m, ZPAddress, cyclesPtr);
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);
@@ -95,7 +149,7 @@ void INS_LDX_ZPY(CPU C, Memory m, int *cyclesPtr)
     ZPAddressY += CPUGetY(C);
     incrementCycles(cyclesPtr, -1);
 
-    BYTE Xvalue = MemoryReadByte(C, m, cyclesPtr);
+    BYTE Xvalue = MemoryReadByte(m, ZPAddressY, cyclesPtr);
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);

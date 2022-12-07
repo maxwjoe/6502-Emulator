@@ -307,7 +307,7 @@ int CPUExecute(CPU C, Memory m, int cycles)
 
         if (!func)
         {
-            printf("ERROR : Unknown CPU Instruction\n");
+            printf("ERROR : Unknown CPU Instruction [ 0x%02X ]\n", instruction);
             exit(EXIT_FAILURE);
         }
 
@@ -329,6 +329,10 @@ static void setupFunctionPointers(CPU c)
     c->ops[LDA_ZP] = &INS_LDA_ZP;
     c->ops[LDA_ZPX] = &INS_LDA_ZPX;
     c->ops[LDA_AB] = &INS_LDA_AB;
+    c->ops[LDA_ABX] = &INS_LDA_ABX;
+    c->ops[LDA_ABY] = &INS_LDA_ABY;
+    c->ops[LDA_INX] = &INS_LDA_INX;
+    c->ops[LDA_INY] = &INS_LDA_INY;
 
     // LDX
     c->ops[LDX_IM] = &INS_LDX_IM;

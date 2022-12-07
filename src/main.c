@@ -18,6 +18,10 @@ int main()
     // Load Binary File into Virtual ROM
     int loadStatus = MemoryLoadBinary(ROM, ROM_FILE);
 
+    MemoryWrite(ROM, 0x0006, 0x00);
+    MemoryWrite(ROM, 0x0007, 0x80);
+    MemoryWrite(ROM, 0x8000, 0x11);
+
     if (!loadStatus)
     {
         printf("ERROR : Failed to load binary into virtual ROM\n");
@@ -25,7 +29,7 @@ int main()
     }
 
     // Run CPU
-    CPUExecute(cpu6502, ROM, 8);
+    CPUExecute(cpu6502, ROM, 13);
     CPUDump(cpu6502);
 
     // Free Memory

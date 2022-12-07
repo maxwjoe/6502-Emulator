@@ -1,7 +1,8 @@
          lda   #$15
 
          .org  $AAAA
-         LDA   #$78
+         LDX   #$04
+         LDA   ($02,X)
 
          .org  $fffc
          JSR   $AAAA
