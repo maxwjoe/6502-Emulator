@@ -73,6 +73,30 @@
 
 #define TYA_IMP 0x98 // Transfer Y Register to Accumulator (Implied, 2) : C
 
+// TSX : Transfer Stack Pointer to X Register
+
+#define TSX_IMP 0xBA // Transfer Stack Pointer to X Register (Implied, 2) :
+
+// TXS : Transfer X Register to Stack Pointer
+
+#define TXS_IMP 0x9A // Transfer X Regiseter to Stack Pointer (Implied, 2) :
+
+// PHA : Push Accumulator
+
+#define PHA_IMP 0x48 // Push Accumulator to Stack (Implied, 3) :
+
+// PHP : Push Processor Status
+
+#define PHP_IMP 0x08 // Push Processor Status to Stack (Implied, 3) :
+
+// PLA : Pull Accumulator
+
+#define PLA_IMP 0x68 // Pull value from stack and store in accumulator (Implied, 4) :
+
+// PLP : Pull Processor Status
+
+#define PLP_IMP 0x28 // Pull value from stack and store as processor status (Implied, 4) :
+
 // JSR : Jump to Subroutine
 
 #define JSR_AB 0x20 // Jump to subroutine (Absolute Mode, 6) : C
