@@ -10,21 +10,21 @@ void LDA_SET_STATUS(CPU C)
 {
     BYTE A = CPUGetA(C);
     CPUSetStatusFlag(C, PS_Z, (A == 0));
-    CPUSetStatusFlag(C, PS_N, (A & 0b1000000) > 0);
+    CPUSetStatusFlag(C, PS_N, (A & 0b10000000) > 0);
 }
 
 void LDX_SET_STATUS(CPU C)
 {
     BYTE X = CPUGetX(C);
     CPUSetStatusFlag(C, PS_Z, (X == 0));
-    CPUSetStatusFlag(C, PS_N, (X & 0b1000000) > 0);
+    CPUSetStatusFlag(C, PS_N, (X & 0b10000000) > 0);
 }
 
 void LDY_SET_STATUS(CPU C)
 {
     BYTE Y = CPUGetY(C);
     CPUSetStatusFlag(C, PS_Z, (Y == 0));
-    CPUSetStatusFlag(C, PS_N, (Y & 0b1000000) > 0);
+    CPUSetStatusFlag(C, PS_N, (Y & 0b10000000) > 0);
 }
 
 void INS_LDA_IM(CPU C, Memory m, int *cyclesPtr)
@@ -96,15 +96,9 @@ void INS_LDA_INX(CPU C, Memory m, int *cyclesPtr)
     BYTE address = CPUFetchByte(C, m, cyclesPtr);
     address += CPUGetX(C);
 
-    printf("Address to go to = %02X\n", address);
-
     WORD loadAddress = MemoryReadWord(m, address, cyclesPtr);
 
-    printf("Address to load from = %04X\n", loadAddress);
-
     BYTE Avalue = MemoryReadByte(m, loadAddress, cyclesPtr);
-
-    printf("Value at address = %02X\n", Avalue);
 
     CPUSetA(C, Avalue);
     LDA_SET_STATUS(C);
