@@ -15,21 +15,20 @@ int main()
     CPU cpu6502 = CPUNew();
     CPUReset(cpu6502, ROM);
 
-    // Load Binary File into Virtual ROM
-    int loadStatus = MemoryLoadBinary(ROM, ROM_FILE);
+    CPUSetA(cpu6502, 0x57);
 
-    MemoryWrite(ROM, 0x0006, 0x00);
-    MemoryWrite(ROM, 0x0007, 0x80);
-    MemoryWrite(ROM, 0x8000, 0x11);
+    MemoryWrite(ROM, 0xFFFC, JSR_AB);
+    MemoryWrite(ROM, 0xFFFD, 0x00);
+    MemoryWrite(ROM, 0xFFFE, 0x80);
 
-    if (!loadStatus)
-    {
-        printf("ERROR : Failed to load binary into virtual ROM\n");
-        exit(EXIT_FAILURE);
-    }
+    MemoryWrite(ROM, 0x8000, STA_ZP);
+    MemoryWrite(ROM, 0x8001, 0x50);
+
+    MemoryWrite(ROM, 0x8002, LDX_ZP);
+    MemoryWrite(ROM, 0x8003, 0x50);
 
     // Run CPU
-    CPUExecute(cpu6502, ROM, 13);
+    CPUExecute(cpu6502, ROM, 12);
     CPUDump(cpu6502);
 
     // Free Memory

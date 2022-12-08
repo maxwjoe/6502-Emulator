@@ -78,6 +78,29 @@ void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr);
 // INS_LDY_ABX : Executes LDY_ABX (TODO: Handle page crossing)
 void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr);
 
+// --- STA ---
+
+// INS_STA_ZP : Executes STA_ZP
+void INS_STA_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_ZPX : Executes STA_ZPX
+void INS_STA_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_AB : Executes STA_AB
+void INS_STA_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_ABX : Executes STA_ABX
+void INS_STA_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_ABY : Executes STA_ABY
+void INS_STA_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_INX : Executes STA_INX
+void INS_STA_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STA_INY : Executes STA_INY
+void INS_STA_INY(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

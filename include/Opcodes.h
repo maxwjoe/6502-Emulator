@@ -37,7 +37,7 @@
 
 // STA : Store Accumulator
 
-#define STA_ZP 0x85  // Store Accumulator (Zero Page Mode, 3) :
+#define STA_ZP 0x85  // Store Accumulator (Zero Page Mode, 3) : C
 #define STA_ZPX 0x95 // Store Accumulator (Zero Page X Mode, 4) :
 #define STA_AB 0x8D  // Store Accumulator (Absolute Mode, 4) :
 #define STA_ABX 0x9D // Store Accumulator (Absolute X Mode, 5) :

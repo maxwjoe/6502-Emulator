@@ -220,6 +220,85 @@ void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr)
     LDY_SET_STATUS(C);
 }
 
+void INS_STA_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE Avalue = CPUGetA(C);
+
+    MemoryWrite(m, ZPaddress, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_ZPX(CPU C, Memory m, int *cyclesPtr)
+{
+
+    BYTE ZPaddressX = CPUFetchByte(C, m, cyclesPtr);
+    ZPaddressX += CPUGetX(C);
+
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, ZPaddressX, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, address, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_ABX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    address += CPUGetX(C);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, address, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_ABY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    address += CPUGetY(C);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, address, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_INX(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
+    ZPaddress += CPUGetX(C);
+    incrementCycles(cyclesPtr, -1);
+
+    WORD writeAddress = MemoryReadWord(m, ZPaddress, cyclesPtr);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, writeAddress, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STA_INY(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
+    ZPaddress += CPUGetY(C);
+    incrementCycles(cyclesPtr, -1);
+
+    WORD writeAddress = MemoryReadWord(m, ZPaddress, cyclesPtr);
+
+    BYTE Avalue = CPUGetA(C);
+    MemoryWrite(m, writeAddress, Avalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD SRAddress = CPUFetchWord(C, m, cyclesPtr);
