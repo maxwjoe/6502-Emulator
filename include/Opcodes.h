@@ -38,24 +38,24 @@
 // STA : Store Accumulator
 
 #define STA_ZP 0x85  // Store Accumulator (Zero Page Mode, 3) : C
-#define STA_ZPX 0x95 // Store Accumulator (Zero Page X Mode, 4) :
-#define STA_AB 0x8D  // Store Accumulator (Absolute Mode, 4) :
-#define STA_ABX 0x9D // Store Accumulator (Absolute X Mode, 5) :
-#define STA_ABY 0x99 // Store Accumulator (Absolute Y Mode, 5) :
-#define STA_INX 0x81 // Store Accumulator (Indirect X Mode, 6) :
-#define STA_INY 0x91 // Store Accumulator (Indirect Y Mode, 6) :
+#define STA_ZPX 0x95 // Store Accumulator (Zero Page X Mode, 4) : C
+#define STA_AB 0x8D  // Store Accumulator (Absolute Mode, 4) : C
+#define STA_ABX 0x9D // Store Accumulator (Absolute X Mode, 5) : C
+#define STA_ABY 0x99 // Store Accumulator (Absolute Y Mode, 5) : C
+#define STA_INX 0x81 // Store Accumulator (Indirect X Mode, 6) : C
+#define STA_INY 0x91 // Store Accumulator (Indirect Y Mode, 6) : C
 
 // STX : Store X Register
 
-#define STX_ZP 0x86  // Store X Register (Zero Page Mode, 3) :
-#define STX_ZPY 0x96 // Store X Register (Zero Page Y Mode, 4) :
-#define STX_AB 0x8E  // Store X Register (Absolute Mode, 4) :
+#define STX_ZP 0x86  // Store X Register (Zero Page Mode, 3) : C
+#define STX_ZPY 0x96 // Store X Register (Zero Page Y Mode, 4) : C
+#define STX_AB 0x8E  // Store X Register (Absolute Mode, 4) : C
 
 // STY : Store Y Register
 
-#define STY_ZP 0x84  // Store Y Register (Zero Page Mode, 3) :
-#define STY_ZPX 0x94 // Store Y Register (Zero Page Y Mode, 4) :
-#define STY_AB 0x8C  // Store Y Register (Absolute Mode, 4) :
+#define STY_ZP 0x84  // Store Y Register (Zero Page Mode, 3) : C
+#define STY_ZPX 0x94 // Store Y Register (Zero Page Y Mode, 4) : C
+#define STY_AB 0x8C  // Store Y Register (Absolute Mode, 4) : C
 
 // JSR : Jump to Subroutine
 

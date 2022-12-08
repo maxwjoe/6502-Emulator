@@ -13,7 +13,7 @@ void LDA_SET_STATUS(CPU C);
 // LDX_SET_STATUS : Set CPU Status Registers based on X Register from LDX Instruction
 void LDX_SET_STATUS(CPU C);
 
-// LDY_SET_STATUS : Set CPU Status Registers based on Y Register from LDX Instruction
+// LDY_SET_STATUS : Set CPU Status Registers based on Y Register from LDY Instruction
 void LDY_SET_STATUS(CPU C);
 
 // === Instruction Functions ===
@@ -100,6 +100,28 @@ void INS_STA_INX(CPU C, Memory m, int *cyclesPtr);
 
 // INS_STA_INY : Executes STA_INY
 void INS_STA_INY(CPU C, Memory m, int *cyclesPtr);
+
+// --- STX ---
+
+// INS_STX_ZP : Executes STX_ZP
+void INS_STX_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STX_ZPY : Executes STX_ZPY
+void INS_STX_ZPY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STX_AB : Executes STX_AB
+void INS_STX_AB(CPU C, Memory m, int *cyclesPtr);
+
+// --- STY ---
+
+// INS_STY_ZP : Executes STY_ZP
+void INS_STY_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STY_ZPX : Executes STY_ZPX
+void INS_STY_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_STY_AB : Executes STY_AB
+void INS_STY_AB(CPU C, Memory m, int *cyclesPtr);
 
 // --- JSR ---
 

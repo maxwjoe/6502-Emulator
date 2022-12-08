@@ -299,6 +299,66 @@ void INS_STA_INY(CPU C, Memory m, int *cyclesPtr)
     incrementCycles(cyclesPtr, -1);
 }
 
+void INS_STX_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE Xvalue = CPUGetX(C);
+
+    MemoryWrite(m, ZPaddress, Xvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STX_ZPY(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddressY = CPUFetchByte(C, m, cyclesPtr);
+    ZPaddressY += CPUGetY(C);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE Xvalue = CPUGetX(C);
+
+    MemoryWrite(m, ZPaddressY, Xvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STX_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    BYTE Xvalue = CPUGetX(C);
+
+    MemoryWrite(m, address, Xvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STY_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE Yvalue = CPUGetY(C);
+
+    MemoryWrite(m, ZPaddress, Yvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STY_ZPX(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE ZPaddressX = CPUFetchByte(C, m, cyclesPtr);
+    ZPaddressX += CPUGetX(C);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE Yvalue = CPUGetY(C);
+
+    MemoryWrite(m, ZPaddressX, Yvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_STY_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    BYTE Yvalue = CPUGetY(C);
+
+    MemoryWrite(m, address, Yvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD SRAddress = CPUFetchWord(C, m, cyclesPtr);
