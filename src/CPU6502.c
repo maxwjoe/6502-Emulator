@@ -367,6 +367,18 @@ static void setupFunctionPointers(CPU c)
     c->ops[STY_ZPX] = &INS_STY_ZPX;
     c->ops[STY_AB] = &INS_STY_AB;
 
+    // TAX
+    c->ops[TAX_IMP] = &INS_TAX_IMP;
+
+    // TAY
+    c->ops[TAY_IMP] = &INS_TAY_IMP;
+
+    // TXA
+    c->ops[TXA_IMP] = &INS_TXA_IMP;
+
+    // TYA
+    c->ops[TYA_IMP] = &INS_TYA_IMP;
+
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
 }

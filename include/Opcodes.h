@@ -57,6 +57,22 @@
 #define STY_ZPX 0x94 // Store Y Register (Zero Page Y Mode, 4) : C
 #define STY_AB 0x8C  // Store Y Register (Absolute Mode, 4) : C
 
+// TAX : Transfer Accumulator to X Register
+
+#define TAX_IMP 0xAA // Transfer Accumulator to X Register (Implied, 2) : C
+
+// TAY : Transfer Accumulator to Y Register
+
+#define TAY_IMP 0xA8 // Transfer Accumulator to Y Register (Implied, 2) : C
+
+// TXA : Transfer X Register to Accumulator
+
+#define TXA_IMP 0x8A // Transfer X Register to Accumulator (Implied, 2) : C
+
+// TYA : Transfer Y Register to Accumulator
+
+#define TYA_IMP 0x98 // Transfer Y Register to Accumulator (Implied, 2) : C
+
 // JSR : Jump to Subroutine
 
 #define JSR_AB 0x20 // Jump to subroutine (Absolute Mode, 6) : C

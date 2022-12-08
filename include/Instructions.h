@@ -7,14 +7,14 @@
 
 // === Status Functions ===
 
-// LDA_SET_STATUS : Set CPU Status Registers based on accumulator from LDA Instruction
-void LDA_SET_STATUS(CPU C);
+// ACC_SET_STATUS : Set CPU Status Registers based on accumulator
+void ACC_SET_STATUS(CPU C);
 
-// LDX_SET_STATUS : Set CPU Status Registers based on X Register from LDX Instruction
-void LDX_SET_STATUS(CPU C);
+// XREG_SET_STATUS : Set CPU Status Registers based on X Register
+void XREG_SET_STATUS(CPU C);
 
-// LDY_SET_STATUS : Set CPU Status Registers based on Y Register from LDY Instruction
-void LDY_SET_STATUS(CPU C);
+// YREG_ET_STATUS : Set CPU Status Registers based on Y Register
+void YREG_ET_STATUS(CPU C);
 
 // === Instruction Functions ===
 
@@ -122,6 +122,26 @@ void INS_STY_ZPX(CPU C, Memory m, int *cyclesPtr);
 
 // INS_STY_AB : Executes STY_AB
 void INS_STY_AB(CPU C, Memory m, int *cyclesPtr);
+
+// --- TAX ---
+
+// INS_TAX_IMP : Executes TAX_IMP
+void INS_TAX_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- TAY ---
+
+// INS_TAY_IMP : Executes TAY_IMP
+void INS_TAY_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- TXA ---
+
+// INS_TXA_IMP : Executes TXA_IMP
+void INS_TXA_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- TYA ---
+
+// INS_TYA_IMP : Executes TYA_IMP
+void INS_TYA_IMP(CPU C, Memory m, int *cyclesPtr);
 
 // --- JSR ---
 

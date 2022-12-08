@@ -6,21 +6,21 @@ static void incrementCycles(int *cycles, int amount)
     *cycles = *cycles + amount;
 }
 
-void LDA_SET_STATUS(CPU C)
+void ACC_SET_STATUS(CPU C)
 {
     BYTE A = CPUGetA(C);
     CPUSetStatusFlag(C, PS_Z, (A == 0));
     CPUSetStatusFlag(C, PS_N, (A & 0b10000000) > 0);
 }
 
-void LDX_SET_STATUS(CPU C)
+void XREG_SET_STATUS(CPU C)
 {
     BYTE X = CPUGetX(C);
     CPUSetStatusFlag(C, PS_Z, (X == 0));
     CPUSetStatusFlag(C, PS_N, (X & 0b10000000) > 0);
 }
 
-void LDY_SET_STATUS(CPU C)
+void YREG_SET_STATUS(CPU C)
 {
     BYTE Y = CPUGetY(C);
     CPUSetStatusFlag(C, PS_Z, (Y == 0));
@@ -31,7 +31,7 @@ void INS_LDA_IM(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
     CPUSetA(C, value);
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_ZP(CPU C, Memory m, int *cyclesPtr)
@@ -43,7 +43,7 @@ void INS_LDA_ZP(CPU C, Memory m, int *cyclesPtr)
 
     incrementCycles(cyclesPtr, -1);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_ZPX(CPU C, Memory m, int *cyclesPtr)
@@ -57,7 +57,7 @@ void INS_LDA_ZPX(CPU C, Memory m, int *cyclesPtr)
     CPUSetA(C, A);
     incrementCycles(cyclesPtr, -1);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr)
@@ -66,7 +66,7 @@ void INS_LDA_AB(CPU C, Memory m, int *cyclesPtr)
     BYTE A = MemoryReadByte(m, address, cyclesPtr);
     CPUSetA(C, A);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_ABX(CPU C, Memory m, int *cyclesPtr)
@@ -77,7 +77,7 @@ void INS_LDA_ABX(CPU C, Memory m, int *cyclesPtr)
     BYTE Avalue = MemoryReadByte(m, address, cyclesPtr);
     CPUSetA(C, Avalue);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_ABY(CPU C, Memory m, int *cyclesPtr)
@@ -88,7 +88,7 @@ void INS_LDA_ABY(CPU C, Memory m, int *cyclesPtr)
     BYTE Avalue = MemoryReadByte(m, address, cyclesPtr);
     CPUSetA(C, Avalue);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_INX(CPU C, Memory m, int *cyclesPtr)
@@ -101,7 +101,7 @@ void INS_LDA_INX(CPU C, Memory m, int *cyclesPtr)
     BYTE Avalue = MemoryReadByte(m, loadAddress, cyclesPtr);
 
     CPUSetA(C, Avalue);
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDA_INY(CPU C, Memory m, int *cyclesPtr)
@@ -114,7 +114,7 @@ void INS_LDA_INY(CPU C, Memory m, int *cyclesPtr)
 
     CPUSetA(C, Avalue);
 
-    LDA_SET_STATUS(C);
+    ACC_SET_STATUS(C);
 }
 
 void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
@@ -122,7 +122,7 @@ void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
     CPUSetX(C, value);
 
-    LDX_SET_STATUS(C);
+    XREG_SET_STATUS(C);
 }
 
 void INS_LDX_ZP(CPU C, Memory m, int *cyclesPtr)
@@ -133,7 +133,7 @@ void INS_LDX_ZP(CPU C, Memory m, int *cyclesPtr)
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);
-    LDX_SET_STATUS(C);
+    XREG_SET_STATUS(C);
 }
 
 void INS_LDX_ZPY(CPU C, Memory m, int *cyclesPtr)
@@ -147,7 +147,7 @@ void INS_LDX_ZPY(CPU C, Memory m, int *cyclesPtr)
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);
-    LDX_SET_STATUS(C);
+    XREG_SET_STATUS(C);
 }
 
 void INS_LDX_AB(CPU C, Memory m, int *cyclesPtr)
@@ -157,7 +157,7 @@ void INS_LDX_AB(CPU C, Memory m, int *cyclesPtr)
 
     CPUSetX(C, Xvalue);
 
-    LDX_SET_STATUS(C);
+    XREG_SET_STATUS(C);
 }
 
 void INS_LDX_ABY(CPU C, Memory m, int *cyclesPtr)
@@ -168,7 +168,7 @@ void INS_LDX_ABY(CPU C, Memory m, int *cyclesPtr)
     BYTE Xvalue = MemoryReadByte(m, address, cyclesPtr);
 
     CPUSetX(C, Xvalue);
-    LDX_SET_STATUS(C);
+    XREG_SET_STATUS(C);
 }
 
 void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr)
@@ -176,7 +176,7 @@ void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr)
     BYTE value = CPUFetchByte(C, m, cyclesPtr);
     CPUSetY(C, value);
 
-    LDY_SET_STATUS(C);
+    YREG_SET_STATUS(C);
 }
 
 void INS_LDY_ZP(CPU C, Memory m, int *cyclesPtr)
@@ -185,7 +185,7 @@ void INS_LDY_ZP(CPU C, Memory m, int *cyclesPtr)
     BYTE Yvalue = MemoryReadByte(m, ZPAddress, cyclesPtr);
 
     CPUSetY(C, Yvalue);
-    LDY_SET_STATUS(C);
+    YREG_SET_STATUS(C);
 }
 
 void INS_LDY_ZPX(CPU C, Memory m, int *cyclesPtr)
@@ -197,7 +197,7 @@ void INS_LDY_ZPX(CPU C, Memory m, int *cyclesPtr)
     BYTE Yvalue = MemoryReadByte(m, ZPAddressX, cyclesPtr);
     CPUSetY(C, Yvalue);
 
-    LDY_SET_STATUS(C);
+    YREG_SET_STATUS(C);
 }
 
 void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr)
@@ -206,7 +206,7 @@ void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr)
     BYTE Yvalue = MemoryReadByte(m, address, cyclesPtr);
     CPUSetY(C, Yvalue);
 
-    LDY_SET_STATUS(C);
+    YREG_SET_STATUS(C);
 }
 
 void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr)
@@ -217,7 +217,7 @@ void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr)
     BYTE Yvalue = MemoryReadByte(m, address, cyclesPtr);
     CPUSetY(C, Yvalue);
 
-    LDY_SET_STATUS(C);
+    YREG_SET_STATUS(C);
 }
 
 void INS_STA_ZP(CPU C, Memory m, int *cyclesPtr)
@@ -357,6 +357,42 @@ void INS_STY_AB(CPU C, Memory m, int *cyclesPtr)
 
     MemoryWrite(m, address, Yvalue);
     incrementCycles(cyclesPtr, -1);
+}
+
+void INS_TAX_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Avalue = CPUGetA(C);
+    CPUSetX(C, Avalue);
+    incrementCycles(cyclesPtr, -1);
+
+    XREG_SET_STATUS(C);
+}
+
+void INS_TAY_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Avalue = CPUGetA(C);
+    CPUSetY(C, Avalue);
+    incrementCycles(cyclesPtr, -1);
+
+    YREG_SET_STATUS(C);
+}
+
+void INS_TXA_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Xvalue = CPUGetX(C);
+    CPUSetA(C, Xvalue);
+    incrementCycles(cyclesPtr, -1);
+
+    ACC_SET_STATUS(C);
+}
+
+void INS_TYA_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Yvalue = CPUGetY(C);
+    CPUSetA(C, Yvalue);
+    incrementCycles(cyclesPtr, -1);
+
+    ACC_SET_STATUS(C);
 }
 
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
