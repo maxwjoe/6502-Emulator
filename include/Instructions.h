@@ -5,6 +5,13 @@
 #include "CPU6502.h"
 #include "stdio.h"
 
+// === ABOUT INSTRUCTIONS ===
+
+// INS_XXX_YYY : Where XXX is the Opcode, YYY is the addressing mode
+// INS_XXX_YYY functions are the ones actually executed by the CPU for each opcode
+// INS_XXX_XXX() is made up of an addressing function ADDR_XXX() and Operation function OPER_XXX()
+// These two functions in combination give a specific version of each operation based on the addressing mode
+
 // === Status Functions ===
 
 // ACC_SET_STATUS : Set CPU Status Registers based on accumulator
@@ -16,7 +23,7 @@ void XREG_SET_STATUS(CPU C);
 // YREG_ET_STATUS : Set CPU Status Registers based on Y Register
 void YREG_ET_STATUS(CPU C);
 
-// === Instruction Functions ===
+// === INSTRUCTION DECLARATIONS ===
 
 // --- LDA ---
 

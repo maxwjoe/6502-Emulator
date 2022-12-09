@@ -491,6 +491,18 @@ void INS_AND_INX(CPU C, Memory m, int *cyclesPtr)
     ACC_SET_STATUS(C);
 }
 
+void INS_AND_INY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_INY(C, m, cyclesPtr);
+
+    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Avalue = CPUGetA(C);
+
+    CPUSetA(C, Avalue & value);
+
+    ACC_SET_STATUS(C);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD address = ADDR_AB(C, m, cyclesPtr);

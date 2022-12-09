@@ -420,6 +420,13 @@ static void setupFunctionPointers(CPU c)
 
     // AND
     c->ops[AND_IM] = &INS_AND_IM;
+    c->ops[AND_ZP] = &INS_AND_ZP;
+    c->ops[AND_ZPX] = &INS_AND_ZPX;
+    c->ops[AND_AB] = &INS_AND_AB;
+    c->ops[AND_ABX] = &INS_AND_ABX;
+    c->ops[AND_ABY] = &INS_AND_ABY;
+    c->ops[AND_INX] = &INS_AND_INX;
+    c->ops[AND_INY] = &INS_AND_INY;
 
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
