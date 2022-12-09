@@ -418,6 +418,9 @@ static void setupFunctionPointers(CPU c)
     // PLP
     c->ops[PLP_IMP] = &INS_PLP_IMP;
 
+    // AND
+    c->ops[AND_IM] = &INS_AND_IM;
+
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
 }

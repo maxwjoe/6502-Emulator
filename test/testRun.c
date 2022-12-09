@@ -43,6 +43,7 @@ int main()
     RUN_TEST(&T_LDA_ABY, "LDA_ABY");
     RUN_TEST(&T_LDA_INX, "LDA_INX");
     RUN_TEST(&T_LDA_INY, "LDA_INY");
+    printf("blah");
 
     return 0;
 }

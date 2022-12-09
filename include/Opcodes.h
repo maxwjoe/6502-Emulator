@@ -99,7 +99,7 @@
 
 // AND : Logical AND on Accumulator
 
-#define AND_IM 0x29  // Logical AND on Accumulator (Immediate Mode, 2) :
+#define AND_IM 0x29  // Logical AND on Accumulator (Immediate Mode, 2) : C
 #define AND_ZP 0x25  // Logical AND on Accumulator (Zero Page Mode, 3) :
 #define AND_ZPX 0x35 // Logical AND on Accumulator (Zero Page X Mode, 4) :
 #define AND_AB 0x2D  // Logical AND on Accumulator (Absolute Mode, 4) :

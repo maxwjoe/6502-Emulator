@@ -9,12 +9,12 @@ BINDIR=../bin
 SRCS = $(wildcard $(SRC)/*.c)
 OBJS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
-BIN=../bin/testLDA
+BIN=../bin/testRun
 
 all:$(BIN)
 
-$(BIN): testLDA.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o
-	$(CC) $(CFLAGS) testLDA.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o -o $@
+$(BIN): testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o
+	$(CC) $(CFLAGS) testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o -o $@
 
 
 clean:

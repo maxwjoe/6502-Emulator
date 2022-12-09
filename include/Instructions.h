@@ -173,6 +173,32 @@ void INS_PLA_IMP(CPU C, Memory m, int *cyclesPtr);
 // INS_PLP_IMP : Executes PLP_IMP
 void INS_PLP_IMP(CPU C, Memory m, int *cyclesPtr);
 
+// --- AND ---
+
+// INS_AND_IM : Executes AND_IM
+void INS_AND_IM(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_ZP : Executes AND_ZP
+void INS_AND_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_ZPX : Executes AND_ZPX
+void INS_AND_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_AB : Executes AND_AB
+void INS_AND_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_ABX : Executes AND_ABX
+void INS_AND_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_ABY : Executes AND_ABY
+void INS_AND_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_INX : Executes AND_INX
+void INS_AND_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_AND_INY : Executes AND_INY
+void INS_AND_INY(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

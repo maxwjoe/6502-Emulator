@@ -19,5 +19,6 @@ $(BIN): $(OBJS)
 $(OBJ)/%.o : $(SRC)/%.c
 	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
+
 clean:
 	rm -r $(BINDIR)/* $(OBJ)/*
