@@ -329,7 +329,7 @@ int CPUExecute(CPU C, Memory m, int cycles)
         if (!func)
         {
             printf("ERROR : Unknown CPU Instruction [ 0x%02X ]\n", instruction);
-            exit(EXIT_FAILURE);
+            continue;
         }
 
         func(C, m, &cycles);
