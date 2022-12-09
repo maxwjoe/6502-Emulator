@@ -97,7 +97,7 @@ void INS_LDA_INY(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+    BYTE value = ADDR_IM(C, m, cyclesPtr);
     CPUSetX(C, value);
 
     XREG_SET_STATUS(C);
@@ -105,9 +105,8 @@ void INS_LDX_IM(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDX_ZP(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
 
-    BYTE Xvalue = MemoryReadByte(m, ZPAddress, cyclesPtr);
+    BYTE Xvalue = ADDR_ZP(C, m, cyclesPtr);
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);
@@ -116,12 +115,7 @@ void INS_LDX_ZP(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDX_ZPY(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE ZPAddressY = CPUFetchByte(C, m, cyclesPtr);
-
-    ZPAddressY += CPUGetY(C);
-    incrementCycles(cyclesPtr, -1);
-
-    BYTE Xvalue = MemoryReadByte(m, ZPAddressY, cyclesPtr);
+    BYTE Xvalue = ADDR_ZPY(C, m, cyclesPtr);
     CPUSetX(C, Xvalue);
 
     incrementCycles(cyclesPtr, -1);
@@ -130,9 +124,7 @@ void INS_LDX_ZPY(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDX_AB(CPU C, Memory m, int *cyclesPtr)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
-    BYTE Xvalue = MemoryReadByte(m, address, cyclesPtr);
-
+    BYTE Xvalue = ADDR_AB(C, m, cyclesPtr);
     CPUSetX(C, Xvalue);
 
     XREG_SET_STATUS(C);
@@ -140,10 +132,7 @@ void INS_LDX_AB(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDX_ABY(CPU C, Memory m, int *cyclesPtr)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
-    address += CPUGetY(C);
-
-    BYTE Xvalue = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Xvalue = ADDR_ABY(C, m, cyclesPtr);
 
     CPUSetX(C, Xvalue);
     XREG_SET_STATUS(C);
@@ -151,7 +140,7 @@ void INS_LDX_ABY(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+    BYTE value = ADDR_IM(C, m, cyclesPtr);
     CPUSetY(C, value);
 
     YREG_SET_STATUS(C);
@@ -159,8 +148,7 @@ void INS_LDY_IM(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDY_ZP(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
-    BYTE Yvalue = MemoryReadByte(m, ZPAddress, cyclesPtr);
+    BYTE Yvalue = ADDR_ZP(C, m, cyclesPtr);
 
     CPUSetY(C, Yvalue);
     YREG_SET_STATUS(C);
@@ -168,11 +156,7 @@ void INS_LDY_ZP(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDY_ZPX(CPU C, Memory m, int *cyclesPtr)
 {
-    BYTE ZPAddressX = CPUFetchByte(C, m, cyclesPtr);
-    ZPAddressX += CPUGetX(C);
-    incrementCycles(cyclesPtr, -1);
-
-    BYTE Yvalue = MemoryReadByte(m, ZPAddressX, cyclesPtr);
+    BYTE Yvalue = ADDR_ZPX(C, m, cyclesPtr);
     CPUSetY(C, Yvalue);
 
     YREG_SET_STATUS(C);
@@ -180,8 +164,7 @@ void INS_LDY_ZPX(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
-    BYTE Yvalue = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Yvalue = ADDR_AB(C, m, cyclesPtr);
     CPUSetY(C, Yvalue);
 
     YREG_SET_STATUS(C);
@@ -189,10 +172,7 @@ void INS_LDY_AB(CPU C, Memory m, int *cyclesPtr)
 
 void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
-    address += CPUGetX(C);
-
-    BYTE Yvalue = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Yvalue = ADDR_ABX(C, m, cyclesPtr);
     CPUSetY(C, Yvalue);
 
     YREG_SET_STATUS(C);
@@ -201,7 +181,7 @@ void INS_LDY_ABX(CPU C, Memory m, int *cyclesPtr)
 void INS_STA_ZP(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE ZPaddress = CPUFetchByte(C, m, cyclesPtr);
-    BYTE Avalue = CPUGetA(C);
+    BYTE Avalue = ADDR_ZP(C, m, cyclesPtr);
 
     MemoryWrite(m, ZPaddress, Avalue);
     incrementCycles(cyclesPtr, -1);
