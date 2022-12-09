@@ -23,7 +23,7 @@ typedef struct cpu6502
 
     cpuOperation *ops; // Array of function pointers for CPU operations
 
-} * CPU;
+} *CPU;
 
 CPU CPUNew()
 {
@@ -56,7 +56,7 @@ int CPUReset(CPU C, Memory m)
 
     // Reset Pointers
     C->PC = 0xFFFC;
-    C->SP = 0x01;
+    C->SP = 0xFF;
 
     // Clear Registers
     C->A = 0;
@@ -126,6 +126,27 @@ int CPUGetStatusFlag(CPU C, int flagId)
 
     BYTE status = C->PS;
     return (status >> flagId) & 0x01;
+}
+
+BYTE CPUGetStatusRegister(CPU C)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    return C->PS;
+}
+
+int CPUSetStatusRegister(CPU C, BYTE val)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    C->PS = val;
+    return 1;
 }
 
 void CPUDump(CPU C)
@@ -378,6 +399,24 @@ static void setupFunctionPointers(CPU c)
 
     // TYA
     c->ops[TYA_IMP] = &INS_TYA_IMP;
+
+    // TSX
+    c->ops[TSX_IMP] = &INS_TSX_IMP;
+
+    // TXS
+    c->ops[TXS_IMP] = &INS_TXS_IMP;
+
+    // PHA
+    c->ops[PHA_IMP] = &INS_PHA_IMP;
+
+    // PHP
+    c->ops[PHP_IMP] = &INS_PHP_IMP;
+
+    // PLA
+    c->ops[PLA_IMP] = &INS_PLA_IMP;
+
+    // PLP
+    c->ops[PLP_IMP] = &INS_PLP_IMP;
 
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;

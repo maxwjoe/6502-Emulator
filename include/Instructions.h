@@ -143,6 +143,36 @@ void INS_TXA_IMP(CPU C, Memory m, int *cyclesPtr);
 // INS_TYA_IMP : Executes TYA_IMP
 void INS_TYA_IMP(CPU C, Memory m, int *cyclesPtr);
 
+// --- TSX ---
+
+// INS_TSX_IMP : Executes TSX_IMP
+void INS_TSX_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// -- TXS ---
+
+// INS_TXS_IMP : Executes TXS_IMP
+void INS_TXS_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- PHA ---
+
+// INS_PHA_IMP : Executes PHA_IMP
+void INS_PHA_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- PHP ---
+
+// INS_PHP_IMP : Executes PHP_IMP
+void INS_PHP_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- PLA ---
+
+// INS_PLA_IMP : Executes PLA_IMP
+void INS_PLA_IMP(CPU C, Memory m, int *cyclesPtr);
+
+// --- PLP ---
+
+// INS_PLP_IMP : Executes PLP_IMP
+void INS_PLP_IMP(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

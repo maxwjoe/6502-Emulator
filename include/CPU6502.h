@@ -43,6 +43,12 @@ int CPUExecute(CPU C, Memory m, int cycles);
 // CPUSetStatusFlag : Sets a CPU Status Flag (Returns 0 on fail)
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue);
 
+// CPUGetStatusRegister : Returns the entire status register
+BYTE CPUGetStatusRegister(CPU C);
+
+// CPUSetStatusRegister : Sets the entire status register
+int CPUSetStatusRegister(CPU C, BYTE val);
+
 // CPUGetStatusFlag : Gets a CPU Status Flag (Returns -1 if not valid)
 int CPUGetStatusFlag(CPU C, int flagId);
 

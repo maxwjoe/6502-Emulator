@@ -15,20 +15,23 @@ int main()
     CPU cpu6502 = CPUNew();
     CPUReset(cpu6502, ROM);
 
-    CPUSetA(cpu6502, 0x57);
-
     MemoryWrite(ROM, 0xFFFC, JSR_AB);
     MemoryWrite(ROM, 0xFFFD, 0x00);
     MemoryWrite(ROM, 0xFFFE, 0x80);
 
-    MemoryWrite(ROM, 0x8000, STA_ZP);
-    MemoryWrite(ROM, 0x8001, 0x50);
+    MemoryWrite(ROM, 0x8000, LDA_IM);
+    MemoryWrite(ROM, 0x8001, 0x10);
 
-    MemoryWrite(ROM, 0x8002, LDX_ZP);
-    MemoryWrite(ROM, 0x8003, 0x50);
+    MemoryWrite(ROM, 0x8002, PHA_IMP);
+
+    MemoryWrite(ROM, 0x8003, LDA_IM);
+    MemoryWrite(ROM, 0x8004, 0x14);
+
+    MemoryWrite(ROM, 0x8005, TAX_IMP);
+    MemoryWrite(ROM, 0x8006, PLA_IMP);
 
     // Run CPU
-    CPUExecute(cpu6502, ROM, 12);
+    CPUExecute(cpu6502, ROM, 19);
     CPUDump(cpu6502);
 
     // Free Memory

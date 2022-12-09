@@ -395,6 +395,72 @@ void INS_TYA_IMP(CPU C, Memory m, int *cyclesPtr)
     ACC_SET_STATUS(C);
 }
 
+void INS_TSX_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE stackPointer = CPUGetSP(C);
+    CPUSetX(C, stackPointer);
+    incrementCycles(cyclesPtr, -1);
+
+    XREG_SET_STATUS(C);
+}
+
+void INS_TXS_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Xvalue = CPUGetX(C);
+    CPUSetSP(C, Xvalue);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_PHA_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE Avalue = CPUGetA(C);
+
+    MemoryWriteToStack(m, CPUGetSP(C), (Avalue >> 8) & 0x00FF);
+    CPUIncrementSP(C, -1);
+    incrementCycles(cyclesPtr, -1);
+
+    MemoryWriteToStack(m, CPUGetSP(C), Avalue & 0x00FF);
+    CPUIncrementSP(C, -1);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_PHP_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE statusRegister = CPUGetStatusRegister(C);
+
+    MemoryWriteToStack(m, CPUGetSP(C), (statusRegister >> 8) & 0x00FF);
+    CPUIncrementSP(C, -1);
+    incrementCycles(cyclesPtr, -1);
+
+    MemoryWriteToStack(m, CPUGetSP(C), (statusRegister & 0x00FF));
+    CPUIncrementSP(C, -1);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_PLA_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    CPUIncrementSP(C, 1);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE stackValue = MemoryReadFromStack(m, CPUGetSP(C), cyclesPtr);
+
+    CPUSetA(C, stackValue);
+
+    ACC_SET_STATUS(C);
+    incrementCycles(cyclesPtr, -1);
+}
+
+void INS_PLP_IMP(CPU C, Memory m, int *cyclesPtr)
+{
+    CPUIncrementSP(C, 1);
+    incrementCycles(cyclesPtr, -1);
+
+    BYTE stackValue = MemoryReadFromStack(m, CPUGetSP(C), cyclesPtr);
+
+    CPUSetStatusRegister(C, stackValue);
+    incrementCycles(cyclesPtr, -1);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD SRAddress = CPUFetchWord(C, m, cyclesPtr);

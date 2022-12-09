@@ -3,6 +3,9 @@
 #include "stdio.h"
 #include "string.h"
 
+#define STACK_PAGE_START 0x0100
+#define STACK_PAGE_END 0x01FF
+
 // --- Static Helpers ---
 
 // s_MemoryBounds : Returns true if address within memory bounds
@@ -14,7 +17,7 @@ typedef struct memory
     int numBytes;
     BYTE *Data;
 
-} * Memory;
+} *Memory;
 
 Memory MemoryNew(int capacity)
 {
@@ -111,6 +114,11 @@ WORD MemoryReadWord(Memory m, WORD Addr, int *cycles)
     return data;
 }
 
+BYTE MemoryReadFromStack(Memory m, BYTE Addr, int *cycles)
+{
+    return MemoryReadByte(m, STACK_PAGE_START + Addr, cycles);
+}
+
 int MemoryWrite(Memory m, WORD Addr, BYTE Data)
 {
     if (m == NULL || !s_MemoryBounds(m, Addr))
@@ -120,6 +128,17 @@ int MemoryWrite(Memory m, WORD Addr, BYTE Data)
 
     m->Data[Addr] = Data;
     return 1;
+}
+
+int MemoryWriteToStack(Memory m, BYTE Addr, BYTE Data)
+{
+    if (m == NULL || !s_MemoryBounds(m, Addr))
+    {
+        return 0;
+    }
+
+    int hasWritten = MemoryWrite(m, STACK_PAGE_START + Addr, Data);
+    return hasWritten;
 }
 
 int MemoryReset(Memory m)

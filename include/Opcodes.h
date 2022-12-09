@@ -75,23 +75,23 @@
 
 // TSX : Transfer Stack Pointer to X Register
 
-#define TSX_IMP 0xBA // Transfer Stack Pointer to X Register (Implied, 2) :
+#define TSX_IMP 0xBA // Transfer Stack Pointer to X Register (Implied, 2) : C
 
 // TXS : Transfer X Register to Stack Pointer
 
-#define TXS_IMP 0x9A // Transfer X Regiseter to Stack Pointer (Implied, 2) :
+#define TXS_IMP 0x9A // Transfer X Register to Stack Pointer (Implied, 2) : C
 
 // PHA : Push Accumulator
 
-#define PHA_IMP 0x48 // Push Accumulator to Stack (Implied, 3) :
+#define PHA_IMP 0x48 // Push Accumulator to Stack (Implied, 3) : C
 
 // PHP : Push Processor Status
 
-#define PHP_IMP 0x08 // Push Processor Status to Stack (Implied, 3) :
+#define PHP_IMP 0x08 // Push Processor Status to Stack (Implied, 3) : C
 
 // PLA : Pull Accumulator
 
-#define PLA_IMP 0x68 // Pull value from stack and store in accumulator (Implied, 4) :
+#define PLA_IMP 0x68 // Pull value from stack and store in accumulator (Implied, 4) : C
 
 // PLP : Pull Processor Status
 
