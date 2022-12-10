@@ -11,4 +11,4 @@
 > - X : X Register (8 Bit)
 > - Y : Y Register (8 Bit)
 > - PS : Processor Status Register (8 Bit)
-> - ops : Array of function pointers to hold CPU Instruction Logic (Length = 0xFF = 256)
+> - ops : Array of function pointers to hold CPU Instruction Logic (Length = 0xFF = 255)
