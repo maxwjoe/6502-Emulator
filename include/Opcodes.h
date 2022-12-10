@@ -135,6 +135,51 @@
 #define BIT_ZP 0x24 // Bit Test (Zero Page Mode, 3) :
 #define BIT_AB 0x2C // Bit Test (Absolute Mode, 4) :
 
+// ADC : Add With Carry
+
+#define ADC_IM 0x69  // Add With Carry (Immediate Mode, 2) :
+#define ADC_ZP 0x65  // Add With Carry (Zero Page Mode, 3) :
+#define ADC_ZPX 0x75 // Add With Carry (Zero Page X Mode, 4) :
+#define ADC_AB 0x6D  // Add With Carry (Absolute Mode, 4) :
+#define ADC_ABX 0x7D // Add With Carry (Absolute X Mode, 4 + 1 if Page Cross) :
+#define ADC_ABY 0x79 // Add With Carry (Absolute Y Mode, 4 + 1 if Page Cross) :
+#define ADC_INX 0x61 // Add With Carry (Indirect X Mode, 6) :
+#define ADC_INY 0x71 // Add With Carry (Indirect Y Mode, 5 + 1 if Page Cross) :
+
+// SBC : Subtract With Carry
+
+#define SBC_IM 0xE9  // Subtract With Carry (Immediate Mode, 2) :
+#define SBC_ZP 0xE5  // Subtract With Carry (Zero Page Mode, 3) :
+#define SBC_ZPX 0xF5 // Subtract With Carry (Zero Page X Mode, 4) :
+#define SBC_AB 0xED  // Subtract With Carry (Absolute Mode, 4) :
+#define SBC_ABX 0xFD // Subtract With Carry (Absolute X Mode, 4 + 1 if Page Cross) :
+#define SBC_ABY 0xF9 // Subtract With Carry (Absolute Y Mode, 4 + 1 if Page Cross) :
+#define SBC_INX 0xE1 // Subtract With Carry (Indirect X Mode, 6) :
+#define SBC_INY 0xF1 // Subtract With Carry (Indirect Y Mode, 5 + 1 if Page Cross) :
+
+// CMP : Compare Accumulator
+
+#define CMP_IM 0xC9  // Compare Accumulator (Immediate Mode, 2) :
+#define CMP_ZP 0xC5  // Compare Accumulator (Zero Page Mode, 3) :
+#define CMP_ZPX 0xD5 // Compare Accumulator (Zero Page X Mode, 4) :
+#define CMP_AB 0xCD  // Compare Accumulator (Absolute Mode, 4) :
+#define CMP_ABX 0xDD // Compare Accumulator (Absolute X Mode, 4 + 1 if Page Cross) :
+#define CMP_ABY 0xD9 // Compare Accumulator (Absolute Y Mode, 4 + 1 if Page Cross) :
+#define CMP_INX 0xC1 // Compare Accumulator (Indirect X Mode, 6) :
+#define CMP_INY 0xD1 // Compare Accumulator (Indirect Y Mode, 5 + 1 if Page Cross) :
+
+// CPX : Compare X Register
+
+#define CPX_IM 0xE0 // Compare X Register (Immediate Mode, 2) :
+#define CPX_ZP 0xE4 // Compare X Register (Zero Page Mode, 3) :
+#define CPX_AB 0xEC // Compare X Register (Absolute Mode, 4) :
+
+// CPY : Compare Y Register
+
+#define CPY_IM 0xC0 // Compare Y Register (Immediate Mode, 2) :
+#define CPY_ZP 0xC4 // Compare Y Register (Zero Page Mode, 3) :
+#define CPY_AB 0xCC // Compare Y Register (Absolute Mode, 4) :
+
 // JSR : Jump to Subroutine
 
 #define JSR_AB 0x20 // Jump to subroutine (Absolute Mode, 6) : C
