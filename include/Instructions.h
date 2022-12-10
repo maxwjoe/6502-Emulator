@@ -12,17 +12,6 @@
 // INS_XXX_XXX() is made up of an addressing function ADDR_XXX() and Operation function OPER_XXX()
 // These two functions in combination give a specific version of each operation based on the addressing mode
 
-// === Status Functions ===
-
-// ACC_SET_STATUS : Set CPU Status Registers based on accumulator
-void ACC_SET_STATUS(CPU C);
-
-// XREG_SET_STATUS : Set CPU Status Registers based on X Register
-void XREG_SET_STATUS(CPU C);
-
-// YREG_ET_STATUS : Set CPU Status Registers based on Y Register
-void YREG_ET_STATUS(CPU C);
-
 // === INSTRUCTION DECLARATIONS ===
 
 // --- LDA ---
@@ -205,6 +194,32 @@ void INS_AND_INX(CPU C, Memory m, int *cyclesPtr);
 
 // INS_AND_INY : Executes AND_INY
 void INS_AND_INY(CPU C, Memory m, int *cyclesPtr);
+
+// --- EOR ---
+
+// INS_EOR_IM : Executes EOR_IM
+void INS_EOR_IM(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_ZP : Executes EOR_IM
+void INS_EOR_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_ZPX : Executes EOR_ZPX
+void INS_EOR_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_AB : Executes EOR_AB
+void INS_EOR_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_ABX : Executes EOR_ABX
+void INS_EOR_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_ABY : Executes EOR_ABY
+void INS_EOR_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_INX : Executes EOR_INX
+void INS_EOR_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_EOR_INY : Executes EOR_INY
+void INS_EOR_INY(CPU C, Memory m, int *cyclesPtr);
 
 // --- JSR ---
 

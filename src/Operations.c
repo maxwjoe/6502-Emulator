@@ -52,6 +52,15 @@ void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address)
     STAT_Accumulator(C);
 }
 
+void OPER_EOR(CPU C, Memory m, int *cyclesPtr, WORD address)
+{
+    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Avalue = CPUGetA(C);
+
+    CPUSetA(C, value ^ Avalue);
+    STAT_Accumulator(C);
+}
+
 void STAT_Accumulator(CPU C)
 {
     BYTE A = CPUGetA(C);

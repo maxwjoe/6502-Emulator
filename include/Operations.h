@@ -32,6 +32,9 @@ void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address);
 // OPER_AND : Implements AND Instruction
 void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address);
 
+// OPER_EOR : Implements EOR Instruction
+void OPER_EOR(CPU C, Memory m, int *cyclesPtr, WORD address);
+
 // === STATUS REGISTER DEFINITIONS ===
 
 // STAT_Accumulator : Sets processor status based on Accumulator register
