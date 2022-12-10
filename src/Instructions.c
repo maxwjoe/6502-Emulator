@@ -1,5 +1,6 @@
 #include "Instructions.h"
 #include "AddressModes.h"
+#include "Operations.h"
 
 // incrementCycles : Helper function to increment the cycles in instructions
 static void incrementCycles(int *cycles, int amount)
@@ -38,12 +39,7 @@ void INS_LDA_IM(CPU C, Memory m, int *cyclesPtr)
 void INS_LDA_ZP(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE address = ADDR_ZP(C, m, cyclesPtr);
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
-    CPUSetA(C, value);
-
-    incrementCycles(cyclesPtr, -1);
-
-    ACC_SET_STATUS(C);
+    OPER_LDA(C, m, cyclesPtr, address);
 }
 
 void INS_LDA_ZPX(CPU C, Memory m, int *cyclesPtr)

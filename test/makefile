@@ -13,8 +13,8 @@ BIN=../bin/testRun
 
 all:$(BIN)
 
-$(BIN): testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o
-	$(CC) $(CFLAGS) testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o -o $@
+$(BIN): testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o ../obj/Operations.o
+	$(CC) $(CFLAGS) testRun.o ../obj/CPU6502.o ../obj/Memory.o ../obj/Instructions.o ../obj/AddressModes.o ../obj/Operations.o -o $@
 
 
 clean:

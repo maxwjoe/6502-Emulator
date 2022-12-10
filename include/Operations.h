@@ -29,24 +29,6 @@ void OPER_STX(CPU C, Memory m, int *cyclesPtr, WORD address);
 // OPER_STY : Implements STY Instruction
 void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address);
 
-// OPER_TAX : Implements TAX Instruction
-void OPER_TAX(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_TAY : Implements TAY Instruction
-void OPER_TAY(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_TXA : Implements TXA Instruction
-void OPER_TXA(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_TYA : Implements TYA Instruction
-void OPER_TYA(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_TSX : Implements TSX Instruction
-void OPER_TSX(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_TXS : Implements TXS Instruction
-void OPER_TXS(CPU C, Memory m, int *cyclesPtr, WORD address);
-
 // OPER_PHA : Implements PHA Instruction
 void OPER_PHA(CPU C, Memory m, int *cyclesPtr, WORD address);
 
@@ -64,13 +46,33 @@ void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address);
 
 // === STATUS REGISTER DEFINITIONS ===
 
-// STAT_Accumulator : Sets processor status based on accumulator register
+// STAT_Accumulator : Sets processor status based on Accumulator register
 void STAT_Accumulator(CPU C);
 
-// STAT_XRegister : Sets processor status based on Xregister register
+// STAT_XRegister : Sets processor status based on X register
 void STAT_XRegister(CPU C);
 
-// STAT_YRegister : Sets processor status based on Yregister register
+// STAT_YRegister : Sets processor status based on Y register
 void STAT_YRegister(CPU C);
+
+// === UNUSED (Immediate Mode only Instructions) ===
+
+// // OPER_TAX : Implements TAX Instruction
+// void OPER_TAX(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_TAY : Implements TAY Instruction
+// void OPER_TAY(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_TXA : Implements TXA Instruction
+// void OPER_TXA(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_TYA : Implements TYA Instruction
+// void OPER_TYA(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_TSX : Implements TSX Instruction
+// void OPER_TSX(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_TXS : Implements TXS Instruction
+// void OPER_TXS(CPU C, Memory m, int *cyclesPtr, WORD address);
 
 #endif
