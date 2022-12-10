@@ -404,6 +404,57 @@ void INS_EOR_INY(CPU C, Memory m, int *cyclesPtr)
     OPER_EOR(C, m, cyclesPtr, address);
 }
 
+void INS_ORA_IM(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+    BYTE Avalue = CPUGetA(C);
+
+    CPUSetA(C, Avalue | value);
+    STAT_Accumulator(C);
+}
+
+void INS_ORA_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = ADDR_ZP(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_ZPX(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = ADDR_ZPX(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_AB(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_ABX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_ABX(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_ABY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_ABY(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_INX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_INX(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
+void INS_ORA_INY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_INY(C, m, cyclesPtr);
+    OPER_ORA(C, m, cyclesPtr, address);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD address = ADDR_AB(C, m, cyclesPtr);

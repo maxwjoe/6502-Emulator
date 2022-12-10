@@ -221,6 +221,32 @@ void INS_EOR_INX(CPU C, Memory m, int *cyclesPtr);
 // INS_EOR_INY : Executes EOR_INY
 void INS_EOR_INY(CPU C, Memory m, int *cyclesPtr);
 
+// --- ORA ---
+
+// INS_ORA_IM : Executes ORA_IM
+void INS_ORA_IM(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_ZP : Executes ORA_IM
+void INS_ORA_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_ZPX : Executes ORA_ZPX
+void INS_ORA_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_AB : Executes ORA_AB
+void INS_ORA_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_ABX : Executes ORA_ABX
+void INS_ORA_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_ABY : Executes ORA_ABY
+void INS_ORA_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_INX : Executes ORA_INX
+void INS_ORA_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ORA_INY : Executes ORA_INY
+void INS_ORA_INY(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

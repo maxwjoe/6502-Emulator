@@ -438,6 +438,16 @@ static void setupFunctionPointers(CPU c)
     c->ops[EOR_INX] = &INS_EOR_INX;
     c->ops[EOR_INY] = &INS_EOR_INY;
 
+    // ORA
+    c->ops[ORA_IM] = &INS_ORA_IM;
+    c->ops[ORA_ZP] = &INS_ORA_ZP;
+    c->ops[ORA_ZPX] = &INS_ORA_ZPX;
+    c->ops[ORA_AB] = &INS_ORA_AB;
+    c->ops[ORA_ABX] = &INS_ORA_ABX;
+    c->ops[ORA_ABY] = &INS_ORA_ABY;
+    c->ops[ORA_INX] = &INS_ORA_INX;
+    c->ops[ORA_INY] = &INS_ORA_INY;
+
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
 }
