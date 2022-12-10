@@ -24,10 +24,10 @@
 // ADDR_ZP : Zero Page Addressing Mode (1 CPU Cycle)
 BYTE ADDR_ZP(CPU C, Memory m, int *cyclesPtr);
 
-// ADDR_ZPX : Zero Page X Addressing Mode (1 CPU Cycle)
+// ADDR_ZPX : Zero Page X Addressing Mode (2 CPU Cycles)
 BYTE ADDR_ZPX(CPU C, Memory m, int *cyclesPtr);
 
-// ADDR_ZPY : Zero Page Y Addressing Mode (1 CPU Cycle)
+// ADDR_ZPY : Zero Page Y Addressing Mode (2 CPU Cycles)
 BYTE ADDR_ZPY(CPU C, Memory m, int *cyclesPtr);
 
 // ADDR_AB : Absolute Addressing Mode (2 CPU Cycles)

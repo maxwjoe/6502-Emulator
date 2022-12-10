@@ -11,6 +11,7 @@ BYTE ADDR_ZPX(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
     ZPAddress += CPUGetX(C);
+    *cyclesPtr = *cyclesPtr - 1;
     return ZPAddress;
 }
 
@@ -18,6 +19,7 @@ BYTE ADDR_ZPY(CPU C, Memory m, int *cyclesPtr)
 {
     BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
     ZPAddress += CPUGetY(C);
+    *cyclesPtr = *cyclesPtr - 1;
     return ZPAddress;
 }
 

@@ -42,6 +42,16 @@ void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address)
     *cyclesPtr = *cyclesPtr - 1;
 }
 
+void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address)
+{
+    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+
+    BYTE Avalue = CPUGetA(C);
+    CPUSetA(C, Avalue & value);
+
+    STAT_Accumulator(C);
+}
+
 void STAT_Accumulator(CPU C)
 {
     BYTE A = CPUGetA(C);

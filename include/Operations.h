@@ -29,18 +29,6 @@ void OPER_STX(CPU C, Memory m, int *cyclesPtr, WORD address);
 // OPER_STY : Implements STY Instruction
 void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address);
 
-// OPER_PHA : Implements PHA Instruction
-void OPER_PHA(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_PHP : Implements PHP Instruction
-void OPER_PHP(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_PLA : Implements PLA Instruction
-void OPER_PLA(CPU C, Memory m, int *cyclesPtr, WORD address);
-
-// OPER_PLP : Implements PLP Instruction
-void OPER_PLP(CPU C, Memory m, int *cyclesPtr, WORD address);
-
 // OPER_AND : Implements AND Instruction
 void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address);
 
@@ -74,5 +62,17 @@ void STAT_YRegister(CPU C);
 
 // // OPER_TXS : Implements TXS Instruction
 // void OPER_TXS(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_PHA : Implements PHA Instruction
+// void OPER_PHA(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_PHP : Implements PHP Instruction
+// void OPER_PHP(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_PLA : Implements PLA Instruction
+// void OPER_PLA(CPU C, Memory m, int *cyclesPtr, WORD address);
+
+// // OPER_PLP : Implements PLP Instruction
+// void OPER_PLP(CPU C, Memory m, int *cyclesPtr, WORD address);
 
 #endif
