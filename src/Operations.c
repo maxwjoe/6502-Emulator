@@ -70,6 +70,16 @@ void OPER_ORA(CPU C, Memory m, int *cyclesPtr, WORD address)
     STAT_Accumulator(C);
 }
 
+void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address)
+{
+    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE Avalue = CPUGetA(C);
+
+    CPUSetStatusFlag(C, PS_Z, (Avalue & value));
+    CPUSetStatusFlag(C, PS_V, (value >> 1) & 1);
+    CPUSetStatusFlag(C, PS_N, value & 1);
+}
+
 void STAT_Accumulator(CPU C)
 {
     BYTE A = CPUGetA(C);

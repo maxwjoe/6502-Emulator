@@ -455,6 +455,18 @@ void INS_ORA_INY(CPU C, Memory m, int *cyclesPtr)
     OPER_ORA(C, m, cyclesPtr, address);
 }
 
+void INS_BIT_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = ADDR_ZP(C, m, cyclesPtr);
+    OPER_BIT(C, m, cyclesPtr, address);
+}
+
+void INS_BIT_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_AB(C, m, cyclesPtr);
+    OPER_BIT(C, m, cyclesPtr, address);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD address = ADDR_AB(C, m, cyclesPtr);

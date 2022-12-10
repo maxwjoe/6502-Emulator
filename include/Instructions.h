@@ -247,6 +247,14 @@ void INS_ORA_INX(CPU C, Memory m, int *cyclesPtr);
 // INS_ORA_INY : Executes ORA_INY
 void INS_ORA_INY(CPU C, Memory m, int *cyclesPtr);
 
+// --- BIT ---
+
+// INS_BIT_ZP : Executes BIT_ZP
+void INS_BIT_ZP(CPU C, Memory m, int *cyclesPtr);
+
+// INS_BIT_AB : Executes BIT_AB
+void INS_BIT_AB(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

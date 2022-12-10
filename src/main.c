@@ -20,7 +20,7 @@ int main()
     MemoryWrite(ROM, 0xFFFE, 0x80);
 
     MemoryWrite(ROM, 0x8000, LDA_IM);
-    MemoryWrite(ROM, 0x8001, 0xB4);
+    MemoryWrite(ROM, 0x8001, 0xFD);
 
     MemoryWrite(ROM, 0x8002, PHA_IMP);
 
@@ -30,8 +30,8 @@ int main()
     MemoryWrite(ROM, 0x8005, TAX_IMP);
     MemoryWrite(ROM, 0x8006, PLA_IMP);
 
-    MemoryWrite(ROM, 0x8007, AND_IM);
-    MemoryWrite(ROM, 0x8008, 0xAF);
+    MemoryWrite(ROM, 0x8007, EOR_IM);
+    MemoryWrite(ROM, 0x8008, 0xFF);
 
     // Run CPU
     CPUExecute(cpu6502, ROM, 21);
