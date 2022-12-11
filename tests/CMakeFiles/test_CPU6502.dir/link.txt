@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/test_CPU6502.dir/test_CPU6502.cpp.o -o test_CPU6502  -lgtest -lgtest_main 

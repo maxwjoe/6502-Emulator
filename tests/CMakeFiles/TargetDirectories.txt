@@ -1,3 +1,0 @@
-/home/joel/Programming/Repositories/6502-Emulator/tests/CMakeFiles/test_CPU6502.dir
-/home/joel/Programming/Repositories/6502-Emulator/tests/CMakeFiles/edit_cache.dir
-/home/joel/Programming/Repositories/6502-Emulator/tests/CMakeFiles/rebuild_cache.dir
