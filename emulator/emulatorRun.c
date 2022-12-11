@@ -1,9 +1,11 @@
+
+// === EMULATOR RUN : File for running emulator (Quick Testbed) ===
+
 #include "CPU6502.h"
 #include "Memory.h"
+#include "Opcodes.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "Opcodes.h"
-#include "fileIO.h"
 
 #define ROM_FILE "./programs/binaries/testLoad.bin"
 // #define ROM_FILE "./bin/main"
