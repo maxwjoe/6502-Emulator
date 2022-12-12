@@ -1,5 +1,5 @@
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef EMULATOR_TYPES_H
+#define EMULATOR_TYPES_H
 
 #include "stdint.h"
 

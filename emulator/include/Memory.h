@@ -1,7 +1,7 @@
 #ifndef MEM_H
 #define MEM_H
 
-#include "common.h"
+#include "EmulatorTypes.h"
 
 typedef struct memory *Memory;
 

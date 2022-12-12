@@ -2,6 +2,8 @@
     "files.associations": {
         "memory.h": "c",
         "stdint.h": "c",
-        "cpu6502.h": "c"
+        "cpu6502.h": "c",
+        "emulatortypes.h": "c",
+        "emulator6502.h": "c"
     }
 }
