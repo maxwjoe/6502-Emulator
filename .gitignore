@@ -1,5 +1,0 @@
-/tests/Makefile
-/tests/CMakeCache.txt
-/tests/cmake_install.cmake
-/tests/CMakeFiles/*
-/tests/test_CPU6502

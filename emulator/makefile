@@ -1,3 +1,8 @@
+# === MAKEFILE FOR EMULATOR ===
+
+# Output 1 : Builds project into a static library (For Linux) found in lib directory
+# Output 2 : Builds testBed.c into a binary found in the build folder
+
 
 # === COMPILATION OPTIONS ===
 
@@ -9,6 +14,7 @@ CFLAGS= -Wall -Werror -g -fsanitize=address,leak,undefined
 SRC_DIR=src
 OBJ_DIR=obj
 LIB_DIR=lib
+TEST_DIR=../tests
 INCLUDE_DIR=include
 BUILD_DIR=build
 
@@ -17,16 +23,14 @@ STATIC_LIB_NAME=libCpuEmulator
 
 OUTPUT=$(BUILD_DIR)/$(EXEC_NAME)
 
-
-# === SOURCE, OBJECT AND LIBRARY FILES ===
+# === SOURCE AND OBJECT PATTERNS ===
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 # === BUILD RULES ===
 
-# all : $(OUTPUT) $(LIB_DIR)/$(STATIC_LIB_NAME).a $(BUILD_DIR)/testLink
-all : $(LIB_DIR)/$(STATIC_LIB_NAME).a $(BUILD_DIR)/$(EXEC_NAME)
+all : $(LIB_DIR)/$(STATIC_LIB_NAME).a $(BUILD_DIR)/$(EXEC_NAME) copyStaticLibrary
 
 # Build Objects
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
@@ -40,12 +44,17 @@ $(LIB_DIR)/$(STATIC_LIB_NAME).a : $(OBJ_FILES)
 $(BUILD_DIR)/$(EXEC_NAME) : testBed.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $^ -L. -l:$(LIB_DIR)/$(STATIC_LIB_NAME).a
 
+# Copy Library to test folder (Inefficient)
+copyStaticLibrary : 
+	cp -f $(LIB_DIR)/$(STATIC_LIB_NAME).a $(TEST_DIR)/$(STATIC_LIB_NAME).a
+
 clean:
 	rm -r $(OBJ_DIR)/* $(BUILD_DIR)/* $(LIB_DIR)/*
 
 
 # === OLD BUILD RULES (May need later) ===
 
+# all : $(OUTPUT) $(LIB_DIR)/$(STATIC_LIB_NAME).a $(BUILD_DIR)/testLink
 
 # $(OUTPUT) : emulatorRun.c $(OBJ_FILES)
 # 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) emulatorRun.c $(OBJ_FILES) -o $@

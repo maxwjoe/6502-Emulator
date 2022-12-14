@@ -1,0 +1,3 @@
+[submodule "tests/Eagle"]
+	path = tests/Eagle
+	url = git@github.com:maxwjoe/Eagle.git
