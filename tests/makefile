@@ -13,7 +13,7 @@ EMULATOR_INCLUDE_DIR=../emulator/include
 EMULATOR_LIB_DIR=../emulator/lib
 
 OBJ_DIR=obj
-BIN_DIR=testBinaries
+BIN_DIR=bin
 
 # === FILES ===
 
@@ -37,4 +37,4 @@ $(BIN_DIR)/$(TEST_EXEC_NAME) : testBed.cpp
 
 
 clean :
-	rm -r $(BIN_DIR)
+	rm -r $(BIN_DIR)/*
