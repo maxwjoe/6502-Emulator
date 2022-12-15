@@ -41,7 +41,7 @@ CPU CPUNew()
     C->Y = 0;
     C->PS = 0;
 
-    C->ops = calloc(0xFF, sizeof(cpuOperation));
+    C->ops = (cpuOperation *)calloc(0xFF, sizeof(cpuOperation));
     setupFunctionPointers(C);
 
     return C;

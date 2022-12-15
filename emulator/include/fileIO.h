@@ -1,5 +1,5 @@
 #ifndef FILEIO_H
-#define FILEIO_h
+#define FILEIO_H
 
 #include "CPU6502.h"
 #include "Memory.h"
