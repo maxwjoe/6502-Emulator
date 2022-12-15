@@ -1,4 +1,3 @@
-#include <iostream>
 extern "C"
 {
 #include "Emulator6502.h"
@@ -24,7 +23,7 @@ int T_CREATE_MEMORY()
     return hasPassed;
 }
 
-int T_WRITE_MEMORY()
+int T_READ_WRITE_MEMORY()
 {
     Memory m = MemoryNew(0xFFFF);
 
