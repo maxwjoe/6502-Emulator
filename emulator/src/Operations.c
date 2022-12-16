@@ -80,6 +80,23 @@ void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address)
     CPUSetStatusFlag(C, PS_N, value & 1);
 }
 
+void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address)
+{
+    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+
+    // Perform 16 bit addition (Unlike hardware) => simplify logic
+
+    // Add Accumulator with value, also add the Carry Status flag
+    WORD accu = (WORD)CPUGetA(C);
+    WORD sum = accu + (WORD)value + CPUGetStatusFlag(C, PS_C);
+
+    // Load first 8 bits of sum into accumulator
+    CPUSetA(C, (BYTE)(sum & 0x00FF));
+
+    // Set flags (Uses previous accumulator value)
+    STAT_ADC(C, accu, value, sum);
+}
+
 void STAT_Accumulator(CPU C)
 {
     BYTE A = CPUGetA(C);
@@ -99,4 +116,29 @@ void STAT_YRegister(CPU C)
     BYTE Y = CPUGetY(C);
     CPUSetStatusFlag(C, PS_Z, (Y == 0));
     CPUSetStatusFlag(C, PS_N, (Y & 0b10000000) > 0);
+}
+
+void STAT_ADC(CPU C, WORD accumulator, WORD valueToAdd, WORD sum)
+{
+    // ASSUMPTION : This function is called using the accumulator value before addition operation
+
+    // Set the carry flag (If outside of 8 Bit Limit)
+    CPUSetStatusFlag(C, PS_C, (sum > 0xFF));
+
+    // Set Zero Flag (If lowest 8 bits are zero)
+    CPUSetStatusFlag(C, PS_Z, !(sum & 0x00FF));
+
+    // Set signed overflow flag
+    // 0x0080 : Mask for the most significant bit (8 bits)
+    // Let A be MSB Accumulator, M be MSB valueToAdd and R be the MSB result
+    // Constructing a truth table and reducing to a boolean expression
+    // | A | M | R | Output = V |
+    // Output Rule : ~(A^M) & (A^R)
+
+    int hasOverflown = (~(accumulator ^ valueToAdd) & (accumulator ^ sum)) & 0x0080;
+
+    CPUSetStatusFlag(C, PS_V, hasOverflown);
+
+    // Set Negative Flag (Most significant bit of 8 bit sum)
+    CPUSetStatusFlag(C, PS_N, (sum & 0x0080));
 }

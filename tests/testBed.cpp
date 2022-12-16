@@ -7,12 +7,14 @@
 #include "./unitTests/testCPU.cpp"
 #include "./unitTests/testLDA.cpp"
 #include "./unitTests/testLDX.cpp"
+#include "./unitTests/testADC.cpp"
 
 // === COLLECTIONS ===
 
 #define STRUCT_COL "STRUCTS"
 #define LDA_COL "LDA"
 #define LDX_COL "LDX"
+#define ADC_COL "ADC"
 
 int main()
 {
@@ -49,6 +51,11 @@ int main()
     e->AddTest(LDX_COL, "LDX_ABY", &T_LDX_ABY);
 
     // LDY
+
+    // ADC
+    e->AddTest(ADC_COL, "ADC_IM_ONE_PLUS_ONE", &T_ADC_IM_ONE_PLUS_ONE);
+    e->AddTest(ADC_COL, "ADC_IM_ONE_HAS_CARRY_AND_OVERFLOW", &T_ADC_IM_HAS_CARRY_AND_OVERFLOW);
+    e->AddTest(ADC_COL, "ADC_ZP", &T_ADC_ZP);
 
     // === RUN AND CLEANUP ===
     e->RunAll();

@@ -41,6 +41,9 @@ void OPER_ORA(CPU C, Memory m, int *cyclesPtr, WORD address);
 // OPER_BIT : Implements BIT Instruction
 void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address);
 
+// OPER_ADC : Implements ADC Instruction
+void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address);
+
 // === STATUS REGISTER DEFINITIONS ===
 
 // STAT_Accumulator : Sets processor status based on Accumulator register
@@ -51,6 +54,9 @@ void STAT_XRegister(CPU C);
 
 // STAT_YRegister : Sets processor status based on Y register
 void STAT_YRegister(CPU C);
+
+// STAT_ADC : Sets processor status based on Add with carry operation
+void STAT_ADC(CPU C, WORD accumulator, WORD valueToAdd, WORD sum);
 
 // === UNUSED (Immediate Mode only Instructions) ===
 

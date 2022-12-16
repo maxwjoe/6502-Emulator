@@ -255,6 +255,14 @@ void INS_BIT_ZP(CPU C, Memory m, int *cyclesPtr);
 // INS_BIT_AB : Executes BIT_AB
 void INS_BIT_AB(CPU C, Memory m, int *cyclesPtr);
 
+// --- ADC ---
+
+// INS_ADC_IM : Executes ADC_IM
+void INS_ADC_IM(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_ZP : Executes ADC_ZP
+void INS_ADC_ZP(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

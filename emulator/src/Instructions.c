@@ -467,6 +467,29 @@ void INS_BIT_AB(CPU C, Memory m, int *cyclesPtr)
     OPER_BIT(C, m, cyclesPtr, address);
 }
 
+void INS_ADC_IM(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE value = CPUFetchByte(C, m, cyclesPtr);
+
+    // Perform 16 bit addition (Unlike hardware) => simplify logic
+
+    // Add Accumulator with value, also add the Carry Status flag
+    WORD accu = (WORD)CPUGetA(C);
+    WORD sum = accu + (WORD)value + CPUGetStatusFlag(C, PS_C);
+
+    // Load first 8 bits of sum into accumulator
+    CPUSetA(C, (BYTE)(sum & 0x00FF));
+
+    // Set flags (Uses previous accumulator value)
+    STAT_ADC(C, accu, value, sum);
+}
+
+void INS_ADC_ZP(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = ADDR_ZP(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD address = ADDR_AB(C, m, cyclesPtr);
