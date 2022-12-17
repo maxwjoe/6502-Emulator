@@ -1,10 +1,11 @@
+#include "Eagle.h"
 extern "C"
 {
 #include "Emulator6502.h"
 #include "testDefinitions.h"
 }
 
-int T_LDA_IM()
+TEST(T_LDA_IM)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -17,15 +18,14 @@ int T_LDA_IM()
 
     CPUExecute(c, ROM, 2);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_ZP()
+TEST(T_LDA_ZP)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -41,15 +41,14 @@ int T_LDA_ZP()
 
     CPUExecute(c, ROM, 3);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_ZPX()
+TEST(T_LDA_ZPX)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -68,15 +67,14 @@ int T_LDA_ZPX()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_AB()
+TEST(T_LDA_AB)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -92,15 +90,14 @@ int T_LDA_AB()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_ABX()
+TEST(T_LDA_ABX)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -119,15 +116,14 @@ int T_LDA_ABX()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_ABY()
+TEST(T_LDA_ABY)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -146,15 +142,14 @@ int T_LDA_ABY()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetA(c) == targetValue);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_INX()
+TEST(T_LDA_INX)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -176,15 +171,14 @@ int T_LDA_INX()
 
     CPUExecute(c, ROM, 6);
 
-    int hasPassed = (CPUGetA(c) == value);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, value);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_INY()
+TEST(T_LDA_INY)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -206,15 +200,14 @@ int T_LDA_INY()
 
     CPUExecute(c, ROM, 6);
 
-    int hasPassed = (CPUGetA(c) == value);
+    BYTE accumulator = CPUGetA(c);
+    CHECK_EQ(accumulator, value);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_N_FLAG()
+TEST(T_LDA_N_FLAG)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -227,15 +220,14 @@ int T_LDA_N_FLAG()
 
     CPUExecute(c, ROM, 2);
 
-    int hasPassed = (CPUGetStatusFlag(c, PS_N) == 1);
+    int N_FLAG = CPUGetStatusFlag(c, PS_N);
+    CHECK_TRUE(N_FLAG);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDA_Z_FLAG()
+TEST(T_LDA_Z_FLAG)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -246,10 +238,9 @@ int T_LDA_Z_FLAG()
 
     CPUExecute(c, ROM, 2);
 
-    int hasPassed = (CPUGetStatusFlag(c, PS_Z) == 1);
+    int Z_FLAG = CPUGetStatusFlag(c, PS_Z);
+    CHECK_TRUE(Z_FLAG);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }

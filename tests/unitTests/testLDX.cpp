@@ -1,10 +1,11 @@
+#include "Eagle.h"
 extern "C"
 {
 #include "Emulator6502.h"
 #include "testDefinitions.h"
 }
 
-int T_LDX_IM()
+TEST(T_LDX_IM)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -17,15 +18,14 @@ int T_LDX_IM()
 
     CPUExecute(c, ROM, 2);
 
-    int hasPassed = (CPUGetX(c) == targetValue);
+    BYTE X = CPUGetX(c);
+    CHECK_EQ(X, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDX_ZP()
+TEST(T_LDX_ZP)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -41,15 +41,14 @@ int T_LDX_ZP()
 
     CPUExecute(c, ROM, 3);
 
-    int hasPassed = (CPUGetX(c) == targetValue);
+    BYTE X = CPUGetX(c);
+    CHECK_EQ(X, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDX_ZPY()
+TEST(T_LDX_ZPY)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -68,15 +67,14 @@ int T_LDX_ZPY()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetX(c) == targetValue);
+    BYTE X = CPUGetX(c);
+    CHECK_EQ(X, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDX_AB()
+TEST(T_LDX_AB)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -92,15 +90,14 @@ int T_LDX_AB()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetX(c) == targetValue);
+    BYTE X = CPUGetX(c);
+    CHECK_EQ(X, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }
 
-int T_LDX_ABY()
+TEST(T_LDX_ABY)
 {
     CPU c = CPUNew();
     Memory ROM = MemoryNew(0xFFFF);
@@ -119,10 +116,9 @@ int T_LDX_ABY()
 
     CPUExecute(c, ROM, 4);
 
-    int hasPassed = (CPUGetX(c) == targetValue);
+    BYTE X = CPUGetX(c);
+    CHECK_EQ(X, targetValue);
 
     CPUFree(c);
     MemoryFree(ROM);
-
-    return hasPassed;
 }

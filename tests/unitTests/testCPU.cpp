@@ -1,29 +1,28 @@
+#include "Eagle.h"
 extern "C"
 {
 #include "Emulator6502.h"
 }
 
-int T_CREATE_CPU()
+TEST(CREATE_CPU)
 {
-    CPU c = CPUNew();
+    CPU C = CPUNew();
 
-    int hasPassed = c != NULL;
+    CHECK_TRUE(C != NULL);
 
-    CPUFree(c);
-    return hasPassed;
+    CPUFree(C);
 }
 
-int T_CREATE_MEMORY()
+TEST(CREATE_MEMORY)
 {
     Memory m = MemoryNew(0xFFFF);
 
-    int hasPassed = (m != NULL);
+    CHECK_TRUE(m != NULL);
 
     MemoryFree(m);
-    return hasPassed;
 }
 
-int T_READ_WRITE_MEMORY()
+TEST(READ_WRITE_MEMORY)
 {
     Memory m = MemoryNew(0xFFFF);
 
@@ -31,5 +30,7 @@ int T_READ_WRITE_MEMORY()
     int x = 5;
     BYTE b = MemoryReadByte(m, 0xAAAA, &x);
 
-    return b == 0xBB;
+    CHECK_EQ(b, 0xBB);
+
+    MemoryFree(m);
 }
