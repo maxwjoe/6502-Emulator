@@ -537,3 +537,9 @@ void INS_JSR_AB(CPU C)
 
     ClockTick(CPUGetClock(C));
 }
+
+void INS_NOP_IM(CPU C)
+{
+    ClockTick(CPUGetClock(C));
+    CPUIncrementPC(C, 1);
+}

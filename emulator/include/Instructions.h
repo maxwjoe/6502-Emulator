@@ -286,4 +286,9 @@ void INS_ADC_INY(CPU C);
 // INS_JSR_AB : Executes JSR_AB
 void INS_JSR_AB(CPU C);
 
+// --- NOP ---
+
+// INS_NOP_IM : Executes NOP_IM
+void INS_NOP_IM(CPU C);
+
 #endif

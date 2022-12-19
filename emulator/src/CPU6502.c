@@ -479,7 +479,7 @@ int CPUWriteToStack(CPU C, BYTE stackAddress, BYTE data)
 
     if (C->emulationMode == EM_VIRT_MEMORY)
     {
-        return CPUWriteByte(C, stackAddress, data);
+        return CPUWriteByte(C, STACK_PAGE_START + stackAddress, data);
     }
 
     // --- Hardware Emulation ---
@@ -641,4 +641,7 @@ static void setupFunctionPointers(CPU c)
 
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
+
+    // NOP
+    c->ops[NOP_IM] = &INS_NOP_IM;
 }

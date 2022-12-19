@@ -40,7 +40,7 @@ enum EMULATION_MODES
 // CPUNew : Creates a new CPU6502 Object
 CPU CPUNew();
 
-// CPUFree : Frees all memory associated with 6502
+// CPUFree : Frees all memory associated with 6502 (Frees Virtual Memory and Clocks)
 int CPUFree(CPU C);
 
 // === Internals ===

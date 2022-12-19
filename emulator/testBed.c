@@ -14,6 +14,7 @@ int main()
     Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
 
+    CPUSetEmulationMode(cpu6502, EM_VIRT_MEMORY);
     CPUSetVirtualMemory(cpu6502, ROM);
 
     CPUReset(cpu6502);
