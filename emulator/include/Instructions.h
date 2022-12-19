@@ -263,6 +263,24 @@ void INS_ADC_IM(CPU C, Memory m, int *cyclesPtr);
 // INS_ADC_ZP : Executes ADC_ZP
 void INS_ADC_ZP(CPU C, Memory m, int *cyclesPtr);
 
+// INS_ADC_ZPX : Executes ADC_ZPX
+void INS_ADC_ZPX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_AB : Executes ADC_AB
+void INS_ADC_AB(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_ABX : Executes ADC_ABX
+void INS_ADC_ABX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_ABY : Executes ADC_ABY
+void INS_ADC_ABY(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_INX : Executes ADC_INX
+void INS_ADC_INX(CPU C, Memory m, int *cyclesPtr);
+
+// INS_ADC_INY : Executes ADC_INY
+void INS_ADC_INY(CPU C, Memory m, int *cyclesPtr);
+
 // --- JSR ---
 
 // INS_JSR_AB : Executes JSR_AB

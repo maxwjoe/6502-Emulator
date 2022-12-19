@@ -490,6 +490,42 @@ void INS_ADC_ZP(CPU C, Memory m, int *cyclesPtr)
     OPER_ADC(C, m, cyclesPtr, address);
 }
 
+void INS_ADC_ZPX(CPU C, Memory m, int *cyclesPtr)
+{
+    BYTE address = ADDR_ZPX(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
+void INS_ADC_AB(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_AB(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
+void INS_ADC_ABX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_ABX(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
+void INS_ADC_ABY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_ABY(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
+void INS_ADC_INX(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_INX(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
+void INS_ADC_INY(CPU C, Memory m, int *cyclesPtr)
+{
+    WORD address = ADDR_INY(C, m, cyclesPtr);
+    OPER_ADC(C, m, cyclesPtr, address);
+}
+
 void INS_JSR_AB(CPU C, Memory m, int *cyclesPtr)
 {
     WORD address = ADDR_AB(C, m, cyclesPtr);

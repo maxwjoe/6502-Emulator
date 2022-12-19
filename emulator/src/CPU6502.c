@@ -455,6 +455,12 @@ static void setupFunctionPointers(CPU c)
     // ADC
     c->ops[ADC_IM] = &INS_ADC_IM;
     c->ops[ADC_ZP] = &INS_ADC_ZP;
+    c->ops[ADC_ZPX] = &INS_ADC_ZPX;
+    c->ops[ADC_AB] = &INS_ADC_AB;
+    c->ops[ADC_ABX] = &INS_ADC_ABX;
+    c->ops[ADC_ABY] = &INS_ADC_ABY;
+    c->ops[ADC_INX] = &INS_ADC_INX;
+    c->ops[ADC_INY] = &INS_ADC_INY;
 
     // JSR
     c->ops[JSR_AB] = &INS_JSR_AB;
