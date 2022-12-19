@@ -97,6 +97,30 @@ void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address)
     STAT_ADC(C, accu, value, sum);
 }
 
+void OPER_SBC(CPU C, Memory m, int *cyclesPtr, WORD address)
+{
+    WORD value = (WORD)MemoryReadByte(m, address, cyclesPtr);
+
+    // Like ADC, Perform operations in 16 bit to simplify logic
+
+    // NOTE : Negating signed 8 bit Number -> 2's Complement (Invert all bits + 1)
+    value ^= 0x00FF;
+
+    // Perform addition
+    WORD accu = (WORD)CPUGetA(C);
+    WORD sum = accu + value + CPUGetStatusFlag(C, PS_C);
+
+    // TODO: Extract into function
+    CPUSetStatusFlag(C, PS_C, sum & 0xFF00);
+    CPUSetStatusFlag(C, PS_Z, sum & 0x00FF == 0);
+    CPUSetStatusFlag(C, PS_V, (sum ^ accu) & (sum ^ value) & 0x0080);
+    CPUSetStatusFlag(C, PS_N, sum & 0x0080);
+
+    CPUSetA(C, sum & 0x00FF);
+
+    // Same operation as addition
+}
+
 void STAT_Accumulator(CPU C)
 {
     BYTE A = CPUGetA(C);

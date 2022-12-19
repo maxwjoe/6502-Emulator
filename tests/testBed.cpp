@@ -5,11 +5,14 @@
 #include "./unitTests/testLDA.cpp"
 #include "./unitTests/testLDX.cpp"
 #include "./unitTests/testADC.cpp"
+#include "./unitTests/testClock.cpp"
 
 int main()
 {
 
     EAGLE_INIT(true);
+
+    ADD_TEST(CLOCK, T_CLOCK_TICK);
 
     ADD_TEST(STRUCTS, CREATE_CPU);
     ADD_TEST(STRUCTS, CREATE_MEMORY);
@@ -36,6 +39,7 @@ int main()
     ADD_TEST(ADC, T_ADC_IM_HAS_CARRY_OVERFLOW);
     ADD_TEST(ADC, T_ADC_ZP);
 
-    RUN_ALL_TESTS();
+    RUN_COLLECTION(CLOCK);
+    // RUN_ALL_TESTS();
     EAGLE_EXIT();
 }

@@ -44,6 +44,9 @@ void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address);
 // OPER_ADC : Implements ADC Instruction
 void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address);
 
+// OPER_SBC : Implements SBC Instruction
+void OPER_SBC(CPU C, Memory m, int *cyclesPtr, WORD address);
+
 // === STATUS REGISTER DEFINITIONS ===
 
 // STAT_Accumulator : Sets processor status based on Accumulator register

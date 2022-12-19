@@ -6,6 +6,7 @@
 #include "CPU6502.h"
 #include "Memory.h"
 #include "Opcodes.h"
+#include "Clock.h"
 #include "EmulatorTypes.h"
 
 #endif
