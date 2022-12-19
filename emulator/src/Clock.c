@@ -23,7 +23,7 @@ Clock ClockNew()
 
     c->cycles = 0;
     c->period = 0.0;
-    c->mode = 0;
+    c->mode = CM_FREQ_NO_LIMIT;
 
     return c;
 }
