@@ -21,9 +21,6 @@ void MemoryHexDump(Memory m, WORD start, WORD end);
 // MemoryReadByte : Reads memory at a given index (Byte) (Cost 1 CPU Cycle)
 BYTE MemoryReadByte(Memory m, WORD Addr, Clock clk);
 
-// MemoryReadFromStack : Reads a byte of memory from the stack (0x0100 - 0x01FF)
-BYTE MemoryReadFromStack(Memory m, BYTE Addr, Clock clk);
-
 // MemoryReadWord : Reads a word from memory at a given address (Note this costs 2 cycles)
 WORD MemoryReadWord(Memory m, WORD Addr, Clock clk);
 
@@ -32,9 +29,6 @@ int MemoryWrite(Memory m, WORD Addr, BYTE Data);
 
 // MemoryWriteAll : Writes to entire address space
 int MemoryWriteAll(Memory m, BYTE Data);
-
-// MemoryWriteToStack : Writes to stack memory (0x0100 - 0x01FF)
-int MemoryWriteToStack(Memory m, BYTE Addr, BYTE Data);
 
 // MemoryFree : Frees all memory associated with RAM Object
 int MemoryFree(Memory m);

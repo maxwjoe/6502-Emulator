@@ -22,27 +22,27 @@
 // --- Addressing Mode Declarations ---
 
 // ADDR_ZP : Zero Page Addressing Mode (1 CPU Cycle)
-BYTE ADDR_ZP(CPU C, Memory m);
+BYTE ADDR_ZP(CPU C);
 
 // ADDR_ZPX : Zero Page X Addressing Mode (2 CPU Cycles)
-BYTE ADDR_ZPX(CPU C, Memory m);
+BYTE ADDR_ZPX(CPU C);
 
 // ADDR_ZPY : Zero Page Y Addressing Mode (2 CPU Cycles)
-BYTE ADDR_ZPY(CPU C, Memory m);
+BYTE ADDR_ZPY(CPU C);
 
 // ADDR_AB : Absolute Addressing Mode (2 CPU Cycles)
-WORD ADDR_AB(CPU C, Memory m);
+WORD ADDR_AB(CPU C);
 
 // ADDR_ABX : Absolute X Addressing Mode (2 CPU Cycles)
-WORD ADDR_ABX(CPU C, Memory m);
+WORD ADDR_ABX(CPU C);
 
 // ADDR_ABY : Absolute Y Addressing Mode (2 CPU Cycles)
-WORD ADDR_ABY(CPU C, Memory m);
+WORD ADDR_ABY(CPU C);
 
 // ADDR_INX : Indirect X Addressing Mode (3 CPU Cycles)
-WORD ADDR_INX(CPU C, Memory m);
+WORD ADDR_INX(CPU C);
 
 // ADDR_INY : Indirect Y Addressing Mode (3 CPU Cycles)
-WORD ADDR_INY(CPU C, Memory m);
+WORD ADDR_INY(CPU C);
 
 #endif

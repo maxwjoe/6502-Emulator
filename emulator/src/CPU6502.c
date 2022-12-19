@@ -13,7 +13,7 @@ static void setupFunctionPointers(CPU c);
 
 typedef struct cpu6502
 {
-    // === Internals ===
+    // === CPU Internals ===
 
     WORD PC; // Program Counter
     BYTE SP; // Stack Pointer
@@ -28,15 +28,16 @@ typedef struct cpu6502
 
     cpuOperation *ops; // Array of function pointers for CPU operations
 
-    // === Outputs ===
+    int emulationMode; // Indicates the type of emulation
 
     // === Software Mode ===
-    Memory SW_MEMORY;
+    Memory SW_MEMORY; // Pointer to virtual memory object
 
     // === Hardware Mode ===
-    BYTE HW_DATA_BUS; // 8-Bit Data bus IO Pins
-    WORD HW_ADDR_BUS; // 16-Bit Address bus IO Pins
-    int HW_BUS_MODE;  // Indicates CPU Mode on bus (Read or Write)
+    BYTE HW_DATA_BUS; // 8-Bit Data Bus IO Pins
+    WORD HW_ADDR_BUS; // 16-Bit Address Bus IO Pins
+    int HW_RWB;       // Indicates CPU Mode on Bus (Read (1) or Write (0))
+    int HW_BE;        // Bus Enable Pin
 
 } *CPU;
 
@@ -55,6 +56,13 @@ CPU CPUNew()
     C->X = 0;
     C->Y = 0;
     C->PS = 0;
+
+    C->emulationMode = EM_VIRT_MEMORY;
+    C->SW_MEMORY = NULL;
+    C->HW_ADDR_BUS = 0x0000;
+    C->HW_DATA_BUS = 0x00;
+    C->HW_BE = 0;
+    C->HW_RWB = 0;
 
     C->ops = (cpuOperation *)calloc(0xFF, sizeof(cpuOperation));
     setupFunctionPointers(C);
@@ -97,29 +105,92 @@ int CPUReset(CPU C)
     return 1;
 }
 
-BYTE CPUFetchByte(CPU C, Memory m)
+BYTE CPUFetchByte(CPU C)
 {
-    if (C == NULL || m == NULL)
+    if (C == NULL)
     {
         return 0;
     }
 
-    BYTE data = MemoryReadByte(m, C->PC, C->clk);
+    BYTE data = MemoryReadByte(C->SW_MEMORY, C->PC, C->clk);
     C->PC++;
 
     return data;
 }
 
-WORD CPUFetchWord(CPU C, Memory m)
+WORD CPUFetchWord(CPU C)
 {
-    if (C == NULL || m == NULL)
+    if (C == NULL)
     {
         return 0;
     }
 
-    WORD data = MemoryReadWord(m, C->PC, C->clk);
-    C->PC += 2;
+    WORD data = MemoryReadByte(C->SW_MEMORY, C->PC, C->clk);
+    C->PC++;
+
+    data |= MemoryReadByte(C->SW_MEMORY, C->PC, C->clk) << 8;
+    C->PC++;
+
     return data;
+}
+
+BYTE CPUReadByte(CPU C, WORD address)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    if (C->emulationMode == EM_VIRT_MEMORY)
+    {
+        return MemoryReadByte(C->SW_MEMORY, address, C->clk);
+    }
+
+    // --- Hardware Emulation ---
+
+    C->HW_RWB = 1;
+    C->HW_ADDR_BUS = address;
+
+    // Some callback to handle HW_DATA_BUS (Needs to interface with real hardware)
+    // HW_READ_CALLBACK(&HW_DATA_BUS) => Will write IO pin levels into HW_DATA_BUS
+}
+
+WORD CPUReadWord(CPU C, WORD address)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    if (C->emulationMode == EM_VIRT_MEMORY)
+    {
+        return MemoryReadWord(C->SW_MEMORY, address, C->clk);
+    }
+
+    // --- Hardware Emulation ---
+
+    C->HW_RWB = 1;
+    C->HW_ADDR_BUS = address;
+
+    // HW_READ_CALLBACK(&HW_DATA_BUS) => Handle reading from hardware pins
+}
+
+int CPUWriteByte(CPU C, WORD address, BYTE data)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    if (C->emulationMode == EM_VIRT_MEMORY)
+    {
+        return MemoryWrite(C->SW_MEMORY, address, data);
+    }
+
+    // --- Hardware Emulation ---
+    C->HW_RWB = 0;
+    C->HW_ADDR_BUS = address;
+    C->HW_DATA_BUS = data;
 }
 
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue)
@@ -329,6 +400,12 @@ int CPUFree(CPU C)
     }
 
     ClockFree(C->clk);
+
+    if (C->SW_MEMORY != NULL)
+    {
+        MemoryFree(C->SW_MEMORY);
+    }
+
     free(C->ops);
     free(C);
 
@@ -345,10 +422,75 @@ Clock CPUGetClock(CPU C)
     return C->clk;
 }
 
-int CPUExecute(CPU C, Memory m)
+int CPUSetEmulationMode(CPU C, int mode)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    C->emulationMode = mode;
+}
+
+int CPUSetVirtualMemory(CPU C, Memory m)
+{
+    if (C == NULL || m == NULL)
+    {
+        return 0;
+    }
+
+    C->SW_MEMORY = m;
+    return 1;
+}
+
+Memory CPUGetVirtualMemory(CPU C)
+{
+    if (C == NULL)
+    {
+        return NULL;
+    }
+
+    return C->SW_MEMORY;
+}
+
+BYTE CPUReadFromStack(CPU C, BYTE stackAddress)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    if (C->emulationMode == EM_VIRT_MEMORY)
+    {
+        return CPUReadByte(C, STACK_PAGE_START + stackAddress);
+    }
+
+    // --- Hardware Emulation ---
+
+    // HW Code here
+}
+
+int CPUWriteToStack(CPU C, BYTE stackAddress, BYTE data)
+{
+    if (C == NULL)
+    {
+        return 0;
+    }
+
+    if (C->emulationMode == EM_VIRT_MEMORY)
+    {
+        return CPUWriteByte(C, stackAddress, data);
+    }
+
+    // --- Hardware Emulation ---
+
+    // HW Code here...
+}
+
+int CPUExecute(CPU C)
 {
 
-    if (C == NULL || m == NULL)
+    if (C == NULL)
     {
         return 0;
     }
@@ -358,7 +500,7 @@ int CPUExecute(CPU C, Memory m)
 
     while (tickForever || ClockGetCount(C->clk))
     {
-        BYTE instruction = CPUFetchByte(C, m);
+        BYTE instruction = CPUFetchByte(C);
 
         cpuOperation func = C->ops[instruction];
 
@@ -367,7 +509,7 @@ int CPUExecute(CPU C, Memory m)
             return 0;
         }
 
-        func(C, m);
+        func(C);
     }
 
     return 1;

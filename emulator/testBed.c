@@ -14,6 +14,8 @@ int main()
     Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
 
+    CPUSetVirtualMemory(cpu6502, ROM);
+
     CPUReset(cpu6502);
     MemoryWriteAll(ROM, NOP_IM);
 
@@ -36,14 +38,13 @@ int main()
     MemoryWrite(ROM, 0x8008, 0xFF);
 
     // Run CPU
-    ClockSetMode(CPUGetClock(cpu6502), CM_STEP_NO_LIMIT);
-    ClockSetCount(CPUGetClock(cpu6502), 0);
-    CPUExecute(cpu6502, ROM);
+    ClockSetMode(CPUGetClock(cpu6502), CM_FREQ_LIMIT);
+    ClockSetCount(CPUGetClock(cpu6502), 21);
+    CPUExecute(cpu6502);
     CPUDump(cpu6502);
 
     // Free Memory
     CPUFree(cpu6502);
-    MemoryFree(ROM);
 
     return 0;
 }

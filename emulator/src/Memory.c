@@ -3,9 +3,6 @@
 #include "stdio.h"
 #include "string.h"
 
-#define STACK_PAGE_START 0x0100
-#define STACK_PAGE_END 0x01FF
-
 // --- Static Helpers ---
 
 // s_MemoryBounds : Returns true if address within memory bounds
@@ -120,11 +117,6 @@ WORD MemoryReadWord(Memory m, WORD Addr, Clock clk)
     return data;
 }
 
-BYTE MemoryReadFromStack(Memory m, BYTE Addr, Clock clk)
-{
-    return MemoryReadByte(m, STACK_PAGE_START + Addr, clk);
-}
-
 int MemoryWrite(Memory m, WORD Addr, BYTE Data)
 {
     if (m == NULL || !s_MemoryBounds(m, Addr))
@@ -145,17 +137,6 @@ int MemoryWriteAll(Memory m, BYTE Data)
 
     memset(m->Data, Data, m->capacity);
     return 1;
-}
-
-int MemoryWriteToStack(Memory m, BYTE Addr, BYTE Data)
-{
-    if (m == NULL || !s_MemoryBounds(m, Addr))
-    {
-        return 0;
-    }
-
-    int hasWritten = MemoryWrite(m, STACK_PAGE_START + Addr, Data);
-    return hasWritten;
 }
 
 int MemoryReset(Memory m)
