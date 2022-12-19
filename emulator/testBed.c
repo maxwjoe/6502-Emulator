@@ -13,7 +13,9 @@ int main()
     // Instantiate Hardware
     Memory ROM = MemoryNew(0xFFFF);
     CPU cpu6502 = CPUNew();
-    CPUReset(cpu6502, ROM);
+
+    CPUReset(cpu6502);
+    MemoryWriteAll(ROM, NOP_IM);
 
     MemoryWrite(ROM, 0xFFFC, JSR_AB);
     MemoryWrite(ROM, 0xFFFD, 0x00);

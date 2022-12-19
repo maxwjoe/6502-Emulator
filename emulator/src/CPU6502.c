@@ -13,6 +13,8 @@ static void setupFunctionPointers(CPU c);
 
 typedef struct cpu6502
 {
+    // === Internals ===
+
     WORD PC; // Program Counter
     BYTE SP; // Stack Pointer
 
@@ -22,9 +24,19 @@ typedef struct cpu6502
 
     BYTE PS; // Processor Status Flags
 
-    Clock clk; // CPU Clock
+    Clock clk; // CPU Clock (Internal to CPU unlike in real hardware)
 
     cpuOperation *ops; // Array of function pointers for CPU operations
+
+    // === Outputs ===
+
+    // === Software Mode ===
+    Memory SW_MEMORY;
+
+    // === Hardware Mode ===
+    BYTE HW_DATA_BUS; // 8-Bit Data bus IO Pins
+    WORD HW_ADDR_BUS; // 16-Bit Address bus IO Pins
+    int HW_BUS_MODE;  // Indicates CPU Mode on bus (Read or Write)
 
 } *CPU;
 
@@ -60,7 +72,7 @@ CPU CPUNew()
     return C;
 }
 
-int CPUReset(CPU C, Memory m)
+int CPUReset(CPU C)
 {
     if (C == NULL)
     {
@@ -81,9 +93,6 @@ int CPUReset(CPU C, Memory m)
     {
         CPUSetStatusFlag(C, i, 0);
     }
-
-    // Clear the memory
-    MemoryReset(m);
 
     return 1;
 }
@@ -355,8 +364,7 @@ int CPUExecute(CPU C, Memory m)
 
         if (!func)
         {
-            printf("ERROR : Unknown CPU Instruction [ 0x%02X ]\n", instruction);
-            continue;
+            return 0;
         }
 
         func(C, m);

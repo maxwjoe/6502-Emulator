@@ -27,8 +27,11 @@ BYTE MemoryReadFromStack(Memory m, BYTE Addr, Clock clk);
 // MemoryReadWord : Reads a word from memory at a given address (Note this costs 2 cycles)
 WORD MemoryReadWord(Memory m, WORD Addr, Clock clk);
 
-// MemoryWrite : Writes to memory at a given address
+// MemoryWrite : Writes to memory at a given address (FIXME: Why is this not costing cycles????)
 int MemoryWrite(Memory m, WORD Addr, BYTE Data);
+
+// MemoryWriteAll : Writes to entire address space
+int MemoryWriteAll(Memory m, BYTE Data);
 
 // MemoryWriteToStack : Writes to stack memory (0x0100 - 0x01FF)
 int MemoryWriteToStack(Memory m, BYTE Addr, BYTE Data);

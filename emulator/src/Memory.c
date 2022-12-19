@@ -136,6 +136,17 @@ int MemoryWrite(Memory m, WORD Addr, BYTE Data)
     return 1;
 }
 
+int MemoryWriteAll(Memory m, BYTE Data)
+{
+    if (m == NULL)
+    {
+        return 0;
+    }
+
+    memset(m->Data, Data, m->capacity);
+    return 1;
+}
+
 int MemoryWriteToStack(Memory m, BYTE Addr, BYTE Data)
 {
     if (m == NULL || !s_MemoryBounds(m, Addr))

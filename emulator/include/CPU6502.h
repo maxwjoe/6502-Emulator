@@ -30,7 +30,7 @@ enum PS_FLAGS
 CPU CPUNew();
 
 // CPUReset : Resets the CPU
-int CPUReset(CPU C, Memory m);
+int CPUReset(CPU C);
 
 // CPUFetchByte : Fetches byte of data pointed to by program counter from memory, increments PC (1 Cpu Cycle)
 BYTE CPUFetchByte(CPU C, Memory m);

@@ -8,6 +8,10 @@
 
 // --- Opcode Definitions ---
 
+// NOP : No Operation
+
+#define NOP_IM 0xEA // No Operation (Immediate Mode, 2) :
+
 // LDA : Load Accumulator
 
 #define LDA_IM 0xA9  // Load Accumulator (Immediate Mode, 2) : C, T
