@@ -2,64 +2,64 @@
 
 // --- Addressing Mode Definitions ---
 
-BYTE ADDR_ZP(CPU C, Memory m, int *cyclesPtr)
+BYTE ADDR_ZP(CPU C, Memory m)
 {
-    return CPUFetchByte(C, m, cyclesPtr);
+    return CPUFetchByte(C, m);
 }
 
-BYTE ADDR_ZPX(CPU C, Memory m, int *cyclesPtr)
+BYTE ADDR_ZPX(CPU C, Memory m)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE ZPAddress = CPUFetchByte(C, m);
     ZPAddress += CPUGetX(C);
-    *cyclesPtr = *cyclesPtr - 1;
+    ClockTick(CPUGetClock(C));
     return ZPAddress;
 }
 
-BYTE ADDR_ZPY(CPU C, Memory m, int *cyclesPtr)
+BYTE ADDR_ZPY(CPU C, Memory m)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE ZPAddress = CPUFetchByte(C, m);
     ZPAddress += CPUGetY(C);
-    *cyclesPtr = *cyclesPtr - 1;
+    ClockTick(CPUGetClock(C));
     return ZPAddress;
 }
 
-WORD ADDR_AB(CPU C, Memory m, int *cyclesPtr)
+WORD ADDR_AB(CPU C, Memory m)
 {
-    return CPUFetchWord(C, m, cyclesPtr);
+    return CPUFetchWord(C, m);
 }
 
-WORD ADDR_ABX(CPU C, Memory m, int *cyclesPtr)
+WORD ADDR_ABX(CPU C, Memory m)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    WORD address = CPUFetchWord(C, m);
     address += CPUGetX(C);
 
     return address;
 }
 
-WORD ADDR_ABY(CPU C, Memory m, int *cyclesPtr)
+WORD ADDR_ABY(CPU C, Memory m)
 {
-    WORD address = CPUFetchWord(C, m, cyclesPtr);
+    WORD address = CPUFetchWord(C, m);
     address += CPUGetY(C);
 
     return address;
 }
 
-WORD ADDR_INX(CPU C, Memory m, int *cyclesPtr)
+WORD ADDR_INX(CPU C, Memory m)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE ZPAddress = CPUFetchByte(C, m);
     ZPAddress += CPUGetX(C);
 
-    WORD loadAddress = MemoryReadWord(m, ZPAddress, cyclesPtr);
+    WORD loadAddress = MemoryReadWord(m, ZPAddress, CPUGetClock(C));
 
     return loadAddress;
 }
 
-WORD ADDR_INY(CPU C, Memory m, int *cyclesPtr)
+WORD ADDR_INY(CPU C, Memory m)
 {
-    BYTE ZPAddress = CPUFetchByte(C, m, cyclesPtr);
+    BYTE ZPAddress = CPUFetchByte(C, m);
     ZPAddress += CPUGetY(C);
 
-    WORD loadAddress = MemoryReadWord(m, ZPAddress, cyclesPtr);
+    WORD loadAddress = MemoryReadWord(m, ZPAddress, CPUGetClock(C));
 
     return loadAddress;
 }

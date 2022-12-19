@@ -14,6 +14,9 @@ int ClockSetSpeed(Clock c, double freq);
 // ClockGetPeriod : Gets the clock period
 double ClockGetPeriod(Clock c);
 
+// ClockSetStepMode : Sets the stepping mode
+int ClockSetStepMode(Clock c, int isStepMode);
+
 // ClockSetCount : Sets the cycle count
 int ClockSetCount(Clock c, int count);
 

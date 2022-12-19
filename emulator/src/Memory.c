@@ -79,44 +79,50 @@ void MemoryHexDump(Memory m, WORD start, WORD end)
         printf("0x%04X : 0x%02X\n", i, m->Data[i]);
     }
 }
-BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles)
+BYTE MemoryReadByte(Memory m, WORD Addr, Clock clk)
 {
     if (m == NULL || !s_MemoryBounds(m, Addr))
     {
         return 0;
     }
 
-    if (cycles != NULL)
+    if (clk != NULL)
     {
-        *cycles -= 1;
+        ClockTick(clk);
     }
 
     return m->Data[Addr];
 }
 
-WORD MemoryReadWord(Memory m, WORD Addr, int *cycles)
+WORD MemoryReadWord(Memory m, WORD Addr, Clock clk)
 {
-    if (m == NULL || !s_MemoryBounds(m, Addr))
+    if (m == NULL || !s_MemoryBounds(m, Addr) || !s_MemoryBounds(m, Addr + 1))
     {
         return 0;
     }
 
     // Note : 6502 is Little Endian
     WORD data = m->Data[Addr];
+
+    if (clk != NULL)
+    {
+        ClockTick(clk);
+    }
+
     Addr++;
     data |= (m->Data[Addr] << 8);
 
-    if (cycles != NULL)
+    if (clk != NULL)
     {
-        *cycles -= 2;
+        ClockTick(clk);
     }
 
     return data;
 }
 
-BYTE MemoryReadFromStack(Memory m, BYTE Addr, int *cycles)
+BYTE MemoryReadFromStack(Memory m, BYTE Addr, Clock clk)
 {
-    return MemoryReadByte(m, STACK_PAGE_START + Addr, cycles);
+    return MemoryReadByte(m, STACK_PAGE_START + Addr, clk);
 }
 
 int MemoryWrite(Memory m, WORD Addr, BYTE Data)

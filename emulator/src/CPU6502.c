@@ -4,6 +4,7 @@
 #include "fileIO.h"
 #include "Opcodes.h"
 #include "Instructions.h"
+#include "Clock.h"
 
 // --- Static Helper Functions ---
 
@@ -20,6 +21,8 @@ typedef struct cpu6502
     BYTE Y; // Y Register
 
     BYTE PS; // Processor Status Flags
+
+    Clock clk; // CPU Clock
 
     cpuOperation *ops; // Array of function pointers for CPU operations
 
@@ -44,6 +47,16 @@ CPU CPUNew()
     C->ops = (cpuOperation *)calloc(0xFF, sizeof(cpuOperation));
     setupFunctionPointers(C);
 
+    C->clk = ClockNew();
+
+    if (C->clk == NULL)
+    {
+        free(C->ops);
+        free(C);
+        return NULL;
+    }
+
+    ClockSetSpeed(C->clk, CPU_6502_DEFAULT_CLOCK_SPEED);
     return C;
 }
 
@@ -75,27 +88,27 @@ int CPUReset(CPU C, Memory m)
     return 1;
 }
 
-BYTE CPUFetchByte(CPU C, Memory m, int *cycles)
+BYTE CPUFetchByte(CPU C, Memory m)
 {
     if (C == NULL || m == NULL)
     {
         return 0;
     }
 
-    BYTE data = MemoryReadByte(m, C->PC, cycles);
+    BYTE data = MemoryReadByte(m, C->PC, C->clk);
     C->PC++;
 
     return data;
 }
 
-WORD CPUFetchWord(CPU C, Memory m, int *cycles)
+WORD CPUFetchWord(CPU C, Memory m)
 {
     if (C == NULL || m == NULL)
     {
         return 0;
     }
 
-    WORD data = MemoryReadWord(m, C->PC, cycles);
+    WORD data = MemoryReadWord(m, C->PC, C->clk);
     C->PC += 2;
     return data;
 }
@@ -306,23 +319,34 @@ int CPUFree(CPU C)
         return 0;
     }
 
+    ClockFree(C->clk);
     free(C->ops);
     free(C);
 
     return 1;
 }
 
-int CPUExecute(CPU C, Memory m, int cycles)
+Clock CPUGetClock(CPU C)
+{
+    if (C == NULL)
+    {
+        return NULL;
+    }
+
+    return C->clk;
+}
+
+int CPUExecute(CPU C, Memory m)
 {
 
-    if (C == NULL || m == NULL || cycles <= 0)
+    if (C == NULL || m == NULL)
     {
         return 0;
     }
 
-    while (cycles > 0)
+    while (ClockGetCount(C->clk))
     {
-        BYTE instruction = CPUFetchByte(C, m, &cycles);
+        BYTE instruction = CPUFetchByte(C, m);
 
         cpuOperation func = C->ops[instruction];
 
@@ -332,7 +356,7 @@ int CPUExecute(CPU C, Memory m, int cycles)
             continue;
         }
 
-        func(C, m, &cycles);
+        func(C, m);
     }
 
     return 1;

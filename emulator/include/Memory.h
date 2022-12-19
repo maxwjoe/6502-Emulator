@@ -2,6 +2,7 @@
 #define MEM_H
 
 #include "EmulatorTypes.h"
+#include "Clock.h"
 
 typedef struct memory *Memory;
 
@@ -18,13 +19,13 @@ int MemoryLoadBinary(Memory m, const char *filePath);
 void MemoryHexDump(Memory m, WORD start, WORD end);
 
 // MemoryReadByte : Reads memory at a given index (Byte) (Cost 1 CPU Cycle)
-BYTE MemoryReadByte(Memory m, WORD Addr, int *cycles);
+BYTE MemoryReadByte(Memory m, WORD Addr, Clock clk);
 
 // MemoryReadFromStack : Reads a byte of memory from the stack (0x0100 - 0x01FF)
-BYTE MemoryReadFromStack(Memory m, BYTE Addr, int *cycles);
+BYTE MemoryReadFromStack(Memory m, BYTE Addr, Clock clk);
 
 // MemoryReadWord : Reads a word from memory at a given address (Note this costs 2 cycles)
-WORD MemoryReadWord(Memory m, WORD Addr, int *cycles);
+WORD MemoryReadWord(Memory m, WORD Addr, Clock clk);
 
 // MemoryWrite : Writes to memory at a given address
 int MemoryWrite(Memory m, WORD Addr, BYTE Data);

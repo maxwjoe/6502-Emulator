@@ -12,40 +12,40 @@
 // === OPERATION DECLARATIONS ===
 
 // OPER_LDA : Implements LDA Instruction
-void OPER_LDA(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_LDA(CPU C, Memory m, WORD address);
 
 // OPER_LDX : Implements LDX Instruction
-void OPER_LDX(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_LDX(CPU C, Memory m, WORD address);
 
 // OPER_LDY : Implements LDY Instruction
-void OPER_LDY(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_LDY(CPU C, Memory m, WORD address);
 
 // OPER_STA : Implements STA Instruction
-void OPER_STA(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_STA(CPU C, Memory m, WORD address);
 
 // OPER_STX : Implements STX Instruction
-void OPER_STX(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_STX(CPU C, Memory m, WORD address);
 
 // OPER_STY : Implements STY Instruction
-void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_STY(CPU C, Memory m, WORD address);
 
 // OPER_AND : Implements AND Instruction
-void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_AND(CPU C, Memory m, WORD address);
 
 // OPER_EOR : Implements EOR Instruction
-void OPER_EOR(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_EOR(CPU C, Memory m, WORD address);
 
 // OPER_ORA : Implements ORA Instruction
-void OPER_ORA(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_ORA(CPU C, Memory m, WORD address);
 
 // OPER_BIT : Implements BIT Instruction
-void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_BIT(CPU C, Memory m, WORD address);
 
 // OPER_ADC : Implements ADC Instruction
-void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_ADC(CPU C, Memory m, WORD address);
 
 // OPER_SBC : Implements SBC Instruction
-void OPER_SBC(CPU C, Memory m, int *cyclesPtr, WORD address);
+void OPER_SBC(CPU C, Memory m, WORD address);
 
 // === STATUS REGISTER DEFINITIONS ===
 

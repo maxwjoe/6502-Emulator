@@ -1,50 +1,50 @@
 #include "Operations.h"
 
-void OPER_LDA(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_LDA(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     CPUSetA(C, value);
     STAT_Accumulator(C);
 }
 
-void OPER_LDX(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_LDX(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     CPUSetX(C, value);
     STAT_XRegister(C);
 }
 
-void OPER_LDY(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_LDY(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     CPUSetY(C, value);
     STAT_YRegister(C);
 }
 
-void OPER_STA(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_STA(CPU C, Memory m, WORD address)
 {
     BYTE value = CPUGetA(C);
     MemoryWrite(m, address, value);
-    *cyclesPtr = *cyclesPtr - 1;
+    ClockTick(CPUGetClock(C));
 }
 
-void OPER_STX(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_STX(CPU C, Memory m, WORD address)
 {
     BYTE value = CPUGetX(C);
     MemoryWrite(m, address, value);
-    *cyclesPtr = *cyclesPtr - 1;
+    ClockTick(CPUGetClock(C));
 }
 
-void OPER_STY(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_STY(CPU C, Memory m, WORD address)
 {
     BYTE value = CPUGetY(C);
     MemoryWrite(m, address, value);
-    *cyclesPtr = *cyclesPtr - 1;
+    ClockTick(CPUGetClock(C));
 }
 
-void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_AND(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
 
     BYTE Avalue = CPUGetA(C);
     CPUSetA(C, Avalue & value);
@@ -52,27 +52,27 @@ void OPER_AND(CPU C, Memory m, int *cyclesPtr, WORD address)
     STAT_Accumulator(C);
 }
 
-void OPER_EOR(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_EOR(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     BYTE Avalue = CPUGetA(C);
 
     CPUSetA(C, value ^ Avalue);
     STAT_Accumulator(C);
 }
 
-void OPER_ORA(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_ORA(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     BYTE Avalue = CPUGetA(C);
 
     CPUSetA(C, value | Avalue);
     STAT_Accumulator(C);
 }
 
-void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_BIT(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
     BYTE Avalue = CPUGetA(C);
 
     CPUSetStatusFlag(C, PS_Z, (Avalue & value));
@@ -80,9 +80,9 @@ void OPER_BIT(CPU C, Memory m, int *cyclesPtr, WORD address)
     CPUSetStatusFlag(C, PS_N, value & 1);
 }
 
-void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_ADC(CPU C, Memory m, WORD address)
 {
-    BYTE value = MemoryReadByte(m, address, cyclesPtr);
+    BYTE value = MemoryReadByte(m, address, CPUGetClock(C));
 
     // Perform 16 bit addition (Unlike hardware) => simplify logic
 
@@ -97,9 +97,9 @@ void OPER_ADC(CPU C, Memory m, int *cyclesPtr, WORD address)
     STAT_ADC(C, accu, value, sum);
 }
 
-void OPER_SBC(CPU C, Memory m, int *cyclesPtr, WORD address)
+void OPER_SBC(CPU C, Memory m, WORD address)
 {
-    WORD value = (WORD)MemoryReadByte(m, address, cyclesPtr);
+    WORD value = (WORD)MemoryReadByte(m, address, CPUGetClock(C));
 
     // Like ADC, Perform operations in 16 bit to simplify logic
 

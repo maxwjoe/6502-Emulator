@@ -4,11 +4,13 @@
 #include "EmulatorTypes.h"
 #include "Memory.h"
 
+#define CPU_6502_DEFAULT_CLOCK_SPEED 0
+
 // cpu6502 : Struct to represent 6502 CPU
 typedef struct cpu6502 *CPU;
 
 // cpuOperation : Type definition of opcode function pointer
-typedef void (*cpuOperation)(CPU, Memory, int *);
+typedef void (*cpuOperation)(CPU, Memory);
 
 // PS_FLAGS : Enumeration for processor status flags
 enum PS_FLAGS
@@ -31,13 +33,13 @@ CPU CPUNew();
 int CPUReset(CPU C, Memory m);
 
 // CPUFetchByte : Fetches byte of data pointed to by program counter from memory, increments PC (1 Cpu Cycle)
-BYTE CPUFetchByte(CPU C, Memory m, int *cycles);
+BYTE CPUFetchByte(CPU C, Memory m);
 
 // CPUFetchWord : Fetches word of data pointed to by pc from memory, increments pc (2 Cpu Cycles)
-WORD CPUFetchWord(CPU C, Memory m, int *cycles);
+WORD CPUFetchWord(CPU C, Memory m);
 
 // CPUExecute : Executes N clock cycles starting from Program Counter in memory
-int CPUExecute(CPU C, Memory m, int cycles);
+int CPUExecute(CPU C, Memory m);
 
 // CPUSetStatusFlag : Sets a CPU Status Flag (Returns 0 on fail)
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue);
@@ -53,6 +55,9 @@ int CPUGetStatusFlag(CPU C, int flagId);
 
 // CPUDump : Dumps CPU Struct to Console
 void CPUDump(CPU C);
+
+// CPUGetClock : Returns a pointer to the clock
+Clock CPUGetClock(CPU C);
 
 // CPUIncrementPC : Increments the program counter by a given value (Can be negative)
 void CPUIncrementPC(CPU C, BYTE val);

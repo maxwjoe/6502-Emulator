@@ -7,6 +7,7 @@ typedef struct clock
 {
     int cycles;    // How many cycles the clock should tick
     double period; // Delay between each tick
+    int stepMode;  // Defines whether the CPU waits for step instruction
 } *Clock;
 
 Clock ClockNew()
@@ -20,6 +21,7 @@ Clock ClockNew()
 
     c->cycles = 0;
     c->period = 0.0;
+    c->stepMode = 0;
 
     return c;
 }
@@ -59,6 +61,7 @@ int ClockSetCount(Clock c, int count)
     }
 
     c->cycles = count;
+    return 1;
 }
 
 int ClockGetCount(Clock c)
@@ -71,6 +74,16 @@ int ClockGetCount(Clock c)
     return c->cycles;
 }
 
+int ClockSetStepMode(Clock c, int isStepMode)
+{
+    if (c == NULL)
+    {
+        return 0;
+    }
+
+    c->stepMode = isStepMode;
+}
+
 int ClockTick(Clock c)
 {
     if (c == NULL)
@@ -78,12 +91,22 @@ int ClockTick(Clock c)
         return 0;
     }
 
-    clock_t t_zero = clock() / CLOCKS_PER_SEC;
+    if (c->stepMode)
+    {
+        // Await Step Instruction
+        getchar();
+    }
+    else
+    {
+        // Timed Clock Ticks
+        clock_t t_zero = clock() / CLOCKS_PER_SEC;
 
-    while (clock() / CLOCKS_PER_SEC < t_zero + c->period)
-        ;
-
+        while (clock() / CLOCKS_PER_SEC < t_zero + c->period)
+            ;
+    }
+    printf("Ticked!\n");
     c->cycles--;
+    return 1;
 }
 
 int ClockFree(Clock c)
@@ -94,4 +117,5 @@ int ClockFree(Clock c)
     }
 
     free(c);
+    return 1;
 }
