@@ -34,7 +34,8 @@ int main()
     MemoryWrite(ROM, 0x8008, 0xFF);
 
     // Run CPU
-    ClockSetCount(CPUGetClock(cpu6502), 21);
+    ClockSetMode(CPUGetClock(cpu6502), CM_STEP_NO_LIMIT);
+    ClockSetCount(CPUGetClock(cpu6502), 0);
     CPUExecute(cpu6502, ROM);
     CPUDump(cpu6502);
 

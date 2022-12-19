@@ -3,11 +3,13 @@
 #include "time.h"
 #include "stdio.h"
 
+static void s_delay(double delaySeconds);
+
 typedef struct clock
 {
     int cycles;    // How many cycles the clock should tick
     double period; // Delay between each tick
-    int stepMode;  // Defines whether the CPU waits for step instruction
+    int mode;      // Clock Mode
 } *Clock;
 
 Clock ClockNew()
@@ -21,7 +23,7 @@ Clock ClockNew()
 
     c->cycles = 0;
     c->period = 0.0;
-    c->stepMode = 0;
+    c->mode = 0;
 
     return c;
 }
@@ -74,14 +76,25 @@ int ClockGetCount(Clock c)
     return c->cycles;
 }
 
-int ClockSetStepMode(Clock c, int isStepMode)
+int ClockSetMode(Clock c, int mode)
 {
     if (c == NULL)
     {
         return 0;
     }
 
-    c->stepMode = isStepMode;
+    c->mode = mode;
+    return 1;
+}
+
+int ClockGetMode(Clock c)
+{
+    if (c == NULL)
+    {
+        return -1;
+    }
+
+    return c->mode;
 }
 
 int ClockTick(Clock c)
@@ -91,21 +104,24 @@ int ClockTick(Clock c)
         return 0;
     }
 
-    if (c->stepMode)
+    switch (c->mode)
     {
-        // Await Step Instruction
+    case CM_FREQ_LIMIT:
+        s_delay(c->period);
+        c->cycles--;
+        break;
+    case CM_FREQ_NO_LIMIT:
+        s_delay(c->period);
+        break;
+    case CM_STEP_LIMIT:
         getchar();
+        c->cycles--;
+        break;
+    case CM_STEP_NO_LIMIT:
+        getchar();
+        break;
     }
-    else
-    {
-        // Timed Clock Ticks
-        clock_t t_zero = clock() / CLOCKS_PER_SEC;
 
-        while (clock() / CLOCKS_PER_SEC < t_zero + c->period)
-            ;
-    }
-    printf("Ticked!\n");
-    c->cycles--;
     return 1;
 }
 
@@ -118,4 +134,13 @@ int ClockFree(Clock c)
 
     free(c);
     return 1;
+}
+
+static void s_delay(double delaySeconds)
+{
+    // Timed Clock Ticks
+    clock_t t_zero = clock() / CLOCKS_PER_SEC;
+
+    while (clock() / CLOCKS_PER_SEC < t_zero + delaySeconds)
+        ;
 }

@@ -344,7 +344,10 @@ int CPUExecute(CPU C, Memory m)
         return 0;
     }
 
-    while (ClockGetCount(C->clk))
+    int clkMode = ClockGetMode(CPUGetClock(C));
+    int tickForever = (clkMode == CM_FREQ_NO_LIMIT || clkMode == CM_STEP_NO_LIMIT);
+
+    while (tickForever || ClockGetCount(C->clk))
     {
         BYTE instruction = CPUFetchByte(C, m);
 

@@ -5,6 +5,14 @@
 
 typedef struct clock *Clock;
 
+enum CLOCK_MODE
+{
+    CM_FREQ_LIMIT,    // Clock ticks at given frequency for n clock cycles
+    CM_STEP_LIMIT,    // Clock ticks on keypress for n clock cycles
+    CM_FREQ_NO_LIMIT, // Clock ticks at given frequency forever
+    CM_STEP_NO_LIMIT  // Clock ticks on keypress forever
+};
+
 // ClockNew : Creates a new clock object
 Clock ClockNew();
 
@@ -14,8 +22,11 @@ int ClockSetSpeed(Clock c, double freq);
 // ClockGetPeriod : Gets the clock period
 double ClockGetPeriod(Clock c);
 
-// ClockSetStepMode : Sets the stepping mode
-int ClockSetStepMode(Clock c, int isStepMode);
+// ClockSetMode : Sets the stepping mode
+int ClockSetMode(Clock c, int mode);
+
+// ClockGetMode : Gets the stepping mode
+int ClockGetMode(Clock c);
 
 // ClockSetCount : Sets the cycle count
 int ClockSetCount(Clock c, int count);
