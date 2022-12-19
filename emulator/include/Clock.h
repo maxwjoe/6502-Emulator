@@ -37,6 +37,9 @@ int ClockGetCount(Clock c);
 // ClockTick : Ticks the clock
 int ClockTick(Clock c);
 
+// ClockSendPulse : Changes clock state for tick function
+int ClockSendPulse(Clock c);
+
 // ClockFree : Frees a clock object
 int ClockFree(Clock c);
 

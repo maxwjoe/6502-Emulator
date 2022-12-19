@@ -7,118 +7,108 @@ extern "C"
 
 TEST(T_LDX_IM)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(2);
 
     BYTE targetValue = 0xA4;
 
-    MemoryWrite(ROM, PC_START, LDX_IM);
-    MemoryWrite(ROM, PC_START + 1, 0xA4);
+    MemoryWrite(M, PC_START, LDX_IM);
+    MemoryWrite(M, PC_START + 1, 0xA4);
 
-    CPUExecute(c, ROM, 2);
+    CPUExecute(C);
 
-    BYTE X = CPUGetX(c);
+    BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDX_ZP)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(3);
 
     BYTE zpAddress = 0x88;
     BYTE targetValue = 0xA4;
 
-    MemoryWrite(ROM, PC_START, LDX_ZP);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    MemoryWrite(M, PC_START, LDX_ZP);
+    MemoryWrite(M, PC_START + 1, zpAddress);
 
-    MemoryWrite(ROM, zpAddress, targetValue);
+    MemoryWrite(M, zpAddress, targetValue);
 
-    CPUExecute(c, ROM, 3);
+    CPUExecute(C);
 
-    BYTE X = CPUGetX(c);
+    BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDX_ZPY)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE zpAddress = 0x88;
     BYTE yRegister = 0x22;
     BYTE targetValue = 0xA4;
 
-    CPUSetY(c, yRegister);
+    CPUSetY(C, yRegister);
 
-    MemoryWrite(ROM, PC_START, LDX_ZPY);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    MemoryWrite(M, PC_START, LDX_ZPY);
+    MemoryWrite(M, PC_START + 1, zpAddress);
 
-    MemoryWrite(ROM, zpAddress + yRegister, targetValue);
+    MemoryWrite(M, zpAddress + yRegister, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE X = CPUGetX(c);
+    BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDX_AB)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE targetValue = 0xA4;
 
-    MemoryWrite(ROM, PC_START, LDX_AB);
-    MemoryWrite(ROM, PC_START + 1, 0x11);
-    MemoryWrite(ROM, PC_START + 2, 0x11);
+    MemoryWrite(M, PC_START, LDX_AB);
+    MemoryWrite(M, PC_START + 1, 0x11);
+    MemoryWrite(M, PC_START + 2, 0x11);
 
-    MemoryWrite(ROM, 0x1111, targetValue);
+    MemoryWrite(M, 0x1111, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE X = CPUGetX(c);
+    BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDX_ABY)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE yRegister = 0x55;
     BYTE targetValue = 0xA4;
 
-    CPUSetY(c, yRegister);
+    CPUSetY(C, yRegister);
 
-    MemoryWrite(ROM, PC_START, LDX_ABY);
-    MemoryWrite(ROM, PC_START + 1, 0x11);
-    MemoryWrite(ROM, PC_START + 2, 0x11);
+    MemoryWrite(M, PC_START, LDX_ABY);
+    MemoryWrite(M, PC_START + 1, 0x11);
+    MemoryWrite(M, PC_START + 2, 0x11);
 
-    MemoryWrite(ROM, 0x1111 + yRegister, targetValue);
+    MemoryWrite(M, 0x1111 + yRegister, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE X = CPUGetX(c);
+    BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }

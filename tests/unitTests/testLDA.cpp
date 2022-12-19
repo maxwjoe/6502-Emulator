@@ -7,240 +7,220 @@ extern "C"
 
 TEST(T_LDA_IM)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    BYTE targetData = 0x45;
 
-    BYTE targetValue = 0xA4;
+    HW_SETUP();
+    TEST_CYCLES(2);
 
-    MemoryWrite(ROM, PC_START, LDA_IM);
-    MemoryWrite(ROM, PC_START + 1, 0xA4);
+    MemoryWrite(M, PC_START, LDA_IM);
+    MemoryWrite(M, PC_START + 1, targetData);
 
-    CPUExecute(c, ROM, 2);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
-    CHECK_EQ(accumulator, targetValue);
+    BYTE A = CPUGetA(C);
+    CHECK_EQ(A, targetData);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_ZP)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
-
     BYTE zpAddress = 0xA4;
     BYTE targetValue = 0x55;
 
-    MemoryWrite(ROM, PC_START, LDA_ZP);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    HW_SETUP();
+    TEST_CYCLES(3);
 
-    MemoryWrite(ROM, zpAddress, targetValue);
+    MemoryWrite(M, PC_START, LDA_ZP);
+    MemoryWrite(M, PC_START + 1, zpAddress);
 
-    CPUExecute(c, ROM, 3);
+    MemoryWrite(M, zpAddress, targetValue);
 
-    BYTE accumulator = CPUGetA(c);
-    CHECK_EQ(accumulator, targetValue);
+    CPUExecute(C);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    BYTE A = CPUGetA(C);
+    CHECK_EQ(A, targetValue);
+
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_ZPX)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE xRegister = 0x11;
     BYTE zpAddress = 0xA4;
     BYTE targetValue = 0x55;
 
-    CPUSetX(c, xRegister);
+    CPUSetX(C, xRegister);
 
-    MemoryWrite(ROM, PC_START, LDA_ZPX);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    MemoryWrite(M, PC_START, LDA_ZPX);
+    MemoryWrite(M, PC_START + 1, zpAddress);
 
-    MemoryWrite(ROM, zpAddress + xRegister, targetValue);
+    MemoryWrite(M, zpAddress + xRegister, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_AB)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE targetValue = 0x55;
 
-    MemoryWrite(ROM, PC_START, LDA_AB);
-    MemoryWrite(ROM, PC_START + 1, 0x88);
-    MemoryWrite(ROM, PC_START + 2, 0x88);
+    MemoryWrite(M, PC_START, LDA_AB);
+    MemoryWrite(M, PC_START + 1, 0x88);
+    MemoryWrite(M, PC_START + 2, 0x88);
 
-    MemoryWrite(ROM, 0x8888, targetValue);
+    MemoryWrite(M, 0x8888, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_ABX)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE xRegister = 0x87;
     BYTE targetValue = 0x55;
 
-    CPUSetX(c, xRegister);
+    CPUSetX(C, xRegister);
 
-    MemoryWrite(ROM, PC_START, LDA_ABX);
-    MemoryWrite(ROM, PC_START + 1, 0x88);
-    MemoryWrite(ROM, PC_START + 2, 0x88);
+    MemoryWrite(M, PC_START, LDA_ABX);
+    MemoryWrite(M, PC_START + 1, 0x88);
+    MemoryWrite(M, PC_START + 2, 0x88);
 
-    MemoryWrite(ROM, 0x8888 + xRegister, targetValue);
+    MemoryWrite(M, 0x8888 + xRegister, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_ABY)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(4);
 
     BYTE yRegister = 0x99;
     BYTE targetValue = 0x23;
 
-    CPUSetY(c, yRegister);
+    CPUSetY(C, yRegister);
 
-    MemoryWrite(ROM, PC_START, LDA_ABY);
-    MemoryWrite(ROM, PC_START + 1, 0xBA);
-    MemoryWrite(ROM, PC_START + 2, 0x34);
+    MemoryWrite(M, PC_START, LDA_ABY);
+    MemoryWrite(M, PC_START + 1, 0xBA);
+    MemoryWrite(M, PC_START + 2, 0x34);
 
-    MemoryWrite(ROM, 0x34BA + yRegister, targetValue);
+    MemoryWrite(M, 0x34BA + yRegister, targetValue);
 
-    CPUExecute(c, ROM, 4);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_INX)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(6);
 
     BYTE xRegister = 0x45;
     BYTE zpAddress = 0x11;
     BYTE value = 0x56;
 
-    CPUSetX(c, xRegister);
+    CPUSetX(C, xRegister);
 
-    MemoryWrite(ROM, PC_START, LDA_INX);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    MemoryWrite(M, PC_START, LDA_INX);
+    MemoryWrite(M, PC_START + 1, zpAddress);
+    MemoryWrite(M, zpAddress + xRegister, 0x22);
+    MemoryWrite(M, zpAddress + xRegister + 1, 0x22);
 
-    MemoryWrite(ROM, zpAddress + xRegister, 0x22);
-    MemoryWrite(ROM, zpAddress + xRegister + 1, 0x22);
+    MemoryWrite(M, 0x2222, value);
 
-    MemoryWrite(ROM, 0x2222, value);
+    CPUExecute(C);
 
-    CPUExecute(c, ROM, 6);
-
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, value);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_INY)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(6);
 
     BYTE yRegister = 0x45;
     BYTE zpAddress = 0x11;
     BYTE value = 0x56;
 
-    CPUSetY(c, yRegister);
+    CPUSetY(C, yRegister);
 
-    MemoryWrite(ROM, PC_START, LDA_INY);
-    MemoryWrite(ROM, PC_START + 1, zpAddress);
+    MemoryWrite(M, PC_START, LDA_INY);
+    MemoryWrite(M, PC_START + 1, zpAddress);
 
-    MemoryWrite(ROM, zpAddress + yRegister, 0x22);
-    MemoryWrite(ROM, zpAddress + yRegister + 1, 0x22);
+    MemoryWrite(M, zpAddress + yRegister, 0x22);
+    MemoryWrite(M, zpAddress + yRegister + 1, 0x22);
 
-    MemoryWrite(ROM, 0x2222, value);
+    MemoryWrite(M, 0x2222, value);
 
-    CPUExecute(c, ROM, 6);
+    CPUExecute(C);
 
-    BYTE accumulator = CPUGetA(c);
+    BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, value);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_N_FLAG)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(2);
 
     BYTE negativeNumber = 0x8C;
 
-    MemoryWrite(ROM, PC_START, LDA_IM);
-    MemoryWrite(ROM, PC_START + 1, negativeNumber);
+    MemoryWrite(M, PC_START, LDA_IM);
+    MemoryWrite(M, PC_START + 1, negativeNumber);
 
-    CPUExecute(c, ROM, 2);
+    CPUExecute(C);
 
-    int N_FLAG = CPUGetStatusFlag(c, PS_N);
+    int N_FLAG = CPUGetStatusFlag(C, PS_N);
     CHECK_TRUE(N_FLAG);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }
 
 TEST(T_LDA_Z_FLAG)
 {
-    CPU c = CPUNew();
-    Memory ROM = MemoryNew(0xFFFF);
-    CPUReset(c, ROM);
+    HW_SETUP();
+    TEST_CYCLES(2);
 
-    MemoryWrite(ROM, PC_START, LDA_IM);
-    MemoryWrite(ROM, PC_START + 1, 0x00);
+    MemoryWrite(M, PC_START, LDA_IM);
+    MemoryWrite(M, PC_START + 1, 0x00);
 
-    CPUExecute(c, ROM, 2);
+    CPUExecute(C);
 
-    int Z_FLAG = CPUGetStatusFlag(c, PS_Z);
+    int Z_FLAG = CPUGetStatusFlag(C, PS_Z);
     CHECK_TRUE(Z_FLAG);
 
-    CPUFree(c);
-    MemoryFree(ROM);
+    HW_PACKDOWN();
 }

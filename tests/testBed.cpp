@@ -2,16 +2,18 @@
 
 #include "Eagle.h"
 #include "./unitTests/testCPU.cpp"
-// #include "./unitTests/testLDA.cpp"
-// #include "./unitTests/testLDX.cpp"
+#include "./unitTests/testLDA.cpp"
+#include "./unitTests/testLDX.cpp"
+#include "./unitTests/testLDY.cpp"
 // #include "./unitTests/testADC.cpp"
-// #include "./unitTests/testClock.cpp"
+#include "./unitTests/testClock.cpp"
 
 int main()
 {
 
     EAGLE_INIT(true);
 
+    // CPU TESTS
     ADD_TEST(CPU_VIRTUAL_EMULATION, T_CREATE_CPU);
     ADD_TEST(CPU_VIRTUAL_EMULATION, T_CREATE_CPU_MEMORY);
     ADD_TEST(CPU_VIRTUAL_EMULATION, T_READ_WRITE_CPU_MEMORY);
@@ -20,31 +22,46 @@ int main()
     ADD_TEST(CPU_VIRTUAL_EMULATION, T_CPU_PROGRAM_COUNTER);
     ADD_TEST(CPU_VIRTUAL_EMULATION, T_CPU_READ_WRITE_STACK);
 
-    // ADD_TEST(STRUCTS, CREATE_CPU);
-    // ADD_TEST(STRUCTS, CREATE_MEMORY);
-    // ADD_TEST(STRUCTS, READ_WRITE_MEMORY);
+    // CLOCK TESTS
+    ADD_TEST(CLOCK_VIRTUAL_EMULATION, T_CLOCK_CREATE);
+    ADD_TEST(CLOCK_VIRTUAL_EMULATION, T_CLOCK_TICK);
+    ADD_TEST(CLOCK_VIRTUAL_EMULATION, T_CLOCK_PERIOD_ONE_SECOND_THREE_TICKS);
 
-    // ADD_TEST(LDA, T_LDA_IM);
-    // ADD_TEST(LDA, T_LDA_ZP);
-    // ADD_TEST(LDA, T_LDA_ZPX);
-    // ADD_TEST(LDA, T_LDA_AB);
-    // ADD_TEST(LDA, T_LDA_ABY);
-    // ADD_TEST(LDA, T_LDA_ABX);
-    // ADD_TEST(LDA, T_LDA_INX);
-    // ADD_TEST(LDA, T_LDA_INY);
-    // ADD_TEST(LDA, T_LDA_N_FLAG);
-    // ADD_TEST(LDA, T_LDA_Z_FLAG);
+    // LDA TESTS
+    ADD_TEST(LDA, T_LDA_IM);
+    ADD_TEST(LDA, T_LDA_ZP);
+    ADD_TEST(LDA, T_LDA_ZPX);
+    ADD_TEST(LDA, T_LDA_AB);
+    ADD_TEST(LDA, T_LDA_ABY);
+    ADD_TEST(LDA, T_LDA_ABX);
+    ADD_TEST(LDA, T_LDA_INX);
+    ADD_TEST(LDA, T_LDA_INY);
+    ADD_TEST(LDA, T_LDA_N_FLAG);
+    ADD_TEST(LDA, T_LDA_Z_FLAG);
 
-    // ADD_TEST(LDX, T_LDX_IM);
-    // ADD_TEST(LDX, T_LDX_ZP);
-    // ADD_TEST(LDX, T_LDX_ZPY);
-    // ADD_TEST(LDX, T_LDX_AB);
-    // ADD_TEST(LDX, T_LDX_ABY);
+    // LDX TESTS
+    ADD_TEST(LDX, T_LDX_IM);
+    ADD_TEST(LDX, T_LDX_ZP);
+    ADD_TEST(LDX, T_LDX_ZPY);
+    ADD_TEST(LDX, T_LDX_AB);
+    ADD_TEST(LDX, T_LDX_ABY);
+
+    // LDY TESTS
+    ADD_TEST(LDY, T_LDY_IM);
+    ADD_TEST(LDY, T_LDY_ZP);
+    ADD_TEST(LDY, T_LDY_ZPX);
+    ADD_TEST(LDY, T_LDY_AB);
+    ADD_TEST(LDY, T_LDY_ABX);
 
     // ADD_TEST(ADC, T_ADC_IM_ONE_PLUS_ONE);
     // ADD_TEST(ADC, T_ADC_IM_HAS_CARRY_OVERFLOW);
     // ADD_TEST(ADC, T_ADC_ZP);
 
-    RUN_ALL_TESTS();
+    RUN_COLLECTION(LDA);
+    RUN_COLLECTION(LDX);
+    RUN_COLLECTION(LDY);
+
+    // RUN_ALL_TESTS();
+
     EAGLE_EXIT();
 }

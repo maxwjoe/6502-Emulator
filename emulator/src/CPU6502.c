@@ -24,20 +24,19 @@ typedef struct cpu6502
 
     BYTE PS; // Processor Status Flags
 
-    Clock clk; // CPU Clock (Internal to CPU unlike in real hardware)
-
     cpuOperation *ops; // Array of function pointers for CPU operations
 
     int emulationMode; // Indicates the type of emulation
 
     // === Software Mode ===
     Memory SW_MEMORY; // Pointer to virtual memory object
+    Clock clk;        // Pointer to virtual CPU Clock
 
     // === Hardware Mode ===
-    BYTE HW_DATA_BUS; // 8-Bit Data Bus IO Pins
-    WORD HW_ADDR_BUS; // 16-Bit Address Bus IO Pins
-    int HW_RWB;       // Indicates CPU Mode on Bus (Read (1) or Write (0))
-    int HW_BE;        // Bus Enable Pin
+    // BYTE HW_DATA_BUS; // 8-Bit Data Bus IO Pins
+    // WORD HW_ADDR_BUS; // 16-Bit Address Bus IO Pins
+    // int HW_RWB;       // Indicates CPU Mode on Bus (Read (1) or Write (0))
+    // int HW_BE;        // Bus Enable Pin
 
 } *CPU;
 
@@ -59,10 +58,10 @@ CPU CPUNew()
 
     C->emulationMode = EM_VIRT_MEMORY;
     C->SW_MEMORY = NULL;
-    C->HW_ADDR_BUS = 0x0000;
-    C->HW_DATA_BUS = 0x00;
-    C->HW_BE = 0;
-    C->HW_RWB = 0;
+    // C->HW_ADDR_BUS = 0x0000;
+    // C->HW_DATA_BUS = 0x00;
+    // C->HW_BE = 0;
+    // C->HW_RWB = 0;
 
     C->ops = (cpuOperation *)calloc(0xFF, sizeof(cpuOperation));
     setupFunctionPointers(C);
@@ -148,8 +147,8 @@ BYTE CPUReadByte(CPU C, WORD address)
 
     // --- Hardware Emulation ---
 
-    C->HW_RWB = 1;
-    C->HW_ADDR_BUS = address;
+    // C->HW_RWB = 1;
+    // C->HW_ADDR_BUS = address;
 
     // Some callback to handle HW_DATA_BUS (Needs to interface with real hardware)
     // HW_READ_CALLBACK(&HW_DATA_BUS) => Will write IO pin levels into HW_DATA_BUS
@@ -169,8 +168,8 @@ WORD CPUReadWord(CPU C, WORD address)
 
     // --- Hardware Emulation ---
 
-    C->HW_RWB = 1;
-    C->HW_ADDR_BUS = address;
+    // C->HW_RWB = 1;
+    // C->HW_ADDR_BUS = address;
 
     // HW_READ_CALLBACK(&HW_DATA_BUS) => Handle reading from hardware pins
 }
@@ -188,9 +187,9 @@ int CPUWriteByte(CPU C, WORD address, BYTE data)
     }
 
     // --- Hardware Emulation ---
-    C->HW_RWB = 0;
-    C->HW_ADDR_BUS = address;
-    C->HW_DATA_BUS = data;
+    // C->HW_RWB = 0;
+    // C->HW_ADDR_BUS = address;
+    // C->HW_DATA_BUS = data;
 }
 
 int CPUSetStatusFlag(CPU C, int flagId, int flagValue)

@@ -7,9 +7,10 @@ static void s_delay(double delaySeconds);
 
 typedef struct clock
 {
-    int cycles;    // How many cycles the clock should tick
-    double period; // Delay between each tick
-    int mode;      // Clock Mode
+    int cycles;     // How many cycles the clock should tick
+    double period;  // Delay between each tick
+    int mode;       // Clock Mode
+    int clock_edge; // Variable to store clock state
 } *Clock;
 
 Clock ClockNew()
@@ -123,6 +124,17 @@ int ClockTick(Clock c)
     }
 
     return 1;
+}
+
+// NOTE: Not in use because requires multi-threading
+int ClockSendPulse(Clock c)
+{
+    if (c == NULL)
+    {
+        return 0;
+    }
+
+    c->clock_edge = !c->clock_edge;
 }
 
 int ClockFree(Clock c)
