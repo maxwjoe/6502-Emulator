@@ -5,6 +5,7 @@
 #include "./unitTests/testLDA.cpp"
 #include "./unitTests/testLDX.cpp"
 #include "./unitTests/testLDY.cpp"
+#include "./unitTests/testSTA.cpp"
 // #include "./unitTests/testADC.cpp"
 #include "./unitTests/testClock.cpp"
 
@@ -53,15 +54,22 @@ int main()
     ADD_TEST(LDY, T_LDY_AB);
     ADD_TEST(LDY, T_LDY_ABX);
 
+    // STA TESTS
+    ADD_TEST(STA, T_STA_ZP);
+    ADD_TEST(STA, T_STA_ZPX);
+    ADD_TEST(STA, T_STA_AB);
+    ADD_TEST(STA, T_STA_ABX);
+    ADD_TEST(STA, T_STA_ABY);
+    ADD_TEST(STA, T_STA_INX);
+    ADD_TEST(STA, T_STA_INY);
+
     // ADD_TEST(ADC, T_ADC_IM_ONE_PLUS_ONE);
     // ADD_TEST(ADC, T_ADC_IM_HAS_CARRY_OVERFLOW);
     // ADD_TEST(ADC, T_ADC_ZP);
 
-    RUN_COLLECTION(LDA);
-    RUN_COLLECTION(LDX);
-    RUN_COLLECTION(LDY);
+    // RUN_COLLECTION(STA);
 
-    // RUN_ALL_TESTS();
+    RUN_ALL_TESTS();
 
     EAGLE_EXIT();
 }

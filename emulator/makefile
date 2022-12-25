@@ -36,14 +36,17 @@ all : $(LIB_DIR)/$(STATIC_LIB_NAME).a $(BUILD_DIR)/$(EXEC_NAME)
 
 # Build Objects
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 # Build Static Library
 $(LIB_DIR)/$(STATIC_LIB_NAME).a : $(OBJ_FILES)
+	mkdir -p $(LIB_DIR)
 	ar rcs $(LIB_DIR)/$(STATIC_LIB_NAME).a $(OBJ_FILES)
 
 # Static Linkage to build testBed executable
 $(BUILD_DIR)/$(EXEC_NAME) : testBed.c
+	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -o $@ $^ -L. -l:$(LIB_DIR)/$(STATIC_LIB_NAME).a
 	objdump -t $(LIB_DIR)/$(STATIC_LIB_NAME).a > $(LIB_DIR)/symbolTable.txt
 
