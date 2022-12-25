@@ -6,6 +6,7 @@
 #include "./unitTests/testLDX.cpp"
 #include "./unitTests/testLDY.cpp"
 #include "./unitTests/testSTA.cpp"
+#include "./unitTests/testSTX.cpp"
 // #include "./unitTests/testADC.cpp"
 #include "./unitTests/testClock.cpp"
 
@@ -63,11 +64,16 @@ int main()
     ADD_TEST(STA, T_STA_INX);
     ADD_TEST(STA, T_STA_INY);
 
+    // STX TESTS
+    ADD_TEST(STX, T_STX_ZP);
+    ADD_TEST(STX, T_STX_ZPY);
+    ADD_TEST(STX, T_STX_AB);
+
     // ADD_TEST(ADC, T_ADC_IM_ONE_PLUS_ONE);
     // ADD_TEST(ADC, T_ADC_IM_HAS_CARRY_OVERFLOW);
     // ADD_TEST(ADC, T_ADC_ZP);
 
-    // RUN_COLLECTION(STA);
+    // RUN_COLLECTION(STX);
 
     RUN_ALL_TESTS();
 

@@ -15,7 +15,8 @@ TEST(T_LDA_IM)
     MemoryWrite(M, PC_START, LDA_IM);
     MemoryWrite(M, PC_START + 1, targetData);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE A = CPUGetA(C);
     CHECK_EQ(A, targetData);
@@ -36,7 +37,8 @@ TEST(T_LDA_ZP)
 
     MemoryWrite(M, zpAddress, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE A = CPUGetA(C);
     CHECK_EQ(A, targetValue);
@@ -60,7 +62,8 @@ TEST(T_LDA_ZPX)
 
     MemoryWrite(M, zpAddress + xRegister, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
@@ -81,7 +84,8 @@ TEST(T_LDA_AB)
 
     MemoryWrite(M, 0x8888, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
@@ -106,7 +110,8 @@ TEST(T_LDA_ABX)
 
     MemoryWrite(M, 0x8888 + xRegister, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
@@ -130,7 +135,8 @@ TEST(T_LDA_ABY)
 
     MemoryWrite(M, 0x34BA + yRegister, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, targetValue);
@@ -156,7 +162,8 @@ TEST(T_LDA_INX)
 
     MemoryWrite(M, 0x2222, value);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, value);
@@ -183,7 +190,8 @@ TEST(T_LDA_INY)
 
     MemoryWrite(M, 0x2222, value);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE accumulator = CPUGetA(C);
     CHECK_EQ(accumulator, value);
@@ -201,7 +209,8 @@ TEST(T_LDA_N_FLAG)
     MemoryWrite(M, PC_START, LDA_IM);
     MemoryWrite(M, PC_START + 1, negativeNumber);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     int N_FLAG = CPUGetStatusFlag(C, PS_N);
     CHECK_TRUE(N_FLAG);
@@ -217,7 +226,8 @@ TEST(T_LDA_Z_FLAG)
     MemoryWrite(M, PC_START, LDA_IM);
     MemoryWrite(M, PC_START + 1, 0x00);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     int Z_FLAG = CPUGetStatusFlag(C, PS_Z);
     CHECK_TRUE(Z_FLAG);

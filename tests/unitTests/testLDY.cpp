@@ -15,11 +15,11 @@ TEST(T_LDY_IM)
     MemoryWrite(M, PC_START, LDY_IM);
     MemoryWrite(M, PC_START + 1, targetValue);
 
-    int correctExecution = CPUExecute(C);
+    int runCorrect = CPUExecute(C);
 
     GET_INTERNALS();
 
-    CHECK_TRUE(correctExecution);
+    CHECK_TRUE(runCorrect);
     CHECK_EQ(R_Y, targetValue);
     CHECK_TRUE(F_N);
     CHECK_FALSE(F_Z);
@@ -39,10 +39,10 @@ TEST(T_LDY_ZP)
     MemoryWrite(M, PC_START + 1, zpAddress);
     MemoryWrite(M, zpAddress, targetValue);
 
-    int correctExecution = CPUExecute(C);
+    int runCorrect = CPUExecute(C);
     GET_INTERNALS();
 
-    CHECK_TRUE(correctExecution);
+    CHECK_TRUE(runCorrect);
     CHECK_EQ(R_Y, targetValue);
     CHECK_FALSE(F_N);
     CHECK_FALSE(F_Z);
@@ -68,11 +68,11 @@ TEST(T_LDY_ZPX)
 
     MemoryWrite(M, zpAddress + XRegister, targetValue);
 
-    int correctExecution = CPUExecute(C);
+    int runCorrect = CPUExecute(C);
 
     GET_INTERNALS();
 
-    CHECK_TRUE(correctExecution);
+    CHECK_TRUE(runCorrect);
     CHECK_EQ(R_Y, targetValue);
     CHECK_TRUE(F_Z);
     CHECK_FALSE(F_N);
@@ -93,11 +93,11 @@ TEST(T_LDY_AB)
 
     MemoryWrite(M, 0x3267, targetValue);
 
-    int correctExecution = CPUExecute(C);
+    int runCorrect = CPUExecute(C);
 
     GET_INTERNALS();
 
-    CHECK_TRUE(correctExecution);
+    CHECK_TRUE(runCorrect);
     CHECK_EQ(R_Y, targetValue);
     CHECK_TRUE(F_N);
     CHECK_FALSE(F_Z);
@@ -121,11 +121,11 @@ TEST(T_LDY_ABX)
 
     MemoryWrite(M, 0x3267 + XRegister, targetValue);
 
-    int correctExecution = CPUExecute(C);
+    int runCorrect = CPUExecute(C);
 
     GET_INTERNALS();
 
-    CHECK_TRUE(correctExecution);
+    CHECK_TRUE(runCorrect);
     CHECK_EQ(R_Y, targetValue);
     CHECK_FALSE(F_Z);
     CHECK_FALSE(F_N);

@@ -15,7 +15,8 @@ TEST(T_STA_ZP)
     MemoryWrite(M, PC_START, STA_ZP);
     MemoryWrite(M, PC_START + 1, 0x55);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x55, clkPtr);
 
@@ -35,7 +36,8 @@ TEST(T_STA_ZPX)
     MemoryWrite(M, PC_START, STA_ZPX);
     MemoryWrite(M, PC_START + 1, 0x22);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x22 + 0x11, clkPtr);
 
@@ -55,7 +57,8 @@ TEST(T_STA_AB)
     MemoryWrite(M, PC_START + 1, 0x23);
     MemoryWrite(M, PC_START + 2, 0x56);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x5623, clkPtr);
 
@@ -76,7 +79,8 @@ TEST(T_STA_ABX)
     MemoryWrite(M, PC_START + 1, 0x23);
     MemoryWrite(M, PC_START + 2, 0x56);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x5623 + 0x02, clkPtr);
 
@@ -97,7 +101,8 @@ TEST(T_STA_ABY)
     MemoryWrite(M, PC_START + 1, 0x23);
     MemoryWrite(M, PC_START + 2, 0x56);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x5623 + 0x03, clkPtr);
 
@@ -121,7 +126,8 @@ TEST(T_STA_INX)
     MemoryWrite(M, 0x55 + XReg, 0x12);
     MemoryWrite(M, 0x56 + XReg, 0x33);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x3312, clkPtr);
 
@@ -145,7 +151,8 @@ TEST(T_STA_INY)
     MemoryWrite(M, 0x55 + YReg, 0x12);
     MemoryWrite(M, 0x56 + YReg, 0x33);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE storedValue = MemoryReadByte(M, 0x3312, clkPtr);
 

@@ -15,7 +15,8 @@ TEST(T_LDX_IM)
     MemoryWrite(M, PC_START, LDX_IM);
     MemoryWrite(M, PC_START + 1, 0xA4);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
@@ -36,7 +37,8 @@ TEST(T_LDX_ZP)
 
     MemoryWrite(M, zpAddress, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
@@ -60,7 +62,8 @@ TEST(T_LDX_ZPY)
 
     MemoryWrite(M, zpAddress + yRegister, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
@@ -81,7 +84,8 @@ TEST(T_LDX_AB)
 
     MemoryWrite(M, 0x1111, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
@@ -105,7 +109,8 @@ TEST(T_LDX_ABY)
 
     MemoryWrite(M, 0x1111 + yRegister, targetValue);
 
-    CPUExecute(C);
+    int runCorrect = CPUExecute(C);
+    CHECK_TRUE(runCorrect);
 
     BYTE X = CPUGetX(C);
     CHECK_EQ(X, targetValue);
